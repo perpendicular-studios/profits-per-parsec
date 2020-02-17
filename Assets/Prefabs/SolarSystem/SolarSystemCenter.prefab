@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1279271612}
   - component: {fileID: 1279271614}
   - component: {fileID: 1279271613}
+  - component: {fileID: 1167501620}
   m_Layer: 0
   m_Name: VenusCenter
   m_TagString: Untagged
@@ -148,6 +149,21 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &1167501620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279271611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bbe1e07201313645bb4a120900234d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 50
+  dampAmt: 2
+  rotatingObject: {fileID: 1280387357}
 --- !u!1 &1280387356
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,10 +176,9 @@ GameObject:
   - component: {fileID: 1280387361}
   - component: {fileID: 1280387360}
   - component: {fileID: 1280387359}
-  - component: {fileID: 1280387358}
   m_Layer: 0
   m_Name: VenusModel
-  m_TagString: Untagged
+  m_TagString: SpaceBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,20 +255,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1280387358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1280387356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bbe1e07201313645bb4a120900234d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 100
-  dampAmt: 2
 --- !u!1 &4269664161952171146
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,10 +300,9 @@ GameObject:
   - component: {fileID: 4269664162615112678}
   - component: {fileID: 4269664162615112677}
   - component: {fileID: 4269664162615112676}
-  - component: {fileID: 1836778242}
   m_Layer: 0
   m_Name: MercuryModel
-  m_TagString: Untagged
+  m_TagString: SpaceBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -379,20 +379,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1836778242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4269664162615112674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bbe1e07201313645bb4a120900234d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 100
-  dampAmt: 2
 --- !u!1 &4269664163467483468
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +395,7 @@ GameObject:
   - component: {fileID: 4269664163467483473}
   m_Layer: 0
   m_Name: SunModel
-  m_TagString: Untagged
+  m_TagString: SpaceBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -547,6 +533,7 @@ GameObject:
   - component: {fileID: 4269664163795700447}
   - component: {fileID: 4269664163795700448}
   - component: {fileID: 706477203}
+  - component: {fileID: 986392089}
   m_Layer: 0
   m_Name: MercuryCenter
   m_TagString: Untagged
@@ -684,3 +671,18 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &986392089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269664163795700446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bbe1e07201313645bb4a120900234d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 100
+  dampAmt: 2
+  rotatingObject: {fileID: 4269664162615112675}
