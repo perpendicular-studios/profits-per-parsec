@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4359452259221327319}
   - component: {fileID: 4359452259221327318}
   m_Layer: 0
-  m_Name: Terrain
+  m_Name: VenusTerrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ Terrain:
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialType: 0
+  m_MaterialType: 1
   m_LegacySpecular:
     serializedVersion: 2
     rgba: 4286545791
