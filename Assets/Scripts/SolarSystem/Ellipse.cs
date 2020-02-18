@@ -7,22 +7,31 @@ using UnityEngine;
 public class Ellipse
 {
     // Initializing Variables
-    public float xAxis;
-    public float yAxis;
+    public float xAxis;   //Major Axis
+    public float zAxis;   //Minor Axis
+    public float yAxis;   //Max Slant Height
 
     // Create ellipse with given size
-    public Ellipse (float xAxis, float yAxis)
+    public Ellipse (float xAxis, float zAxis, float rotation, float yAxis)
     {
         this.xAxis = xAxis;
+        this.zAxis = zAxis; 
         this.yAxis = yAxis;
     }
 
     // Takes a time t and returns a position vector in the ellipse
-    public Vector2 Evaluate (float t)
+    public Vector3 Evaluate (float t)
     {
+        // Solving Unit Vectors
+        float magnitude = Mathf.Sqrt(Mathf.Pow(xAxis, 2) + Mathf.Pow(yAxis, 2));
+        float xDirUnitVector = xAxis * 1 / magnitude;
+        float yDirUnitVector = yAxis * 1 / magnitude;
+
+        // Parametric Equation for an ellipse in 3d space
         float angle = Mathf.Deg2Rad * 360f * t;
-        float x = Mathf.Sin(angle) * xAxis;
-        float y = Mathf.Cos(angle) * yAxis;
-        return new Vector2(x, y);
+        float x = xAxis * Mathf.Sin(angle) * xDirUnitVector;
+        float y = xAxis * Mathf.Sin(angle) * yDirUnitVector;
+        float z = zAxis * Mathf.Cos(angle) * 1;
+        return new Vector3(x, y, z);
     }
 }

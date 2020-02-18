@@ -48,8 +48,8 @@ public class OrbitMotion : MonoBehaviour
         // Draws out each segment of the ellipse
         for (int i = 0; i < segments; i++)
         {
-            Vector2 position2D = orbitPath.Evaluate((float)i / (float)segments);
-            points[i] = new Vector3(position2D.x, 0f, position2D.y);
+            Vector3 position3D = orbitPath.Evaluate((float)i / (float)segments);
+            points[i] = new Vector3(position3D.x, position3D.y, position3D.z);
         }
         points[segments] = points[0];
 
@@ -69,8 +69,8 @@ public class OrbitMotion : MonoBehaviour
 
     void SetOrbitingObjectPosition()
     {
-        Vector2 orbitPos = orbitPath.Evaluate(orbitProgress);
-        orbitingObject.localPosition = new Vector3(orbitPos.x, 0, orbitPos.y); 
+        Vector3 orbitPos = orbitPath.Evaluate(orbitProgress);
+        orbitingObject.localPosition = new Vector3(orbitPos.x, orbitPos.y, orbitPos.z); 
     }
 
     IEnumerator AnimateOrbit()
