@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Objects/Building", order = 1)]
 public class Building : ScriptableObject
 {
-    public GameObject buildingPrefab;
+    public GameObject prefab;
 
     [Header("Building Stats")]
     public string displayName;
