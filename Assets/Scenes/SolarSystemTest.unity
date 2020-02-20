@@ -437,6 +437,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 232023724, guid: d26871dd41003be4389841e15e6b32b0, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 664223596, guid: d26871dd41003be4389841e15e6b32b0, type: 3}
+      propertyPath: orbitPeriod
+      value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 664223596, guid: d26871dd41003be4389841e15e6b32b0, type: 3}
+      propertyPath: orbitProgress
+      value: 0.022
+      objectReference: {fileID: 0}
     - target: {fileID: 4269664161952171146, guid: d26871dd41003be4389841e15e6b32b0,
         type: 3}
       propertyPath: m_Name
@@ -496,6 +508,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269664163467483470, guid: d26871dd41003be4389841e15e6b32b0,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d26871dd41003be4389841e15e6b32b0, type: 3}
@@ -571,6 +588,36 @@ PrefabInstance:
       propertyPath: startPosition
       value: 
       objectReference: {fileID: 150900592}
+    - target: {fileID: 5868064039801252915, guid: 777b8cc08792bd046848daedb5c70bbd,
+        type: 3}
+      propertyPath: detectionDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868064039801252915, guid: 777b8cc08792bd046848daedb5c70bbd,
+        type: 3}
+      propertyPath: rayCastOffset
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868064039801252915, guid: 777b8cc08792bd046848daedb5c70bbd,
+        type: 3}
+      propertyPath: movementSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868064039801252915, guid: 777b8cc08792bd046848daedb5c70bbd,
+        type: 3}
+      propertyPath: rotationalSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868064039801252915, guid: 777b8cc08792bd046848daedb5c70bbd,
+        type: 3}
+      propertyPath: bufferDuration
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868064039801252915, guid: 777b8cc08792bd046848daedb5c70bbd,
+        type: 3}
+      propertyPath: emergencyDir
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5868064039801252917, guid: 777b8cc08792bd046848daedb5c70bbd,
         type: 3}
       propertyPath: m_Name
