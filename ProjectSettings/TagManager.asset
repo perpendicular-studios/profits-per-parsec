@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SpaceBody
   - Sun
+  - Rocket
   layers:
   - Default
   - TransparentFX
