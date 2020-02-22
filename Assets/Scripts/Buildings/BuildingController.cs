@@ -5,6 +5,13 @@ using UnityEngine;
 public class BuildingController : MonoBehaviour
 {
     private GameObject activeBuilding;
+    private Building activeBuildingObject;
+    private List<GameObject> placedBuildings;
+
+    public void Awake()
+    {
+        placedBuildings = new List<GameObject>();
+    }
 
     public void OnEnable()
     {
@@ -20,9 +27,8 @@ public class BuildingController : MonoBehaviour
     {
         if (activeBuilding == null)
         {
-            Vector3 mp = Input.mousePosition;
-            mp.y = Terrain.activeTerrain.SampleHeight(mp);
-            activeBuilding = Instantiate(building.prefab, mp, Quaternion.identity);
+            activeBuilding = Instantiate(building.buildingModelPrefab);
+            activeBuildingObject = building;
         }
     }
 
@@ -30,7 +36,41 @@ public class BuildingController : MonoBehaviour
     {
         if(activeBuilding != null)
         {
-            activeBuilding.transform.position = Input.mousePosition;
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                float hitPointX = hit.point.x;
+                float hitPointZ = hit.point.z;
+                float terrainHeight = Terrain.activeTerrain.SampleHeight(new Vector3(hitPointX, 0, hitPointZ));
+
+                activeBuilding.transform.position = new Vector3(hitPointX, terrainHeight, hitPointZ);
+            }
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            if(activeBuilding != null)
+            {
+                Vector3 finalPosition = activeBuilding.transform.position;
+
+                Destroy(activeBuilding);
+                activeBuilding = null;
+
+                GameObject placedBuilding = Instantiate(activeBuildingObject.buildingModelPrefab, finalPosition, Quaternion.identity);
+                placedBuildings.Add(placedBuilding);
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            // Delete all buildings
+            foreach(GameObject placedBuilding in placedBuildings)
+            {
+                Destroy(placedBuilding);
+            }
+            placedBuildings.Clear();
         }
     }
 

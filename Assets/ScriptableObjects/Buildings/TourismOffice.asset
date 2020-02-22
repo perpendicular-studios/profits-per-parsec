@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf4479a792991c147b6c04f113b62bae, type: 3}
-  m_Name: SpaceHotel
+  m_Name: TourismOffice
   m_EditorClassIdentifier: 
-  buildingModelPrefab: {fileID: 5661949706335054003, guid: f6754b31ffc88d9468dce4eb6cca7336,
+  buildingModelPrefab: {fileID: 1899608567511149201, guid: d91e5462170107142a024a88b4c08b79,
     type: 3}
   buildingUIPrefab: {fileID: 498627040783770050, guid: 3642335b354243a47a418e722199220c,
     type: 3}
-  image: {fileID: 21300000, guid: cfa335184fa9a2047af8a9616f774184, type: 3}
-  displayName: Space Hotel
-  description: Rest and relaxation
+  image: {fileID: 21300000, guid: 7396712ab0fc7f04792fb272d78ca9ab, type: 3}
+  displayName: Tourism Office
+  description: Travel the cosmos
   cashPerSecond: 0

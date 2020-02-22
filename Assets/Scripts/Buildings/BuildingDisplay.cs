@@ -4,13 +4,45 @@ using UnityEngine;
 
 public class BuildingDisplay : MonoBehaviour
 {
-    public Canvas canvas;
+    public List<Building> buildings;
+
+    private Canvas canvas;
     private List<BuildingPanel> buildingPanels;
+    private bool isEnabled;
 
     public void Awake()
     {
-        buildingPanels.AddRange(GetComponentsInChildren<BuildingPanel>());
         canvas = GetComponent<Canvas>();
+
+        GenerateBuildingPanels();
+        DisableBuildingPanels();
+    }
+
+    private void GenerateBuildingPanels()
+    {
+        foreach(Building building in buildings)
+        {
+            BuildingPanel panel = Instantiate(building.buildingUIPrefab, canvas.transform).GetComponent<BuildingPanel>();
+            panel.building = building;
+        }
+
+        buildingPanels = new List<BuildingPanel>();
+        buildingPanels.AddRange(GetComponentsInChildren<BuildingPanel>());
+    }
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if (isEnabled)
+            {
+                DisableBuildingPanels();
+            }
+            else
+            {
+                EnableBuildingPanels();
+            }
+        }
     }
 
     public void EnableBuildingPanels()
@@ -22,6 +54,7 @@ public class BuildingDisplay : MonoBehaviour
             panel.displayDescription.enabled = true;
             panel.buildingImage.enabled = true;
         }
+        isEnabled = true;
     }
 
     public void DisableBuildingPanels()
@@ -33,5 +66,6 @@ public class BuildingDisplay : MonoBehaviour
             panel.displayDescription.enabled = false;
             panel.buildingImage.enabled = false;
         }
+        isEnabled = false;
     }
 }
