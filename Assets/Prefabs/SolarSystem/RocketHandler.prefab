@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5868064039521617808}
   m_Layer: 0
   m_Name: RocketModel
-  m_TagString: Untagged
+  m_TagString: Rocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,5 +137,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  startPosition: {fileID: 0}
   movementSpeed: 5
   rotationalSpeed: 50
+  detectionDistance: 15
+  rayCastOffset: 0.25
+  bufferDuration: 50
+  emergencyDir: 20

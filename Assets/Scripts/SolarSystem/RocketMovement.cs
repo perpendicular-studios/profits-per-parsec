@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class RocketMovement : MonoBehaviour
 {
-    [SerializeField] Transform target;
-    [SerializeField] Transform startPosition;
-    [SerializeField] float movementSpeed;
-    [SerializeField] float rotationalSpeed;               //for collision make sure rotationalSpeed is 10x of movementSpeed
-    [SerializeField] float detectionDistance;             //raycast detection distance
-    [SerializeField] float rayCastOffset;                 //raycast distance from center of rocket
-    [SerializeField] float bufferDuration;                //sets rotateBuffer
-    [SerializeField] float emergencyDir;                  //angle of turn when object is detected (20 seems to be good)
+    [SerializeField] public Transform target;
+    [SerializeField] public Transform startPosition;
+    [SerializeField] float movementSpeed = 5;
+    [SerializeField] float rotationalSpeed = 50;               //for collision make sure rotationalSpeed is 10x of movementSpeed
+    [SerializeField] float detectionDistance = 15;             //raycast detection distance
+    [SerializeField] float rayCastOffset = 0.25f;                 //raycast distance from center of rocket
+    [SerializeField] float bufferDuration = 50;                //sets rotateBuffer
+    [SerializeField] float emergencyDir = 20;                  //angle of turn when object is detected (20 seems to be good)
     float rotateBuffer = 0;                               //how long emergency direction turning will last for when object is detected
 
     // Start is called at beginning
     void Start()
     {
         transform.position = startPosition.position;
-    }
+        movementSpeed = 5;
+        rotationalSpeed = 50;               //for collision make sure rotationalSpeed is 10x of movementSpeed
+        detectionDistance = 15;             //raycast detection distance
+        rayCastOffset = 0.25f;                 //raycast distance from center of rocket
+        bufferDuration = 50;                //sets rotateBuffer
+        emergencyDir = 20;
+}
 
     // Update is called once per frame
     void Update()
@@ -59,25 +65,27 @@ public class RocketMovement : MonoBehaviour
         Debug.DrawRay(up, transform.forward * detectionDistance, Color.red);
         Debug.DrawRay(down, transform.forward * detectionDistance, Color.red);
         
-        if (Physics.Raycast(left, transform.forward, out hit, detectionDistance) && !isTarget(hit))
+        if (Physics.Raycast(left, transform.forward, out hit, detectionDistance) && !isIgnorable(hit))
         {
             hitOffset += emergencyDir * Vector3.right;
             hitOffset += emergencyDir * Vector3.up;
         }
-        else if (Physics.Raycast(right, transform.forward, out hit, detectionDistance) && !isTarget(hit))
+        else if (Physics.Raycast(right, transform.forward, out hit, detectionDistance) && !isIgnorable(hit))
         {
             hitOffset -= emergencyDir * Vector3.right;
             hitOffset += emergencyDir * Vector3.up;
         }
-        if (Physics.Raycast(up, transform.forward, out hit, detectionDistance) && !isTarget(hit))
+        if (Physics.Raycast(up, transform.forward, out hit, detectionDistance) && !isIgnorable(hit))
         {
             hitOffset -= emergencyDir * Vector3.up;
         }
             
-        else if (Physics.Raycast(down, transform.forward, out hit, detectionDistance) && !isTarget(hit))
+        else if (Physics.Raycast(down, transform.forward, out hit, detectionDistance) && !isIgnorable(hit))
         {
             hitOffset += emergencyDir * Vector3.up;
         }
+
+        // How long the rocket will turn in the emergency direction
         if (rotateBuffer!=0)
         {
             transform.Rotate(hitOffset * emergencyDir * Time.deltaTime);
@@ -92,13 +100,16 @@ public class RocketMovement : MonoBehaviour
     }
 
     // Returns true if raycast hits target position
-    bool isTarget(RaycastHit hit)
+    bool isIgnorable(RaycastHit hit)
     {
         Debug.Log(hit.transform.gameObject);
-        if(startPosition != null)
+        // When in motion
+        if (startPosition != null)
         {
-            return hit.transform.gameObject == target.gameObject || hit.transform.gameObject == startPosition.gameObject; 
+            // If raycast hits ignorable object
+            return hit.transform.gameObject == target.gameObject || hit.transform.gameObject == startPosition.gameObject 
+                || hit.transform.gameObject.tag == "Rocket"; 
         }
-        return hit.transform.gameObject == target.gameObject;
+        return hit.transform.gameObject == target.gameObject || hit.transform.gameObject.tag == "Rocket";
     }
 }
