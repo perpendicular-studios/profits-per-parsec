@@ -8,12 +8,15 @@ public class RocketEvents : MonoBehaviour
     public GameObject rocket;
     public delegate void LaunchRocket(Transform startPosition, Transform target);
     public static event LaunchRocket OnRocketLaunch;
+
     [SerializeField] public Transform target;
     [SerializeField] public Transform startPosition;
+
     // Start is called before the first frame update
     void Start()
     {
         OnRocketLaunch += Launch;
+        RocketMovement.OnRocketLand += Land;
     }
 
     // Update is called once per frame
@@ -31,5 +34,10 @@ public class RocketEvents : MonoBehaviour
         var newRocket = Instantiate(rocket);
         newRocket.GetComponent<RocketMovement>().startPosition = startPosition;
         newRocket.GetComponent<RocketMovement>().target = target;
+    }
+
+    void Land(Transform target)
+    {
+        Debug.Log("Destroyed");
     }
 }
