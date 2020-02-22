@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4059795658744754276}
   - component: {fileID: 4059795658744754279}
   - component: {fileID: 4059795658744754299}
+  - component: {fileID: 296622487298562830}
   m_Layer: 5
   m_Name: BuildingDisplayHUD
   m_TagString: Untagged
@@ -113,3 +114,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildings:
   - {fileID: 11400000, guid: 7206e6fb734d3504cbfc48d4fc2bda6b, type: 2}
+--- !u!114 &296622487298562830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4059795658744754278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 96, y: 96}
+  m_Spacing: {x: 10, y: 10}
+  m_Constraint: 0
+  m_ConstraintCount: 2
