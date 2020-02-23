@@ -18,10 +18,6 @@ public class RocketController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            SceneManager.LoadScene("SolarSystemTest");
-        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             OnRocketLaunch?.Invoke(startPosition, target);

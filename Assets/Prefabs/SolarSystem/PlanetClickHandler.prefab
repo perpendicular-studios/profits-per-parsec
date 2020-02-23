@@ -47,4 +47,6 @@ MonoBehaviour:
   prevSelectedObject: {fileID: 0}
   selected: 0
   toggle: 0
+  planetDisplay: {fileID: 4449548895565420696, guid: 1d93c84003421794cb25a505cd72c384,
+    type: 3}
   lerpCount: 0

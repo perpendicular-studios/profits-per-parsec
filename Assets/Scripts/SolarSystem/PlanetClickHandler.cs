@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlanetClickHandler : MonoBehaviour
 {
@@ -8,11 +11,16 @@ public class PlanetClickHandler : MonoBehaviour
     public GameObject prevSelectedObject;
     public bool selected = false;
     public bool toggle = false;
+    public PlanetDisplay planetDisplay;
 
     [SerializeField] [Range(0f, 0.5f)]
     public float lerpCount;
 
-    // Update is called once per frame
+    void OnEnable()
+    {
+        PlanetDisplay.OnEnterPlanet += EnterPlanet;
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -20,7 +28,7 @@ public class PlanetClickHandler : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            // If object is selected
+            // If object is hit by mouse
             if (Physics.Raycast(ray, out hit))
             {
                 // Check if object has SpaceBody tag
@@ -48,6 +56,12 @@ public class PlanetClickHandler : MonoBehaviour
 
                     // Place code here when something is selected like displaying menus
 
+                    if (planetDisplay.panel != null)
+                    {
+                        planetDisplay.DestroyPlanetPanel();
+                    }
+
+                    planetDisplay.GeneratePlanetPanel(selectedObject);
 
                     Debug.Log(hit.collider.gameObject.name);
                 }
@@ -56,6 +70,12 @@ public class PlanetClickHandler : MonoBehaviour
             // Reset selected boolean when you click no object
             else
             {
+                //Only if pointer is not over a ui object do we want to do ui deletion
+                if(!IsPointerOverUIObject())
+                {
+                    planetDisplay.DestroyPlanetPanel(); 
+                }
+
                 // Case when you click blank space
                 if (selectedObject != null)
                 {
@@ -73,6 +93,19 @@ public class PlanetClickHandler : MonoBehaviour
             cycleColor(selectedObject, lerpCount);
         }
 
+    }
+
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
+
+    private void EnterPlanet() {
+        SceneManager.LoadScene($"{selectedObject.transform.parent.tag}Scene");
     }
 
     void cycleColor(GameObject selectedObject, float lerpCount)

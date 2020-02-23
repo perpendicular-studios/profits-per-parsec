@@ -32,8 +32,8 @@ public class RocketEvents : MonoBehaviour
         if (numRockets > 0 && actionTime > rocketLaunchTimeDelay)
         {
             var newRocket = Instantiate(rocket);
-            newRocket.GetComponent<RocketMovement>().startPosition = GameObject.Find(startPosition).transform;
-            newRocket.GetComponent<RocketMovement>().target = GameObject.Find(target).transform;
+            newRocket.GetComponent<RocketMovement>().startPosition = GameObject.FindGameObjectWithTag(startPosition).GetComponentInChildren<Transform>();
+            newRocket.GetComponent<RocketMovement>().target = GameObject.FindGameObjectWithTag(target).GetComponentInChildren<Transform>();
 
             actionTime = 0;
         }

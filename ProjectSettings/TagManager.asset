@@ -7,6 +7,15 @@ TagManager:
   - SpaceBody
   - Sun
   - Rocket
+  - Earth
+  - Jupiter
+  - Mars
+  - Mercury
+  - Neptune
+  - Pluto
+  - Saturn
+  - Uranus
+  - Venus
   layers:
   - Default
   - TransparentFX

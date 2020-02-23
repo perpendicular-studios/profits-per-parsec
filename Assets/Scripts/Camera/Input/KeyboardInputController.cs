@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class KeyboardInputController : InputController
 {
@@ -25,6 +26,11 @@ public class KeyboardInputController : InputController
         if (Input.GetKey(KeyCode.D))
         {
             OnMoveInput?.Invoke(Vector3.right);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("SolarSystemTest");
         }
     }
 
