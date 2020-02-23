@@ -695,6 +695,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8919025609065721437, guid: 4b4b62d233e98a24ea34c00440ba8f5e,
+        type: 3}
+      propertyPath: target
+      value: UranusModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919025609065721437, guid: 4b4b62d233e98a24ea34c00440ba8f5e,
+        type: 3}
+      propertyPath: startPosition
+      value: VenusModel
+      objectReference: {fileID: 0}
     - target: {fileID: 8919025609262930628, guid: 4b4b62d233e98a24ea34c00440ba8f5e,
         type: 3}
       propertyPath: m_LocalPosition.x

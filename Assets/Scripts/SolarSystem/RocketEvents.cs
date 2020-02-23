@@ -6,34 +6,37 @@ using System;
 public class RocketEvents : MonoBehaviour
 {
     public GameObject rocket;
-    public delegate void LaunchRocket(Transform startPosition, Transform target);
-    public static event LaunchRocket OnRocketLaunch;
-
-    [SerializeField] public Transform target;
-    [SerializeField] public Transform startPosition;
+    public static int numRockets = 0;
+    private static string target;
+    private static string startPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        OnRocketLaunch += Launch;
+        RocketController.OnRocketLaunch += Launch;
         RocketMovement.OnRocketLand += Land;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(numRockets);
         //Invoke Launch Rocket event 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (numRockets>0)
         {
-            OnRocketLaunch.Invoke(startPosition, target);
+            var newRocket = Instantiate(rocket);
+            newRocket.GetComponent<RocketMovement>().startPosition = GameObject.Find(startPosition).transform;
+            newRocket.GetComponent<RocketMovement>().target = GameObject.Find(target).transform;
+            numRockets--;
         }
     }
 
-    void Launch(Transform startPosition, Transform target)
+    void Launch(string startPosition, string target)
     {
-        var newRocket = Instantiate(rocket);
-        newRocket.GetComponent<RocketMovement>().startPosition = startPosition;
-        newRocket.GetComponent<RocketMovement>().target = target;
+        RocketEvents.startPosition = startPosition;
+        RocketEvents.target = target;
+        Debug.Log("Launch");
+        numRockets++;  
     }
 
     void Land(Transform target)
