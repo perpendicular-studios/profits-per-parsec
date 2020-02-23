@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class RocketMovement : MonoBehaviour
 {
+    public delegate void LandRocket(Transform target);
+    public static event LandRocket OnRocketLand;
+
     [SerializeField] public Transform target;
     [SerializeField] public Transform startPosition;
     [SerializeField] float movementSpeed = 5;
-    [SerializeField] float rotationalSpeed = 50;               //for collision make sure rotationalSpeed is 10x of movementSpeed
-    [SerializeField] float detectionDistance = 15;             //raycast detection distance
+    [SerializeField] float rotationalSpeed = 10;               //for collision make sure rotationalSpeed is 10x of movementSpeed
+    [SerializeField] float detectionDistance = 10;             //raycast detection distance
     [SerializeField] float rayCastOffset = 0.25f;                 //raycast distance from center of rocket
-    [SerializeField] float bufferDuration = 50;                //sets rotateBuffer
-    [SerializeField] float emergencyDir = 20;                  //angle of turn when object is detected (20 seems to be good)
+    [SerializeField] float bufferDuration = 30;                //sets rotateBuffer
+    [SerializeField] float emergencyDir = 10;                  //angle of turn when object is detected (20 seems to be good)
     float rotateBuffer = 0;                               //how long emergency direction turning will last for when object is detected
 
     // Start is called at beginning
@@ -19,11 +22,12 @@ public class RocketMovement : MonoBehaviour
     {
         transform.position = startPosition.position;
         movementSpeed = 5;
-        rotationalSpeed = 50;               //for collision make sure rotationalSpeed is 10x of movementSpeed
+        rotationalSpeed = 10;               //for collision make sure rotationalSpeed is 10x of movementSpeed
         detectionDistance = 15;             //raycast detection distance
         rayCastOffset = 0.25f;                 //raycast distance from center of rocket
-        bufferDuration = 50;                //sets rotateBuffer
-        emergencyDir = 20;
+        bufferDuration = 30;                //sets rotateBuffer
+        emergencyDir = 10;
+
 }
 
     // Update is called once per frame
@@ -85,7 +89,7 @@ public class RocketMovement : MonoBehaviour
             hitOffset += emergencyDir * Vector3.up;
         }
 
-        // How long the rocket will turn in the emergency direction
+        // How many frames the rocket will turn in the emergency direction
         if (rotateBuffer!=0)
         {
             transform.Rotate(hitOffset * emergencyDir * Time.deltaTime);
@@ -102,7 +106,6 @@ public class RocketMovement : MonoBehaviour
     // Returns true if raycast hits target position
     bool isIgnorable(RaycastHit hit)
     {
-        Debug.Log(hit.transform.gameObject);
         // When in motion
         if (startPosition != null)
         {
@@ -111,5 +114,14 @@ public class RocketMovement : MonoBehaviour
                 || hit.transform.gameObject.tag == "Rocket"; 
         }
         return hit.transform.gameObject == target.gameObject || hit.transform.gameObject.tag == "Rocket";
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {   
+        if (collision.gameObject == target.gameObject)
+        {
+            OnRocketLand.Invoke(target);
+            Destroy(gameObject);
+        }
     }
 }
