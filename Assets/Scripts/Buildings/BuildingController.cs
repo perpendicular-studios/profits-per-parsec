@@ -45,7 +45,7 @@ public class BuildingController : MonoBehaviour
                 float hitPointZ = hit.point.z;
                 float terrainHeight = Terrain.activeTerrain.SampleHeight(new Vector3(hitPointX, 0, hitPointZ));
 
-                activeBuilding.transform.position = new Vector3(hitPointX, terrainHeight, hitPointZ);
+                activeBuilding.transform.position = new Vector3(hitPointX, terrainHeight + activeBuilding.transform.localScale.y / 2, hitPointZ);
             }
         }
 

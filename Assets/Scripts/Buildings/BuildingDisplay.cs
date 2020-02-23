@@ -5,6 +5,7 @@ using UnityEngine;
 public class BuildingDisplay : MonoBehaviour
 {
     public List<Building> buildings;
+    public Transform panelParent;
 
     private Canvas canvas;
     private List<BuildingPanel> buildingPanels;
@@ -22,7 +23,7 @@ public class BuildingDisplay : MonoBehaviour
     {
         foreach(Building building in buildings)
         {
-            BuildingPanel panel = Instantiate(building.buildingUIPrefab, canvas.transform).GetComponent<BuildingPanel>();
+            BuildingPanel panel = Instantiate(building.buildingUIPrefab, panelParent).GetComponent<BuildingPanel>();
             panel.building = building;
         }
 
