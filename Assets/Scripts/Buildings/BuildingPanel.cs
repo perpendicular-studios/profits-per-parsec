@@ -11,6 +11,7 @@ public class BuildingPanel : MonoBehaviour
     public Text displayTitle;
     public Text displayDescription;
     public Image buildingImage;
+    public Image panelBackground;
 
     private Button button;
     private BuildingDisplay display;
@@ -21,6 +22,7 @@ public class BuildingPanel : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(delegate { OnClick(); });
+        panelBackground = GetComponent<Image>();
         display = GetComponentInParent<BuildingDisplay>();
     }
 

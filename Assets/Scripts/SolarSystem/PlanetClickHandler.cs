@@ -16,6 +16,11 @@ public class PlanetClickHandler : MonoBehaviour
     [SerializeField] [Range(0f, 0.5f)]
     public float lerpCount;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(planetDisplay);
+    }
+
     void OnEnable()
     {
         PlanetDisplay.OnEnterPlanet += EnterPlanet;
@@ -73,7 +78,10 @@ public class PlanetClickHandler : MonoBehaviour
                 //Only if pointer is not over a ui object do we want to do ui deletion
                 if(!IsPointerOverUIObject())
                 {
-                    planetDisplay.DestroyPlanetPanel(); 
+                    if (planetDisplay.panel != null)
+                    {
+                        planetDisplay.DestroyPlanetPanel();
+                    }
                 }
 
                 // Case when you click blank space
@@ -105,7 +113,10 @@ public class PlanetClickHandler : MonoBehaviour
     }
 
     private void EnterPlanet() {
-        SceneManager.LoadScene($"{selectedObject.transform.parent.tag}Scene");
+        if (selectedObject != null)
+        {
+            SceneManager.LoadScene($"{selectedObject.GetComponent<Transform>().parent.tag}Scene");
+        }
     }
 
     void cycleColor(GameObject selectedObject, float lerpCount)

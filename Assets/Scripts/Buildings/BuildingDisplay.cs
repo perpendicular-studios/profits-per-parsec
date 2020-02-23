@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildingDisplay : MonoBehaviour
 {
     public List<Building> buildings;
     public Transform panelParent;
-
-    private Canvas canvas;
+    public Image shopBackground;
+    
     private List<BuildingPanel> buildingPanels;
     private bool isEnabled;
 
     public void Awake()
     {
-        canvas = GetComponent<Canvas>();
+        shopBackground = GetComponent<Image>();
 
         GenerateBuildingPanels();
         DisableBuildingPanels();
@@ -48,24 +49,26 @@ public class BuildingDisplay : MonoBehaviour
 
     public void EnableBuildingPanels()
     {
-        canvas.enabled = true;
+        shopBackground.enabled = true;
         foreach(BuildingPanel panel in buildingPanels)
         {
             panel.displayTitle.enabled = true;
             panel.displayDescription.enabled = true;
             panel.buildingImage.enabled = true;
+            panel.panelBackground.enabled = true;
         }
         isEnabled = true;
     }
 
     public void DisableBuildingPanels()
     {
-        canvas.enabled = false;
+        shopBackground.enabled = false;
         foreach (BuildingPanel panel in buildingPanels)
         {
             panel.displayTitle.enabled = false;
             panel.displayDescription.enabled = false;
             panel.buildingImage.enabled = false;
+            panel.panelBackground.enabled = false;
         }
         isEnabled = false;
     }
