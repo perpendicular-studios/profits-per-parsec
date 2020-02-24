@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BuildingController : MonoBehaviour
 {
+
     private GameObject activeBuilding;
     private Building activeBuildingObject;
     private List<GameObject> placedBuildings;
@@ -41,11 +42,13 @@ public class BuildingController : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                float hitPointX = hit.point.x;
-                float hitPointZ = hit.point.z;
-                float terrainHeight = Terrain.activeTerrain.SampleHeight(new Vector3(hitPointX, 0, hitPointZ));
 
-                activeBuilding.transform.position = new Vector3(hitPointX, terrainHeight + activeBuilding.transform.localScale.y / 2, hitPointZ);
+                activeBuilding.transform.position = new Vector3(
+                    (int)hit.point.x, 
+                    (int)(Terrain.activeTerrain.SampleHeight(new Vector3(hit.point.x, 0, hit.point.z)) + activeBuilding.transform.localScale.y / 2),   
+                    (int)hit.point.z);
+
+                activeBuilding.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
             }
         }
 
@@ -54,11 +57,12 @@ public class BuildingController : MonoBehaviour
             if(activeBuilding != null)
             {
                 Vector3 finalPosition = activeBuilding.transform.position;
+                Quaternion finalRotation = activeBuilding.transform.rotation;
 
                 Destroy(activeBuilding);
                 activeBuilding = null;
 
-                GameObject placedBuilding = Instantiate(activeBuildingObject.buildingModelPrefab, finalPosition, Quaternion.identity);
+                GameObject placedBuilding = Instantiate(activeBuildingObject.buildingModelPrefab, finalPosition, finalRotation);
                 placedBuildings.Add(placedBuilding);
             }
         }
