@@ -179,6 +179,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: VenusTerrain
       objectReference: {fileID: 0}
+    - target: {fileID: 4359452259221327317, guid: fa2587be2306e7649bb076ad728eb129,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4359452259221327319, guid: fa2587be2306e7649bb076ad728eb129,
         type: 3}
       propertyPath: m_MaterialType
@@ -263,6 +268,18 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 1621859852}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1355955842 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9042574394612818260, guid: c18768b004cd5934a8091b9fd6eaf61c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1647165076}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c550750556ad3f45abdfa63d39e2d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1369509432
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,6 +462,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 837b505a36c85a643b9a2fc865e4bbea, type: 3}
+--- !u!1001 &1647165076
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -26.722843
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.658826
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -23.301514
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358966138466285858, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_Name
+      value: BuildingTerrainGrid
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c18768b004cd5934a8091b9fd6eaf61c, type: 3}
 --- !u!1001 &1930719432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -695,16 +781,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8919025609065721437, guid: 4b4b62d233e98a24ea34c00440ba8f5e,
-        type: 3}
-      propertyPath: target
-      value: UranusModel
-      objectReference: {fileID: 0}
-    - target: {fileID: 8919025609065721437, guid: 4b4b62d233e98a24ea34c00440ba8f5e,
-        type: 3}
-      propertyPath: startPosition
-      value: VenusModel
-      objectReference: {fileID: 0}
     - target: {fileID: 8919025609262930628, guid: 4b4b62d233e98a24ea34c00440ba8f5e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -760,6 +836,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8919025609262930630, guid: 4b4b62d233e98a24ea34c00440ba8f5e,
+        type: 3}
+      propertyPath: terrainGrid
+      value: 
+      objectReference: {fileID: 1355955842}
     - target: {fileID: 8919025609262930631, guid: 4b4b62d233e98a24ea34c00440ba8f5e,
         type: 3}
       propertyPath: m_Name

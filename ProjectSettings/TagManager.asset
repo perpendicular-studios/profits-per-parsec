@@ -26,9 +26,9 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
+  - Buildings
+  - Terrain
+  - ActiveBuilding
   - 
   - 
   - 

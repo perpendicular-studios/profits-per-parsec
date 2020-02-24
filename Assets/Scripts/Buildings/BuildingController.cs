@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BuildingController : MonoBehaviour
 {
+    public BuildingTerrainGrid terrainGrid;
 
     private GameObject activeBuilding;
     private Building activeBuildingObject;
@@ -37,12 +38,15 @@ public class BuildingController : MonoBehaviour
     {
         if(activeBuilding != null)
         {
+            activeBuilding.layer = LayerMask.NameToLayer("ActiveBuilding");
+            terrainGrid.activeBuilding = activeBuilding;
+            terrainGrid.enabled = true;
+
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit))
             {
-
                 activeBuilding.transform.position = new Vector3(
                     (int)hit.point.x, 
                     (int)(Terrain.activeTerrain.SampleHeight(new Vector3(hit.point.x, 0, hit.point.z)) + activeBuilding.transform.localScale.y / 2),   
@@ -52,7 +56,7 @@ public class BuildingController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && terrainGrid.canPlace)
         {
             if(activeBuilding != null)
             {
@@ -63,6 +67,7 @@ public class BuildingController : MonoBehaviour
                 activeBuilding = null;
 
                 GameObject placedBuilding = Instantiate(activeBuildingObject.buildingModelPrefab, finalPosition, finalRotation);
+                placedBuilding.layer = LayerMask.NameToLayer("Buildings");
                 placedBuildings.Add(placedBuilding);
             }
         }

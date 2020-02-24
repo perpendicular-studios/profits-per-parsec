@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85ecfb99e4b9cf24ab4445800804ddaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terrainGrid: {fileID: 0}
 --- !u!114 &8919025609065721437
 MonoBehaviour:
   m_ObjectHideFlags: 0
