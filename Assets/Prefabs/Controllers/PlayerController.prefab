@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8919025609262930628}
   - component: {fileID: 8919025609262930629}
   - component: {fileID: 8919025609262930630}
-  - component: {fileID: 8919025609065721437}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -65,20 +64,6 @@ MonoBehaviour:
   activeBuildingMaterial: {fileID: 2100000, guid: d972a60c955af274b88736fcf0182f59,
     type: 2}
   oldBuildingMaterial: {fileID: 0}
---- !u!114 &8919025609065721437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8919025609262930631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3b2ba27c6c20714c9a3b4764b7207a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: Uranus
-  startPosition: Venus
 --- !u!1001 &8919025608492896463
 PrefabInstance:
   m_ObjectHideFlags: 0

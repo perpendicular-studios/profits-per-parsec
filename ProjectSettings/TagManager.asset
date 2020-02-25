@@ -16,6 +16,7 @@ TagManager:
   - Saturn
   - Uranus
   - Venus
+  - RocketLauncher
   layers:
   - Default
   - TransparentFX

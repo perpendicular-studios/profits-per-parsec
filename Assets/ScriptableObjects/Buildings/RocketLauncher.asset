@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf4479a792991c147b6c04f113b62bae, type: 3}
+  m_Name: RocketLauncher
+  m_EditorClassIdentifier: 
+  buildingModelPrefab: {fileID: 8916425839122819725, guid: 4161d2cbcf04e124a90e0e0a486b40e5,
+    type: 3}
+  buildingUIPrefab: {fileID: 498627040783770050, guid: 3642335b354243a47a418e722199220c,
+    type: 3}
+  image: {fileID: 21300000, guid: b97ce0aa79dc1b448abeede5d0bf333f, type: 3}
+  displayName: Launch Pad
+  description: Universal expansion!
+  cashPerSecond: 0

@@ -85,6 +85,7 @@ public class BuildingController : MonoBehaviour
                 GameObject placedBuilding = Instantiate(activeBuildingObject.buildingModelPrefab, finalPosition, finalRotation);
                 placedBuilding.layer = LayerMask.NameToLayer("Buildings");
                 placedBuilding.GetComponent<MeshRenderer>().material = activeBuildingObject.buildingModelPrefab.GetComponent<MeshRenderer>().sharedMaterial;
+
                 placedBuildings.Add(placedBuilding);
             }
         }
@@ -94,6 +95,11 @@ public class BuildingController : MonoBehaviour
             // Delete all buildings
             foreach(GameObject placedBuilding in placedBuildings)
             {
+                RocketController rc = placedBuilding.GetComponent<RocketController>();
+                if(rc != null)
+                {
+                    rc.RemoveRocket();
+                }
                 Destroy(placedBuilding);
             }
             placedBuildings.Clear();

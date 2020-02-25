@@ -5,22 +5,29 @@ using UnityEngine.SceneManagement;
 
 public class RocketController : MonoBehaviour
 {
-    public delegate void LaunchRocket(string startPosition, string target);
+    public delegate void LaunchRocket(RocketController controller);
     public static event LaunchRocket OnRocketLaunch;
-    [SerializeField] string target;
-    [SerializeField] string startPosition;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    public delegate void DestroyRocket(RocketController controller);
+    public static event DestroyRocket OnRocketDestroy;
+
+    public string target;
+    public string startPosition;
+
+    private bool invoked = false;
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Only if the current gameObject is in the Buildings layer, invoke launch event (when the building is placed)
+        if (LayerMask.LayerToName(gameObject.layer) == "Buildings" && !invoked)
         {
-            OnRocketLaunch?.Invoke(startPosition, target);
+            invoked = true;
+            OnRocketLaunch?.Invoke(this);
         }
+    }
+
+    public void RemoveRocket()
+    {
+        OnRocketDestroy?.Invoke(this);
     }
 }

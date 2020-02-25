@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2484457823643359748}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 30.152416, y: -6.7463756, z: -7.048512}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -128,12 +128,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraOffset: {x: 10, y: 14}
   lookAtOffset: 2
-  initialZoom: 5
-  inOutSpeed: 5
-  lateralSpeed: 5
+  initialZoom: 50
+  inOutSpeed: 30
+  lateralSpeed: 30
   rotateSpeed: 45
-  zoomSpeed: 4
+  zoomSpeed: 50
   minBounds: {x: -100, y: -100}
   maxBounds: {x: 100, y: 100}
-  nearZoomLimit: 2
-  farZoomLimit: 20
+  nearZoomLimit: 10
+  farZoomLimit: 500
