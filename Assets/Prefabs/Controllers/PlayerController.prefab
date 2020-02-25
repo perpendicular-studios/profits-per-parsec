@@ -29,7 +29,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 5633663691236719188}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60,7 +61,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85ecfb99e4b9cf24ab4445800804ddaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainGrid: {fileID: 0}
+  terrainGrid: {fileID: 485002317018722715}
+  activeBuildingMaterial: {fileID: 2100000, guid: d972a60c955af274b88736fcf0182f59,
+    type: 2}
+  oldBuildingMaterial: {fileID: 0}
 --- !u!114 &8919025609065721437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,3 +79,90 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: Uranus
   startPosition: Venus
+--- !u!1001 &8919025608492896463
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8919025609262930628}
+    m_Modifications:
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -26.722843
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.658826
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -23.301514
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358966138466285858, guid: c18768b004cd5934a8091b9fd6eaf61c,
+        type: 3}
+      propertyPath: m_Name
+      value: BuildingTerrainGrid
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c18768b004cd5934a8091b9fd6eaf61c, type: 3}
+--- !u!4 &5633663691236719188 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3884484208059148955, guid: c18768b004cd5934a8091b9fd6eaf61c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8919025608492896463}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &485002317018722715 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9042574394612818260, guid: c18768b004cd5934a8091b9fd6eaf61c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8919025608492896463}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c550750556ad3f45abdfa63d39e2d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

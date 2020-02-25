@@ -5,6 +5,8 @@ using UnityEngine;
 public class BuildingController : MonoBehaviour
 {
     public BuildingTerrainGrid terrainGrid;
+    public Material activeBuildingMaterial;
+    public Material oldBuildingMaterial;
 
     private GameObject activeBuilding;
     private Building activeBuildingObject;
@@ -13,6 +15,7 @@ public class BuildingController : MonoBehaviour
     public void Awake()
     {
         placedBuildings = new List<GameObject>();
+        terrainGrid = GetComponentInChildren<BuildingTerrainGrid>();
     }
 
     public void OnEnable()
@@ -34,18 +37,31 @@ public class BuildingController : MonoBehaviour
         }
     }
 
+    private bool IsMouseInScreen(Vector3 mousePosition)
+    {
+        int screenWidth = Screen.width;
+        int screenHeight = Screen.height;
+
+        float mouseX = mousePosition.x;
+        float mouseY = mousePosition.y;
+
+        return (mouseX >= 0 && mouseX <= screenWidth && mouseY >= 0 && mouseY <= screenHeight);
+    }
+
     public void Update()
     {
         if(activeBuilding != null)
         {
             activeBuilding.layer = LayerMask.NameToLayer("ActiveBuilding");
+            activeBuilding.GetComponent<MeshRenderer>().material = activeBuildingMaterial;
+
             terrainGrid.activeBuilding = activeBuilding;
             terrainGrid.enabled = true;
 
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit) && IsMouseInScreen(Input.mousePosition))
             {
                 activeBuilding.transform.position = new Vector3(
                     (int)hit.point.x, 
@@ -68,6 +84,7 @@ public class BuildingController : MonoBehaviour
 
                 GameObject placedBuilding = Instantiate(activeBuildingObject.buildingModelPrefab, finalPosition, finalRotation);
                 placedBuilding.layer = LayerMask.NameToLayer("Buildings");
+                placedBuilding.GetComponent<MeshRenderer>().material = activeBuildingObject.buildingModelPrefab.GetComponent<MeshRenderer>().sharedMaterial;
                 placedBuildings.Add(placedBuilding);
             }
         }
