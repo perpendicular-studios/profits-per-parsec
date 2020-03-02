@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8919025609262930628}
   - component: {fileID: 8919025609262930629}
   - component: {fileID: 8919025609262930630}
+  - component: {fileID: 271170881}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -63,7 +64,24 @@ MonoBehaviour:
   terrainGrid: {fileID: 485002317018722715}
   activeBuildingMaterial: {fileID: 2100000, guid: d972a60c955af274b88736fcf0182f59,
     type: 2}
-  oldBuildingMaterial: {fileID: 0}
+--- !u!114 &271170881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919025609262930631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9182e07236575eb4bb8e3dbbe7e16c51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedBuilding: {fileID: 0}
+  previousBuilding: {fileID: 0}
+  previousSelectedBuildingObject: {fileID: 0}
+  selectedBuildingObject: {fileID: 0}
+  selectedBuildingMaterial: {fileID: 2100000, guid: dd0a65a28a0e7d64ba726b9da5459394,
+    type: 2}
 --- !u!1001 &8919025608492896463
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5425169479886796799}
   - component: {fileID: 2082833575541515983}
   - component: {fileID: 2246805410864796424}
+  - component: {fileID: 7743295122871319180}
   m_Layer: 0
   m_Name: TourismOfficeModel
   m_TagString: Untagged
@@ -91,3 +92,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7743295122871319180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899608567511149201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4c296330d9bfd42b61a08e1d36e207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  building: {fileID: 11400000, guid: 8bd170d834be20944a67ae111ae5253d, type: 2}

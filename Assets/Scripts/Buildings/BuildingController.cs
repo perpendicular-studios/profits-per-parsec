@@ -6,7 +6,6 @@ public class BuildingController : MonoBehaviour
 {
     public BuildingTerrainGrid terrainGrid;
     public Material activeBuildingMaterial;
-    public Material oldBuildingMaterial;
 
     private GameObject activeBuilding;
     private Building activeBuildingObject;
