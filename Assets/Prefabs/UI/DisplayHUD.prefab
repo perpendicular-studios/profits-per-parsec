@@ -110,11 +110,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 114380333792631794, guid: 937ccf92deabc5d43b76726564eda666,
         type: 3}
-      propertyPath: buildings.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114380333792631794, guid: 937ccf92deabc5d43b76726564eda666,
-        type: 3}
       propertyPath: buildings.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 7206e6fb734d3504cbfc48d4fc2bda6b,

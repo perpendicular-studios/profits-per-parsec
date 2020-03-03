@@ -110,5 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4d786b17e6fb64aa6152d404ca5772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildings: []
+  buildings:
+  - {fileID: 0}
+  - {fileID: 0}
   panelParent: {fileID: 0}
+  shopBackground: {fileID: 0}

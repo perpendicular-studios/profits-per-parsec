@@ -14,20 +14,9 @@ public class RocketController : MonoBehaviour
     public string target;
     public string startPosition;
 
-    private bool invoked = false;
-
-    void Awake()
+    void OnEnable()
     {
-    }
-
-    void Update()
-    {
-        // Only if the current gameObject is in the Buildings layer, invoke launch event (when the building is placed)
-        if (LayerMask.LayerToName(gameObject.layer) == "Buildings" && !invoked && target != "" && startPosition != "")
-        {
-            invoked = true;
-            OnRocketLaunch?.Invoke(this);
-        }
+        OnRocketLaunch?.Invoke(this);
     }
 
     public void RemoveRocket()
