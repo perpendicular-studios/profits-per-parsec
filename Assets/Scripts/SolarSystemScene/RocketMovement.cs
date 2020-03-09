@@ -136,6 +136,7 @@ public class RocketMovement : MonoBehaviour
 
             if (RocketController.instance.IsRocketPathQueued(startPositionString, targetString))
             {
+                RocketController.instance.activeRockets.Remove(gameObject);
                 transform.position = startPosition.position;
             }
         }
