@@ -94,11 +94,6 @@ public class BuildingController : MonoBehaviour
             // Delete all buildings
             foreach(GameObject placedBuilding in placedBuildings)
             {
-                RocketController rc = placedBuilding.GetComponent<RocketController>();
-                if(rc != null)
-                {
-                    rc.RemoveRocket();
-                }
                 Destroy(placedBuilding);
             }
             placedBuildings.Clear();

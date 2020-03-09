@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class RocketMovement : MonoBehaviour
 {
-    public delegate void LandRocket(Transform target);
+    public delegate void LandRocket(GameObject rocket);
     public static event LandRocket OnRocketLand;
+
+    public string targetString, startPositionString;
 
     [SerializeField] public Transform target;
     [SerializeField] public Transform startPosition;
@@ -20,6 +22,16 @@ public class RocketMovement : MonoBehaviour
     // Start is called at beginning
     void Start()
     {
+        if(targetString != null)
+        {
+            target = GameObject.FindGameObjectWithTag(targetString).GetComponentInChildren<OrbitMotion>().orbitingObject.transform;
+        }
+
+        if(startPositionString != null)
+        {
+            startPosition = GameObject.FindGameObjectWithTag(startPositionString).GetComponent<OrbitMotion>().orbitingObject.transform;
+        }
+
         transform.position = startPosition.position;
         movementSpeed = 5;
         rotationalSpeed = 10;               //for collision make sure rotationalSpeed is 10x of movementSpeed
@@ -28,7 +40,12 @@ public class RocketMovement : MonoBehaviour
         bufferDuration = 30;                //sets rotateBuffer
         emergencyDir = 10;
 
-}
+    }
+
+    public void Reset()
+    {
+        transform.position = startPosition.position;
+    }
 
     // Update is called once per frame
     void Update()
@@ -120,8 +137,7 @@ public class RocketMovement : MonoBehaviour
     {   
         if (collision.gameObject == target.gameObject)
         {
-            OnRocketLand.Invoke(target);
-            Destroy(gameObject);
+            OnRocketLand?.Invoke(this.gameObject);
         }
     }
 }

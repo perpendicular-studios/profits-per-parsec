@@ -5,56 +5,51 @@ using System;
 
 public class RocketEvents : MonoBehaviour
 {
-    public GameObject rocket;
     public float rocketLaunchTimeDelay = 10;
+    public GameObject rocketPrefab;
 
     private float actionTime;
-    private static List<RocketController> queuedRockets = new List<RocketController>();
+    private float elapsedTime;
+
+    // TODO : Move these to rocket UI screen
+    public delegate void LaunchRocket(string startPosition, string target);
+    public static event LaunchRocket OnRocketLaunch;
+
+    public delegate void DestroyRocket(string startPosition, string target);
+    public static event DestroyRocket OnRocketDestroy;
 
     void Awake()
     {
+        RocketController.instance.rocketPrefab = rocketPrefab;
         actionTime = rocketLaunchTimeDelay;
     }
 
-    void OnEnable()
-    {
-        RocketController.OnRocketLaunch += Launch;
-        RocketController.OnRocketDestroy += DestroyRocket;
-        RocketMovement.OnRocketLand += Land;
-    }
-
-
-    // Update is called once per frame
     void Update()
     {
-        actionTime += Time.deltaTime;
-        if (queuedRockets.Count > 0 && actionTime > rocketLaunchTimeDelay)
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            foreach(RocketController queuedRocket in queuedRockets) {
-                var newRocket = Instantiate(rocket);
-                newRocket.GetComponent<RocketMovement>().startPosition = GameObject.FindGameObjectWithTag(queuedRocket.startPosition).GetComponent<OrbitMotion>().orbitingObject.GetComponent<Transform>();
-                newRocket.GetComponent<RocketMovement>().target = GameObject.FindGameObjectWithTag(queuedRocket.target).GetComponentInChildren<OrbitMotion>().orbitingObject.GetComponent<Transform>();
-            }
-            actionTime = 0;
+            OnRocketLaunch?.Invoke("Venus", "Uranus");
         }
-    }
 
-    void Launch(RocketController controller)
-    {
-        queuedRockets.Add(controller);
-        Debug.Log($"Launch from {controller.startPosition} to {controller.target}");
-        Debug.Log($"There are currently {queuedRockets.Count} rockets going from {controller.startPosition} to {controller.target}");
-    }
+        if(elapsedTime > actionTime)
+        {
+            foreach(GameObject rocketMovementObject in RocketController.instance.queuedRockets) {
+                // Check if rocket path is queued
+                string startPosition = rocketMovementObject.GetComponent<RocketMovement>().startPositionString;
+                string target = rocketMovementObject.GetComponent<RocketMovement>().targetString;
 
-    void Land(Transform target)
-    {
-        Debug.Log("Destroyed");
-    }
+                if (RocketController.instance.IsRocketPathQueued(startPosition, target))
+                {
+                    rocketMovementObject.SetActive(true);
+                    RocketController.instance.activeRockets.Add(rocketMovementObject);
+                }
+            }
 
-    void DestroyRocket(RocketController controller)
-    {
-        queuedRockets.Remove(controller);
-        Debug.Log($"Deleted Launch from {controller.startPosition} to {controller.target}");
-        Debug.Log($"There are currently {queuedRockets.Count} rockets going from {controller.startPosition} to {controller.target}");
+
+            elapsedTime = 0;
+        }
+
+        elapsedTime += Time.deltaTime;
     }
 }
+

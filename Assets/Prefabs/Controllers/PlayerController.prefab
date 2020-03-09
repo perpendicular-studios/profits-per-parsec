@@ -61,7 +61,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85ecfb99e4b9cf24ab4445800804ddaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainGrid: {fileID: 485002317018722715}
+  terrainGrid: {fileID: 9042574394612818260, guid: c18768b004cd5934a8091b9fd6eaf61c,
+    type: 3}
   activeBuildingMaterial: {fileID: 2100000, guid: d972a60c955af274b88736fcf0182f59,
     type: 2}
 --- !u!114 &271170881
@@ -157,15 +158,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8919025608492896463}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &485002317018722715 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9042574394612818260, guid: c18768b004cd5934a8091b9fd6eaf61c,
-    type: 3}
-  m_PrefabInstance: {fileID: 8919025608492896463}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c550750556ad3f45abdfa63d39e2d6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

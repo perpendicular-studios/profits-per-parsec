@@ -18,7 +18,7 @@ public class PlanetClickHandler : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(planetDisplay);
+
     }
 
     void OnEnable()

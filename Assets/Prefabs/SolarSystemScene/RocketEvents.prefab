@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ab361c378fd2c4aaf89667d9f5cded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rocket: {fileID: 5868064039801252917, guid: 777b8cc08792bd046848daedb5c70bbd, type: 3}
-  target: {fileID: 0}
-  startPosition: {fileID: 0}
+  rocketLaunchTimeDelay: 10
+  rocketPrefab: {fileID: 5868064039801252917, guid: 777b8cc08792bd046848daedb5c70bbd,
+    type: 3}
