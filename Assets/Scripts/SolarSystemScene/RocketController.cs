@@ -13,14 +13,12 @@ public class RocketController : GameController<RocketController>
     {
         RocketEvents.OnRocketLaunch += CreateRocket;
         RocketEvents.OnRocketDestroy += RemoveRocket;
-        RocketMovement.OnRocketLand += ResetRocket;
     }
 
     public void OnDisable()
     {
         RocketEvents.OnRocketLaunch -= CreateRocket;
         RocketEvents.OnRocketDestroy -= RemoveRocket;
-        RocketMovement.OnRocketLand += ResetRocket;
     }
 
     public void CreateRocket(string startPosition, string target)
@@ -45,14 +43,6 @@ public class RocketController : GameController<RocketController>
     public void RemoveRocket(string startPosition, string target)
     {
         Debug.Log("A rocket is being destroyed");
-    }
-
-    public void ResetRocket(GameObject rocket)
-    {
-        if(IsRocketPathQueued(rocket.GetComponent<RocketMovement>().startPositionString, rocket.GetComponent<RocketMovement>().targetString))
-        {
-            rocket.GetComponent<RocketMovement>().Reset();
-        }
     }
 
     public bool IsRocketPathQueued(string startPosition, string target)

@@ -42,11 +42,6 @@ public class RocketMovement : MonoBehaviour
 
     }
 
-    public void Reset()
-    {
-        transform.position = startPosition.position;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -138,6 +133,11 @@ public class RocketMovement : MonoBehaviour
         if (collision.gameObject == target.gameObject)
         {
             OnRocketLand?.Invoke(this.gameObject);
+
+            if (RocketController.instance.IsRocketPathQueued(startPositionString, targetString))
+            {
+                transform.position = startPosition.position;
+            }
         }
     }
 }
