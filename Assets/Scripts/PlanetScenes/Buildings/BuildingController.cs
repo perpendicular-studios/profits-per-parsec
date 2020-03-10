@@ -11,6 +11,12 @@ public class BuildingController : MonoBehaviour
     private Building activeBuildingObject;
     private List<GameObject> placedBuildings;
 
+    // TODO : Move these to rocket UI screen
+    public delegate void LaunchRocket(string startPosition, string target);
+    public static event LaunchRocket OnRocketLaunch;
+
+    public delegate void DestroyRocket(string startPosition, string target);
+    public static event DestroyRocket OnRocketDestroy;
     public void Awake()
     {
         placedBuildings = new List<GameObject>();
@@ -49,7 +55,12 @@ public class BuildingController : MonoBehaviour
 
     public void Update()
     {
-        if(activeBuilding != null)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RocketController.instance.CreateRocket("Venus", "Uranus");
+        }
+
+        if (activeBuilding != null)
         {
             activeBuilding.layer = LayerMask.NameToLayer("ActiveBuilding");
             activeBuilding.GetComponent<MeshRenderer>().material = activeBuildingMaterial;

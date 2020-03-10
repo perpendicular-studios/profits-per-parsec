@@ -132,11 +132,10 @@ public class RocketMovement : MonoBehaviour
     {   
         if (collision.gameObject == target.gameObject)
         {
-            OnRocketLand?.Invoke(this.gameObject);
+            OnRocketLand?.Invoke(gameObject);
 
-            if (RocketController.instance.IsRocketPathQueued(startPositionString, targetString))
+            if (RocketController.instance.IsRocketPathActive(startPositionString, targetString))
             {
-                RocketController.instance.activeRockets.Remove(gameObject);
                 transform.position = startPosition.position;
             }
         }

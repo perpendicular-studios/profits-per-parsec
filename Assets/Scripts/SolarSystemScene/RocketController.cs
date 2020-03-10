@@ -3,22 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public struct RocketPath
+{
+    public string startPosition;
+    public string target;
+
+    public RocketPath(string startPosition, string target)
+    {
+        this.startPosition = startPosition;
+        this.target = target;
+    }
+}
+
 public class RocketController : GameController<RocketController>
 {
-    public List<GameObject> queuedRockets = new List<GameObject>();
+    public List<RocketPath> queuedRockets = new List<RocketPath>();
     public List<GameObject> activeRockets = new List<GameObject>();
-    public GameObject rocketPrefab;
 
     public void OnEnable()
     {
-        RocketEvents.OnRocketLaunch += CreateRocket;
-        RocketEvents.OnRocketDestroy += RemoveRocket;
+        BuildingController.OnRocketLaunch += CreateRocket;
+        BuildingController.OnRocketDestroy += RemoveRocket;
     }
 
     public void OnDisable()
     {
-        RocketEvents.OnRocketLaunch -= CreateRocket;
-        RocketEvents.OnRocketDestroy -= RemoveRocket;
+        BuildingController.OnRocketLaunch -= CreateRocket;
+        BuildingController.OnRocketDestroy -= RemoveRocket;
     }
 
     public void CreateRocket(string startPosition, string target)
@@ -26,13 +37,7 @@ public class RocketController : GameController<RocketController>
         if (!IsRocketPathQueued(startPosition, target))
         {
             Debug.Log($"A rocket is being created from {startPosition} to {target} ");
-
-            GameObject rocketObject = Instantiate(rocketPrefab);
-            rocketObject.GetComponent<RocketMovement>().startPositionString = startPosition;
-            rocketObject.GetComponent<RocketMovement>().targetString = target;
-            rocketObject.SetActive(false);
-
-            queuedRockets.Add(rocketObject);
+            queuedRockets.Add(new RocketPath(startPosition, target));
         }
         else
         {
@@ -50,15 +55,31 @@ public class RocketController : GameController<RocketController>
         bool startPositionQueued = false;
         bool targetQueued = false;
 
-        foreach(GameObject rocket in queuedRockets)
+        foreach(RocketPath rocketMovement in queuedRockets)
         {
-            string queuedStartPosition = rocket.GetComponent<RocketMovement>().startPositionString;
-            string queuedTarget = rocket.GetComponent<RocketMovement>().targetString;
+            string queuedStartPosition = rocketMovement.startPosition;
+            string queuedTarget = rocketMovement.target;
 
             if (queuedStartPosition.Equals(startPosition)) startPositionQueued = true;
             if (queuedTarget.Equals(target)) targetQueued = true;
         }
 
         return startPositionQueued && targetQueued;
+    }
+    public bool IsRocketPathActive(string startPosition, string target)
+    {
+        bool startPositionActive = false;
+        bool targetActive = false;
+
+        foreach (GameObject rocketMovementObj in activeRockets)
+        {
+            string activeStartPosition = rocketMovementObj.GetComponent<RocketMovement>().startPositionString;
+            string activeTarget = rocketMovementObj.GetComponent<RocketMovement>().targetString;
+
+            if (activeStartPosition.Equals(startPosition)) startPositionActive = true;
+            if (activeTarget.Equals(target)) targetActive = true;
+        }
+
+        return startPositionActive && targetActive;
     }
 }

@@ -36,6 +36,7 @@ public class GameController<T> : MonoBehaviour where T : MonoBehaviour
             }
         }
     }
+
     private void OnApplicationQuit()
     {
         _isShuttingDown = true;
