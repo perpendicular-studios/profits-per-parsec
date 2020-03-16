@@ -370,3 +370,4 @@ MonoBehaviour:
   displayTitle: {fileID: 498627039883492437}
   displayDescription: {fileID: 498627040560808578}
   buildingImage: {fileID: 498627039691041442}
+  panelBackground: {fileID: 0}

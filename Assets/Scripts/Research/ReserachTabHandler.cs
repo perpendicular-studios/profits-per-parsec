@@ -40,6 +40,8 @@ public class ReserachTabHandler : MonoBehaviour
         selectedTab = button;
         ResetTabs();
         button.GetComponent<Image>().color = tabActive;
+
+        // Make sure the indexes in the page area match up with the indexes in the tab area
         int index = button.transform.GetSiblingIndex();
         for(int i=0; i < pagesToSwap.Count; i++)
         {

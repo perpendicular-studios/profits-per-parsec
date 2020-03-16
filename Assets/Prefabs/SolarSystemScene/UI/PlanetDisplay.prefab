@@ -112,6 +112,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
-  panel: {fileID: 0}
   planetUIPrefab: {fileID: 7212052982812855646, guid: e66645e01b15f4f469673a65e6961750,
     type: 3}
+  panel: {fileID: 0}

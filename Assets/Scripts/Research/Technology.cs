@@ -13,7 +13,7 @@ public class Technology : ScriptableObject
     [Header("Technology Stats")]
     public string displayName;
     public string description;
-    public string researchCost;
+    public int researchCost;
     public bool isLocked;
     public Technology prerequisite; 
 }
