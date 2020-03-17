@@ -20,7 +20,7 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
     private Button button;
     private ResearchDisplay display;
 
-    public delegate void technologyClickHandler(Technology technology);
+    public delegate void technologyClickHandler(Technology technology, TechnologyButton button);
     public static event technologyClickHandler OnTechClick;
 
     public void OnPointerClick(PointerEventData eventData)
@@ -45,6 +45,7 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
         panelBackground = GetComponent<Image>();
         display = GetComponentInParent<ResearchDisplay>();
         hoverPanel.SetActive(false);
+        technology.isLocked = true;
     }
 
     public void Start()
@@ -59,9 +60,20 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
         }
     }
 
+    public void Update()
+    {
+
+    }
+
+    public void unlockImage()
+    {
+        Debug.Log("Unlocked Image");
+        techIconLocked.sprite = technology.unlockedImage;
+    }
+
     public void OnClick()
     {
-        OnTechClick?.Invoke(technology);
+        OnTechClick?.Invoke(technology, this);
     }
 
 }

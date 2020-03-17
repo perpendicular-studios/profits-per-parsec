@@ -15,7 +15,7 @@ public class ResearchToolTip : MonoBehaviour
         backgroundPanel = GetComponent<RectTransform>();
         //Set custom tool tip size based on length of title and description
         float paddingWidth = 256f;
-        float paddingHeight = 24f;
+        float paddingHeight = 36f;
         Vector2 backgroundSize = new Vector2(paddingWidth, title.preferredHeight +
             description.preferredHeight + paddingHeight);
         backgroundPanel.sizeDelta = backgroundSize;
