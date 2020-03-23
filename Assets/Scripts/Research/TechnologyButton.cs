@@ -63,6 +63,7 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
             displayDescription.text = technology.description;
             techIconLocked.sprite = technology.lockedImage;
             researchCost.text = technology.researchCost.ToString();
+            hoverPanel.GetComponent<ResearchToolTips>().SetToolTipSize(displayTitle, displayDescription);
         }
     }
 
