@@ -21,7 +21,7 @@ MonoBehaviour:
     and travel
   researchCost: 0
   isLocked: 1
+  disableLeft: 0
   prerequisite:
-  - {fileID: 11400000, guid: 3069bd98e7472064684db8be28b6974e, type: 2}
-  - {fileID: 11400000, guid: 1d0a6af88fdee0e4595f04fa067cae7f, type: 2}
   - {fileID: 11400000, guid: e2de781008e70134995ef8065148cb0b, type: 2}
+  - {fileID: 11400000, guid: 1d0a6af88fdee0e4595f04fa067cae7f, type: 2}

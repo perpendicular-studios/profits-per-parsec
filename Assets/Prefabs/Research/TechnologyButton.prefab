@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2039255313311321615}
   - component: {fileID: 8885321855919886085}
   - component: {fileID: 4805115290551982878}
-  - component: {fileID: 7296927672137531805}
+  - component: {fileID: 3959547207858631977}
   m_Layer: 5
   m_Name: Hover
   m_TagString: Untagged
@@ -35,7 +35,7 @@ RectTransform:
   - {fileID: 1453886879407357797}
   - {fileID: 4547497037523710464}
   m_Father: {fileID: 8483843680869895819}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -98,7 +98,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &7296927672137531805
+--- !u!114 &3959547207858631977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.48584908, g: 0.7962076, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -415,6 +415,67 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Test
+--- !u!1 &7081547425839619704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3508397503594447225}
+  - component: {fileID: 2531843684185150248}
+  - component: {fileID: 5924420389301668968}
+  m_Layer: 5
+  m_Name: TechLine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3508397503594447225
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7081547425839619704}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8483843680869895819}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 50, y: 5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2531843684185150248
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7081547425839619704}
+  m_CullTransparentMesh: 0
+--- !u!114 &5924420389301668968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7081547425839619704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704b2ee04da1cd54f94846ed27f7cc2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 5929469552956767459}
+  imageRectTransformPrefab: {fileID: 5378058028828989387, guid: ec6a88ca19a7b924bb3b0f4bfabf5657,
+    type: 3}
+  techLineList: []
 --- !u!1 &7767519516585199635
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,6 +508,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5006487648223067605}
+  - {fileID: 3508397503594447225}
   - {fileID: 4075182906554851880}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -562,3 +624,5 @@ MonoBehaviour:
   techIconUnlocked: {fileID: 8881309931449766715}
   techIconLocked: {fileID: 8881309931449766715}
   panelBackground: {fileID: 0}
+  techLine: {fileID: 7081547425839619704}
+  prerequsiteButtons: []

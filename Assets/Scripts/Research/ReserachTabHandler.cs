@@ -12,6 +12,12 @@ public class ReserachTabHandler : MonoBehaviour
     public ResearchTabButton selectedTab;
     public List<GameObject> pagesToSwap;
 
+    //Start with the default selected tab 
+    void Start()
+    {
+        OnTabSelected(selectedTab);
+    }
+
     public void Subscribe(ResearchTabButton button)
     {
         if(tabButtons == null)

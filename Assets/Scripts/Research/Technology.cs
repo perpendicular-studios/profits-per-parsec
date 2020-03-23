@@ -15,5 +15,6 @@ public class Technology : ScriptableObject
     public string description;
     public int researchCost;
     public bool isLocked;
+    public bool disableLeft;
     public List<Technology> prerequisite; 
 }

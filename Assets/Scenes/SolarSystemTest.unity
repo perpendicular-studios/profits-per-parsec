@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.28711563, g: 0.3358623, b: 0.5218703, a: 1}
+  m_IndirectSpecularColor: {r: 0.28717792, g: 0.33586565, b: 0.5218966, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -124,6 +124,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SolarSystemHUD
       objectReference: {fileID: 0}
+    - target: {fileID: 2323988826085719662, guid: 3dc3be05ccad09b4cba59ce3cc381715,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 235984882}
     - target: {fileID: 2323988826085719665, guid: 3dc3be05ccad09b4cba59ce3cc381715,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -462,6 +467,11 @@ PrefabInstance:
       propertyPath: m_ClearFlags
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2484457823643359770, guid: 837b505a36c85a643b9a2fc865e4bbea,
+        type: 3}
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2484457823643359771, guid: 837b505a36c85a643b9a2fc865e4bbea,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -559,6 +569,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 837b505a36c85a643b9a2fc865e4bbea, type: 3}
+--- !u!20 &235984882 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2484457823643359770, guid: 837b505a36c85a643b9a2fc865e4bbea,
+    type: 3}
+  m_PrefabInstance: {fileID: 181584278}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &432390401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -934,26 +950,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4269664163544481152}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1958455987 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8919025609262930631, guid: 4b4b62d233e98a24ea34c00440ba8f5e,
-    type: 3}
-  m_PrefabInstance: {fileID: 432390401}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1958455992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958455987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c690ff160e1be469865c5e54776bc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unlockedTechList: []
-  dataPoints: 10000
 --- !u!1001 &2188274388441622434
 PrefabInstance:
   m_ObjectHideFlags: 0

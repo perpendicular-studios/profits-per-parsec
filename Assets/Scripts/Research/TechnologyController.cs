@@ -20,15 +20,26 @@ public class TechnologyController : GameController<TechnologyController>
 
     public void OnEnable()
     {
-        TechnologyButton.OnTechClick += TestUnlock;
+        TechnologyButton.OnTechClick += TryUnlock;
+        TechnologyButton.CheckUnlock += ShowIfCanUnlock;
     }
 
     public void OnDisable()
     {
-        TechnologyButton.OnTechClick -= TestUnlock;
+        TechnologyButton.OnTechClick -= TryUnlock;
+        TechnologyButton.CheckUnlock -= ShowIfCanUnlock;
     }
 
-    public void TestUnlock(Technology tech, TechnologyButton button)
+    public void ShowIfCanUnlock(Technology tech, TechnologyButton button)
+    {
+        // Check if tech can be unlocked
+        if (CanUnlock(tech))
+        {
+            button.showCanUnlockImage();
+        }
+    }
+
+    public void TryUnlock(Technology tech, TechnologyButton button)
     {
         Debug.Log("Test Unlock");
         // Check if tech can be unlocked
@@ -71,5 +82,6 @@ public class TechnologyController : GameController<TechnologyController>
     {
         unlockedTechList.Add(tech);
         button.unlockImage();
+        
     }
 }

@@ -57,7 +57,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -119670111
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &2323988826085719663
@@ -229,6 +229,11 @@ PrefabInstance:
     - target: {fileID: 976221386109960525, guid: 10e525ac9f60c2d48a17b7e1316f1ae2,
         type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067060309212695298, guid: 10e525ac9f60c2d48a17b7e1316f1ae2,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1210229689219048166, guid: 10e525ac9f60c2d48a17b7e1316f1ae2,
