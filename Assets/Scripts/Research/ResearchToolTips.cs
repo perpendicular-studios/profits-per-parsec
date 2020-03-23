@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ResearchToolTip : MonoBehaviour
+public class ResearchToolTips : MonoBehaviour
 {
     //Initialize Variables
     public Text description;
