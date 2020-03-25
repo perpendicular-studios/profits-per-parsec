@@ -76,7 +76,7 @@ public class PlanetClickHandler : MonoBehaviour
             else
             {
                 //Only if pointer is not over a ui object do we want to do ui deletion
-                if(!IsPointerOverUIObject())
+                if(!EventSystem.current.IsPointerOverGameObject())
                 {
                     if (planetDisplay.panel != null)
                     {
@@ -87,6 +87,7 @@ public class PlanetClickHandler : MonoBehaviour
                 // Case when you click blank space
                 if (selectedObject != null)
                 {
+                    Debug.Log("Blank");
                     selected = false;
                     resetObject(selectedObject);
                     lerpCount = 0f;

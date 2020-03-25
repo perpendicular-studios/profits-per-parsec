@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MouseInputController : InputController
 {
@@ -37,11 +38,11 @@ public class MouseInputController : InputController
             }
         }
 
-        if (Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y > 0 && !EventSystem.current.IsPointerOverGameObject())
         {
             OnZoom?.Invoke(-3f);
         }
-        else if (Input.mouseScrollDelta.y < 0)
+        else if (Input.mouseScrollDelta.y < 0 && !EventSystem.current.IsPointerOverGameObject())
         {
             OnZoom?.Invoke(3f);
         }

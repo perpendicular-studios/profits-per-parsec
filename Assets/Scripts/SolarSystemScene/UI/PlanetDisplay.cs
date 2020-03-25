@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlanetDisplay : MonoBehaviour
 {
-    public Canvas canvas;
     public GameObject planetUIPrefab;
     public PlanetPanel panel;
 
@@ -16,7 +15,6 @@ public class PlanetDisplay : MonoBehaviour
 
     public void Awake()
     {
-        canvas = GetComponent<Canvas>();
         DisablePlanetPanel();
     }
 
@@ -38,7 +36,6 @@ public class PlanetDisplay : MonoBehaviour
 
     public void EnablePlanetPanel()
     {
-        canvas.enabled = true;
         if (panel != null)
         {
             panel.Enable();
@@ -47,7 +44,6 @@ public class PlanetDisplay : MonoBehaviour
 
     public void DisablePlanetPanel()
     {
-        canvas.enabled = false;
         if (panel != null)
         {
             panel.Disable();
