@@ -8,7 +8,8 @@ public class KeyboardInputController : InputController
     public static event MoveInputHandler OnMoveInput;
     public static event RotateInputHandler OnRotate;
     public static event ZoomInputHandler OnZoom;
-    public GameObject ResearchHUD;
+    public GameObject ResearchDisplay;
+    public GameObject AdvisorDisplay;
     public void Update()
     {
         if (Input.GetKey(KeyCode.W))
@@ -33,20 +34,32 @@ public class KeyboardInputController : InputController
             SceneManager.LoadScene("SolarSystemTest");
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
+        ToggleUI(KeyCode.T, ResearchDisplay);
+        ToggleUI(KeyCode.Y, AdvisorDisplay);
+    }
+
+    void ToggleUI(KeyCode key, GameObject display)
+    {
+        if (Input.GetKeyDown(key))
         {
             //Close screen if currently active, else open screen
-            if(ResearchHUD.active)
+            if (display.active)
             {
-                ResearchHUD.SetActive(false);
+                display.SetActive(false);
             }
             else
             {
                 //Trigger a function that closes all other screens 
-                ResearchHUD.SetActive(true);
+                CloseAllUI();
+                display.SetActive(true);
             }
-            
         }
+    }
+
+    void CloseAllUI()
+    {
+        ResearchDisplay.SetActive(false);
+        AdvisorDisplay.SetActive(false);
     }
 
 }
