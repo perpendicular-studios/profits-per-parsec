@@ -21,12 +21,12 @@ public class AdvisorListHire : MonoBehaviour
     public Transform panelParent;
     public AdvisorIcons advisorIcons;
     public GameObject advisorPanelPrefab;
+    public GameObject advisorListInventory;
 
     public int advisorHireLimit = 5;                         //Limit of advisor choices that the player can choose from
 
     public List<Advisor> advisorListBacklog;                 //List of advisors with custom advisors and randomly generated advisors, which the currentHireList will draw from
-    public List<Advisor> currentHireList;                    //In game list of advisors that the player will be able to hire
-    public List<AdvisorPanel> advisorPanels;                 //List of currently shown advisors
+    public List<AdvisorPanel> advisorPanels;                 //In game list of advisors that the player will be able to hire as panels
 
     //Variables indicating if the category is currently sorted
     private bool ageSort;
@@ -46,26 +46,13 @@ public class AdvisorListHire : MonoBehaviour
     void Start()
     {
         // Generates advisors
-        for(int i = 0; i < 10; i++)
-        {
-            GenerateRandomAdvisor();
-        }
+        UpdateBackLog();
 
-        SelectAdvisors(advisorHireLimit);
+        //Renews advisors for the player to hire
+        RenewAdvisors();
 
-        foreach(Advisor a in currentHireList)
-        {
-            AdvisorPanel panel = Instantiate(advisorPanelPrefab, panelParent).GetComponent<AdvisorPanel>();
-            panel.advisor = a;
-            //Names the instantiated game object
-            panel.name = a.displayName;
-        }
-
+        //Updates the background panel to be large enough to contain all the advisor panels
         UpdatePanels();
-
-        //Update advisor panel list
-        advisorPanels = new List<AdvisorPanel>();
-        advisorPanels.AddRange(GetComponentsInChildren<AdvisorPanel>());
     }
 
     // Update is called once per frame
@@ -101,31 +88,57 @@ public class AdvisorListHire : MonoBehaviour
         return fullName;
     }
 
-    //Choose advisors from the backlog list and add them to the currentList
-    void SelectAdvisors(int numAdvisors)
+    //Refills the advisors you can choose to hire from, up to the number a certain limit
+    void RenewAdvisors()
     {
         int random;
-        for(int i = 0; i < numAdvisors; i++)
+        int currHireSize = advisorPanels.Count;
+        //Fill up the current hire list that the player can see
+        for (int i = 0; i < advisorHireLimit - currHireSize; i++)
         {
+            Debug.Log(advisorHireLimit - currHireSize);
+            //Generates a random index 
             random = Random.Range(0, advisorListBacklog.Count);
-            //Add to current advisor list
-            currentHireList.Add(advisorListBacklog[random]);
+
+            //Create a panel for the advisor and add to panels list
+            AdvisorPanel panel = Instantiate(advisorPanelPrefab, panelParent).GetComponent<AdvisorPanel>();
+            panel.advisor = advisorListBacklog[random];
+            panel.name = advisorListBacklog[random].displayName;
+            panel.GetComponentInChildren<HireAdvisor>().advisorListHirePage = gameObject;
+            advisorPanels.Add(panel);
+
             //Remove from backlog list
             advisorListBacklog.RemoveAt(random);
         }
+
+        //Update Back Log list if necessary
+        UpdateBackLog();
     }
 
+    //Update back log when less than 100 advisors
+    void UpdateBackLog()
+    {
+        if(advisorListBacklog.Count < 100)
+        {
+            for(int i = 0; i < 50; i++)
+            {
+                GenerateRandomAdvisor();
+            }
+        }
+    }
+
+    //Make sure the size of the scroll window fits to the number of panels
     void UpdatePanels()
     {
         int height;
         //Change panel size to fit all panels
-        if (currentHireList.Count * 60 + 60 < 400)
+        if (advisorPanels.Count * 70 + 70 < 400)
         {
             height = 400;
         }
         else
         {
-            height = currentHireList.Count * 60 + 60;
+            height = advisorPanels.Count * 70 + 70;
         }
 
         gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(380, height);
@@ -135,6 +148,17 @@ public class AdvisorListHire : MonoBehaviour
     void ResetPanels()
     {
         advisorPanels.Clear();
+    }
+
+    public void HireAdvisor(GameObject advisorPanel)
+    {
+        //Get the advisor scriptable object that was attached to the Advisor Panel
+        Advisor advisor = advisorPanel.GetComponent<AdvisorPanel>().advisor;
+        //Set it to a new Advisor Panel in the advisor list assign
+        advisorListInventory.GetComponent<AdvisorListAssign>().AddAdvisor(advisor);
+        //Remove advisor from this list
+        advisorPanels.Remove(advisorPanel.GetComponent<AdvisorPanel>());
+        Destroy(advisorPanel);
     }
 
     public void ResetSorts()
