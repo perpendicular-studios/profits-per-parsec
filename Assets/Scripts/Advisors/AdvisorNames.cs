@@ -6,5 +6,5 @@ using UnityEngine;
 
 public class AdvisorNames : AssetListScriptableObject<string>
 {
-
+    //test
 }
