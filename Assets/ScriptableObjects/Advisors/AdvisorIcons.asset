@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7b2d917aedef24da47787bcf7d51e0, type: 3}
   m_Name: AdvisorIcons
   m_EditorClassIdentifier: 
-  icons:
+  assetList:
   - {fileID: 21300000, guid: 8ce01b5332369884c8b734a42d11202f, type: 3}
-  - {fileID: 21300000, guid: e23ab9dad9cbcaf49bdfd0c122621f40, type: 3}
-  - {fileID: 21300000, guid: 6645b327088c4f6408d9561791c57b84, type: 3}
+  - {fileID: 21300000, guid: 083237d4baf78d143b4251ca612f18dd, type: 3}
+  - {fileID: 21300000, guid: cdd4ec2aa0728e248b9c9b68dc921ea7, type: 3}
   - {fileID: 21300000, guid: 8c013fbd1dde7bc4db457cfd3b7b7ffa, type: 3}
-  - {fileID: 21300000, guid: b788e695e23fe864794999e8c5524090, type: 3}
+  - {fileID: 21300000, guid: 6645b327088c4f6408d9561791c57b84, type: 3}

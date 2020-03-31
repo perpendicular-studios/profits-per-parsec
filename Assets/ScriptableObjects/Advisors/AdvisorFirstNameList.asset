@@ -12,24 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 701cad260d2b4a74b819b4f5e8d7443d, type: 3}
   m_Name: AdvisorFirstNameList
   m_EditorClassIdentifier: 
-  advisorNames:
-  - John
-  - Andrew
-  - Jason
+  assetList:
   - Adrian
   - Andy
-  - Matthew
   - Phillip
-  - Henry
-  - Sean
   - Charles
-  - Nick
-  - Hamza
-  - Nathan
-  - Steve
-  - Mark
-  - James
   - Leon
-  - Donald
-  - Anthony
-  - Luke
+  - Matthew
+  - Sean
+  - Henry
+  - John
+  - Jason

@@ -4,8 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Scriptable Objects/AdvisorIcon", order = 5)]
 
-public class AdvisorIcons : ScriptableObject
+public class AdvisorIcons : AssetListScriptableObject<Sprite>
 {
-    [Header("Icons")]
-    public List<Sprite> icons;
+
 }

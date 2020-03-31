@@ -27,7 +27,7 @@ public class AdvisorListHire : MonoBehaviour
     public int advisorHireLimit = 5;                         //Limit of advisor choices that the player can choose from
 
     public List<Advisor> advisorListBacklog;                 //List of advisors with custom advisors and randomly generated advisors, which the currentHireList will draw from
-    public List<AdvisorPanel> advisorPanels;                 //In game list of advisors that the player will be able to hire as panels
+    private List<AdvisorPanel> advisorPanels;                 //In game list of advisors that the player will be able to hire as panels
 
     //Variables indicating if the category is currently sorted
     private bool ageSort;
@@ -40,6 +40,7 @@ public class AdvisorListHire : MonoBehaviour
 
     private void Awake()
     {
+        advisorPanels = new List<AdvisorPanel>();
         ResetSorts();
     }
 
@@ -71,8 +72,8 @@ public class AdvisorListHire : MonoBehaviour
     public void GenerateRandomAdvisor()
     {
         Advisor newAdvisor = ScriptableObject.CreateInstance<Advisor>();
-        newAdvisor.displayName = GenerateAdvisorName(firstName.advisorNames, lastName.advisorNames);
-        newAdvisor.advisorImage = advisorIcons.icons[Random.Range(0, advisorIcons.icons.Count)];
+        newAdvisor.displayName = GenerateAdvisorName(firstName.assetList, lastName.assetList);
+        newAdvisor.advisorImage = advisorIcons.assetList[Random.Range(0, advisorIcons.assetList.Count)];
         newAdvisor.age = Random.Range(25, 50);
         newAdvisor.knowledge = Random.Range(1, 10);
         newAdvisor.commerce = Random.Range(1, 10);

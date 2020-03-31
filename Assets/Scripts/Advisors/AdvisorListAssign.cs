@@ -9,7 +9,7 @@ public class AdvisorListAssign : MonoBehaviour
     public GameObject advisorListHirePage;
     public GameObject advisorPanelEmployedPrefab;
 
-    public List<AdvisorPanel> advisorPanels;                   //List of currently hired advisors that can be assigned to a planet
+    private List<AdvisorPanel> advisorPanels;                   //List of currently hired advisors that can be assigned to a planet
 
     //Variables indicating if the category is currently sorted
     private bool ageSort;
@@ -20,6 +20,11 @@ public class AdvisorListAssign : MonoBehaviour
     private bool monthlyCostSort;
     private bool priceSort;
     private bool assignedSort;
+
+    private void Awake()
+    {
+        
+    }
 
     // Start is called before the first frame update
     void Start()

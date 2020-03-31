@@ -12,14 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 701cad260d2b4a74b819b4f5e8d7443d, type: 3}
   m_Name: AdvisorLastNameList
   m_EditorClassIdentifier: 
-  advisorNames:
-  - Smith
-  - Hernandez
+  assetList:
   - Lam
   - Ma
-  - Wong
-  - Lee
   - Yang
-  - Roger
-  - Mason
-  - Churchill
+  - Lee
+  - Smith
