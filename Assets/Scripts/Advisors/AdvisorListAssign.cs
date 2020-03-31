@@ -23,7 +23,7 @@ public class AdvisorListAssign : MonoBehaviour
 
     private void Awake()
     {
-        
+        advisorPanels = new List<AdvisorPanel>();
     }
 
     // Start is called before the first frame update
