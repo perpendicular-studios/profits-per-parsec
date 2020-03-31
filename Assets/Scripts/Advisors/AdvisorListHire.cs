@@ -11,7 +11,8 @@ public enum StatType
     Charisma,
     Engineering,
     MonthlyCost,
-    Price
+    Price,
+    Assigned
 }
 
 public class AdvisorListHire : MonoBehaviour
@@ -88,6 +89,17 @@ public class AdvisorListHire : MonoBehaviour
         return fullName;
     }
 
+    public void AddAdvisorFromBeingFired(AdvisorPanel prevPanel)
+    {
+        //Create a panel for the advisor and add to panels list
+        AdvisorPanel panel = Instantiate(advisorPanelPrefab, panelParent).GetComponent<AdvisorPanel>();
+        panel.advisor = prevPanel.advisor;
+        panel.name = prevPanel.name;
+        panel.GetComponentInChildren<HireAdvisor>().advisorListHirePage = gameObject;
+        panel.GetComponentInChildren<RemoveAdvisorCandidate>().advisorList = this;
+        advisorPanels.Add(panel);
+    }
+
     //Refills the advisors you can choose to hire from, up to the number a certain limit
     void RenewAdvisors()
     {
@@ -105,6 +117,7 @@ public class AdvisorListHire : MonoBehaviour
             panel.advisor = advisorListBacklog[random];
             panel.name = advisorListBacklog[random].displayName;
             panel.GetComponentInChildren<HireAdvisor>().advisorListHirePage = gameObject;
+            panel.GetComponentInChildren<RemoveAdvisorCandidate>().advisorList = this;
             advisorPanels.Add(panel);
 
             //Remove from backlog list
@@ -218,6 +231,8 @@ public class AdvisorListHire : MonoBehaviour
                     priceSort = ChangePanelHierarchy(priceSort, advisorPanels);
                     break;
                 }
+            default:
+                break;
         }
     }
 
@@ -240,5 +255,11 @@ public class AdvisorListHire : MonoBehaviour
             statBool = false;
         }
         return statBool;
+    }
+
+    public void RemoveCandidate(AdvisorPanel panel)
+    {
+        advisorPanels.Remove(panel);
+        Destroy(panel.gameObject);
     }
 }

@@ -19,6 +19,7 @@ public class AdvisorListAssign : MonoBehaviour
     private bool engineeringSort;
     private bool monthlyCostSort;
     private bool priceSort;
+    private bool assignedSort;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,7 @@ public class AdvisorListAssign : MonoBehaviour
         AdvisorPanel panel = Instantiate(advisorPanelEmployedPrefab, panelParent).GetComponent<AdvisorPanel>();
         panel.advisor = advisor;
         panel.name = advisor.displayName;
+        panel.GetComponentInChildren<FireAdvisor>().advisorList = this;
         advisorPanels.Add(panel);
     }
 
@@ -77,6 +79,7 @@ public class AdvisorListAssign : MonoBehaviour
         engineeringSort = false;
         monthlyCostSort = false;
         priceSort = false;
+        assignedSort = false;
     }
 
     public void SortPanels(StatType stat)
@@ -85,67 +88,138 @@ public class AdvisorListAssign : MonoBehaviour
         {
             case StatType.Age:
                 {
-                    advisorPanels = advisorPanels.OrderBy(x => x.advisor.age).ToList();
+                    if (ageSort)
+                    {
+                        advisorPanels = advisorPanels.OrderBy(x => x.advisor.age).ToList();
+                    }
+                    else
+                    {
+                        advisorPanels = advisorPanels.OrderByDescending(x => x.advisor.age).ToList();
+                    }
                     ageSort = ChangePanelHierarchy(ageSort, advisorPanels);
                     break;
                 }
             case StatType.Knowledge:
                 {
-                    advisorPanels = advisorPanels.OrderBy(x => x.advisor.knowledge).ToList();
+                    if (knowledgeSort)
+                    {
+                        advisorPanels = advisorPanels.OrderBy(x => x.advisor.knowledge).ToList();
+                    }
+                    else
+                    {
+                        advisorPanels = advisorPanels.OrderByDescending(x => x.advisor.knowledge).ToList();
+                    }
                     knowledgeSort = ChangePanelHierarchy(knowledgeSort, advisorPanels);
                     break;
                 }
             case StatType.Commerce:
                 {
-                    advisorPanels = advisorPanels.OrderBy(x => x.advisor.commerce).ToList();
+                    if (commerceSort)
+                    {
+                        advisorPanels = advisorPanels.OrderBy(x => x.advisor.commerce).ToList();
+                    }
+                    else
+                    {
+                        advisorPanels = advisorPanels.OrderByDescending(x => x.advisor.commerce).ToList();
+                    }
                     commerceSort = ChangePanelHierarchy(commerceSort, advisorPanels);
                     break;
                 }
             case StatType.Charisma:
                 {
-                    advisorPanels = advisorPanels.OrderBy(x => x.advisor.charisma).ToList();
+                    if (charismaSort)
+                    {
+                        advisorPanels = advisorPanels.OrderBy(x => x.advisor.charisma).ToList();
+                    }
+                    else
+                    {
+                        advisorPanels = advisorPanels.OrderByDescending(x => x.advisor.charisma).ToList();
+                    }
                     charismaSort = ChangePanelHierarchy(charismaSort, advisorPanels);
                     break;
                 }
             case StatType.Engineering:
                 {
-                    advisorPanels = advisorPanels.OrderBy(x => x.advisor.engineering).ToList();
+                    if (engineeringSort)
+                    {
+                        advisorPanels = advisorPanels.OrderBy(x => x.advisor.engineering).ToList();
+                    }
+                    else
+                    {
+                        advisorPanels = advisorPanels.OrderByDescending(x => x.advisor.engineering).ToList();
+                    }
                     engineeringSort = ChangePanelHierarchy(engineeringSort, advisorPanels);
                     break;
                 }
             case StatType.MonthlyCost:
                 {
-                    advisorPanels = advisorPanels.OrderBy(x => x.advisor.monthlyCost).ToList();
+                    if (monthlyCostSort)
+                    {
+                        advisorPanels = advisorPanels.OrderBy(x => x.advisor.monthlyCost).ToList();
+                    }
+                    else
+                    {
+                        advisorPanels = advisorPanels.OrderByDescending(x => x.advisor.monthlyCost).ToList();
+                    }
                     monthlyCostSort = ChangePanelHierarchy(monthlyCostSort, advisorPanels);
                     break;
                 }
-            case StatType.Price:
+            case StatType.Assigned:
                 {
-                    advisorPanels = advisorPanels.OrderBy(x => x.advisor.cost).ToList();
-                    priceSort = ChangePanelHierarchy(priceSort, advisorPanels);
+                    advisorPanels = advisorPanels.OrderBy(e => e.isAssigned ? 0 : 1).ToList();
+                    assignedSort = ChangePanelHierarchy(assignedSort, advisorPanels);
                     break;
                 }
+            default:
+                break;
         }
     }
 
     bool ChangePanelHierarchy(bool statBool, List<AdvisorPanel> panels)
     {
+        //If clicked only once show from highest to lowest
         if (!statBool)
         {
-            foreach (AdvisorPanel panel in panels)
-            {
-                panel.transform.SetAsFirstSibling();
-            }
             statBool = true;
         }
         else
         {
-            foreach (AdvisorPanel panel in panels)
-            {
-                panel.transform.SetAsLastSibling();
-            }
             statBool = false;
         }
+
+        //Check if idle toggle is on
+        panels = ToggleIdleShownFirst(panels);
+
+        //Order panels accordingly
+        foreach (AdvisorPanel panel in panels)
+        {
+            panel.transform.SetAsFirstSibling();
+        }
+
         return statBool;
+    }
+
+    //Show idle advisors first
+    List<AdvisorPanel> ToggleIdleShownFirst(List<AdvisorPanel> panels)
+    {
+        //If assigned sort bool is already on
+        if (assignedSort)
+        {
+            //Debug.Log("ordering by idle");
+            advisorPanels = advisorPanels.OrderBy(x => x.isAssigned ? 0 : 1).ToList();
+            return advisorPanels;
+        }
+        else
+        {
+            return panels;
+        }
+
+    }
+
+    public void FireAdvisor(AdvisorPanel panel)
+    {
+        advisorPanels.Remove(panel);
+        Destroy(panel.gameObject);
+        advisorListHirePage.GetComponent<AdvisorListHire>().AddAdvisorFromBeingFired(panel);
     }
 }
