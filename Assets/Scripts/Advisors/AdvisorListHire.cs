@@ -11,7 +11,8 @@ public enum StatType
     Charisma,
     Engineering,
     MonthlyCost,
-    Price
+    Price,
+    Assigned
 }
 
 public class AdvisorListHire : MonoBehaviour
@@ -26,7 +27,7 @@ public class AdvisorListHire : MonoBehaviour
     public int advisorHireLimit = 5;                         //Limit of advisor choices that the player can choose from
 
     public List<Advisor> advisorListBacklog;                 //List of advisors with custom advisors and randomly generated advisors, which the currentHireList will draw from
-    public List<AdvisorPanel> advisorPanels;                 //In game list of advisors that the player will be able to hire as panels
+    private List<AdvisorPanel> advisorPanels;                 //In game list of advisors that the player will be able to hire as panels
 
     //Variables indicating if the category is currently sorted
     private bool ageSort;
@@ -39,6 +40,7 @@ public class AdvisorListHire : MonoBehaviour
 
     private void Awake()
     {
+        advisorPanels = new List<AdvisorPanel>();
         ResetSorts();
     }
 
@@ -70,8 +72,8 @@ public class AdvisorListHire : MonoBehaviour
     public void GenerateRandomAdvisor()
     {
         Advisor newAdvisor = ScriptableObject.CreateInstance<Advisor>();
-        newAdvisor.displayName = GenerateAdvisorName(firstName.advisorNames, lastName.advisorNames);
-        newAdvisor.advisorImage = advisorIcons.icons[Random.Range(0, advisorIcons.icons.Count)];
+        newAdvisor.displayName = GenerateAdvisorName(firstName.assetList, lastName.assetList);
+        newAdvisor.advisorImage = advisorIcons.assetList[Random.Range(0, advisorIcons.assetList.Count)];
         newAdvisor.age = Random.Range(25, 50);
         newAdvisor.knowledge = Random.Range(1, 10);
         newAdvisor.commerce = Random.Range(1, 10);
@@ -86,6 +88,17 @@ public class AdvisorListHire : MonoBehaviour
     {
         string fullName = firstNames[Random.Range(0, firstNames.Count)] + " " + lastNames[Random.Range(0, lastNames.Count)];
         return fullName;
+    }
+
+    public void AddAdvisorFromBeingFired(AdvisorPanel prevPanel)
+    {
+        //Create a panel for the advisor and add to panels list
+        AdvisorPanel panel = Instantiate(advisorPanelPrefab, panelParent).GetComponent<AdvisorPanel>();
+        panel.advisor = prevPanel.advisor;
+        panel.name = prevPanel.name;
+        panel.GetComponentInChildren<HireAdvisor>().advisorListHirePage = gameObject;
+        panel.GetComponentInChildren<RemoveAdvisorCandidate>().advisorList = this;
+        advisorPanels.Add(panel);
     }
 
     //Refills the advisors you can choose to hire from, up to the number a certain limit
@@ -105,6 +118,7 @@ public class AdvisorListHire : MonoBehaviour
             panel.advisor = advisorListBacklog[random];
             panel.name = advisorListBacklog[random].displayName;
             panel.GetComponentInChildren<HireAdvisor>().advisorListHirePage = gameObject;
+            panel.GetComponentInChildren<RemoveAdvisorCandidate>().advisorList = this;
             advisorPanels.Add(panel);
 
             //Remove from backlog list
@@ -218,6 +232,8 @@ public class AdvisorListHire : MonoBehaviour
                     priceSort = ChangePanelHierarchy(priceSort, advisorPanels);
                     break;
                 }
+            default:
+                break;
         }
     }
 
@@ -240,5 +256,11 @@ public class AdvisorListHire : MonoBehaviour
             statBool = false;
         }
         return statBool;
+    }
+
+    public void RemoveCandidate(AdvisorPanel panel)
+    {
+        advisorPanels.Remove(panel);
+        Destroy(panel.gameObject);
     }
 }

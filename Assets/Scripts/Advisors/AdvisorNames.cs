@@ -4,8 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Scriptable Objects/AdvisorName", order = 4)]
 
-public class AdvisorNames : ScriptableObject
+public class AdvisorNames : AssetListScriptableObject<string>
 {
-    [Header("Names")]
-    public List<string> advisorNames;
+
 }

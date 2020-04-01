@@ -16,13 +16,16 @@ public class AdvisorPanel : MonoBehaviour
     public Text commerce;
     public Text charisma;
     public Text engineering;
+    public bool isAssigned;
 
+    public Dropdown dropdown;
     public Image panelBackground;
     //private AdvisorDisplay display;
 
     public void Awake()
     {
         panelBackground = GetComponent<Image>();
+        isAssigned = false;
         //display = GetComponentInParent<AdvisorDisplay>();
     }
 
@@ -35,12 +38,23 @@ public class AdvisorPanel : MonoBehaviour
             advisorImage.sprite = advisor.advisorImage;
             displayName.text = advisor.displayName.ToString();
             age.text = advisor.age.ToString();
-            cost.text = advisor.cost.ToString();
-            monthlyCost.text = advisor.monthlyCost.ToString();
             knowledge.text = advisor.knowledge.ToString();
             commerce.text = advisor.commerce.ToString();
             charisma.text = advisor.charisma.ToString();
             engineering.text = advisor.engineering.ToString();
+            monthlyCost.text = advisor.monthlyCost.ToString();
+
+            if (cost != null)
+            {
+                cost.text = advisor.cost.ToString();
+            }
+
+
+            if (dropdown != null)
+            {
+                dropdown.onValueChanged.AddListener(delegate { DropdownValueChangedHandler(dropdown); });
+            }
+
         }
 
     }
@@ -51,8 +65,24 @@ public class AdvisorPanel : MonoBehaviour
         
     }
 
-    void OnClick()
+    void Destroy()
     {
-       
+        dropdown.onValueChanged.RemoveAllListeners();
+    }
+
+    private void DropdownValueChangedHandler(Dropdown target)
+    {
+        //If idle is selected
+        if(target.value == 0)
+        {
+            isAssigned = false;
+        }
+        else
+        {
+            isAssigned = true;
+            
+            //Assign advisor to planet here
+        }
+        Debug.Log("selected: " + target.options[target.value].text);
     }
 }

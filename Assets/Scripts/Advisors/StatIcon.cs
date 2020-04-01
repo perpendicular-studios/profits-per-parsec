@@ -7,6 +7,10 @@ using UnityEngine.EventSystems;
 public class StatIcon : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
     public StatType stat;
+    public bool checkmark;
+    public Sprite checkmarkImage;
+    public Sprite uncheckmarkImage;
+    private bool toggled;
     public GameObject tooltip;
     public GameObject page;
 
@@ -15,6 +19,23 @@ public class StatIcon : MonoBehaviour, IPointerEnterHandler, IPointerClickHandle
         if(page.GetComponent<AdvisorListHire>() != null)
         {
             page.GetComponent<AdvisorListHire>().SortPanels(stat);
+        }
+        if(page.GetComponent<AdvisorListAssign>() != null)
+        {
+            page.GetComponent<AdvisorListAssign>().SortPanels(stat);
+        }
+        //If stat is the assigned bool
+        if (checkmark && !toggled)
+        {
+            //Show checkmark
+            gameObject.GetComponent<Image>().sprite = checkmarkImage;
+            toggled = true;
+        }
+        else if (checkmark && toggled)
+        {
+            //Unshow checkmark
+            gameObject.GetComponent<Image>().sprite = uncheckmarkImage;
+            toggled = false;
         }
     }
 
