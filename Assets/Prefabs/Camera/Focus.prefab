@@ -128,12 +128,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraOffset: {x: 10, y: 14}
   lookAtOffset: 2
-  initialZoom: 50
+  initialZoom: 10
   inOutSpeed: 30
   lateralSpeed: 30
   rotateSpeed: 45
   zoomSpeed: 50
-  minBounds: {x: -100, y: -100}
-  maxBounds: {x: 100, y: 100}
-  nearZoomLimit: 10
-  farZoomLimit: 500
+  minBounds: {x: -1000, y: -1000}
+  maxBounds: {x: 1000, y: 1000}
+  nearZoomLimit: 5
+  farZoomLimit: 200

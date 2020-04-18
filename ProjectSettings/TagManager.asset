@@ -17,6 +17,7 @@ TagManager:
   - Uranus
   - Venus
   - RocketLauncher
+  - PauseButton
   layers:
   - Default
   - TransparentFX

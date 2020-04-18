@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class AssetListScriptableObject<T> : ScriptableObject
 {
-    [Header("List")]
+    [Header("Asset List")]
     public List<T> assetList;
 }

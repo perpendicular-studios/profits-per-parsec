@@ -52,25 +52,25 @@ public class CameraController : MonoBehaviour
             }
 
             Vector3 frameMoveWithSpeed = new Vector3(xMoveWithSpeed, frameMove.y, zMoveWithSpeed);
-            transform.position += transform.TransformDirection(frameMoveWithSpeed) * Time.deltaTime;
+            transform.position += transform.TransformDirection(frameMoveWithSpeed) * Time.unscaledDeltaTime;
             CalculateBounds();
             frameMove = Vector3.zero;
         }
 
         if(frameRotate != 0)
         {
-            transform.Rotate(Vector3.up, frameRotate * Time.deltaTime * rotateSpeed);
+            transform.Rotate(Vector3.up, frameRotate * Time.unscaledDeltaTime * rotateSpeed);
             frameRotate = 0;
         }
 
         if(frameZoom < 0f)
         {
-            zoomStrategy.ZoomIn(cam, Time.deltaTime * Mathf.Abs(frameZoom) * zoomSpeed, nearZoomLimit);
+            zoomStrategy.ZoomIn(cam, Time.unscaledDeltaTime * Mathf.Abs(frameZoom) * zoomSpeed, nearZoomLimit);
             frameZoom = 0f;
         }
         else if(frameZoom > 0f)
         {
-            zoomStrategy.ZoomOut(cam, Time.deltaTime * frameZoom * zoomSpeed, farZoomLimit);
+            zoomStrategy.ZoomOut(cam, Time.unscaledDeltaTime * frameZoom * zoomSpeed, farZoomLimit);
             frameZoom = 0f;
         }
     }
