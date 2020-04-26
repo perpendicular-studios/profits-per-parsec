@@ -22,14 +22,14 @@ public class RocketController : GameController<RocketController>
 
     public void OnEnable()
     {
-        BuildingController.OnRocketLaunch += CreateRocket;
-        BuildingController.OnRocketDestroy += RemoveRocket;
+        BuildingManager.OnRocketLaunch += CreateRocket;
+        BuildingManager.OnRocketDestroy += RemoveRocket;
     }
 
     public void OnDisable()
     {
-        BuildingController.OnRocketLaunch -= CreateRocket;
-        BuildingController.OnRocketDestroy -= RemoveRocket;
+        BuildingManager.OnRocketLaunch -= CreateRocket;
+        BuildingManager.OnRocketDestroy -= RemoveRocket;
     }
 
     public void CreateRocket(string startPosition, string target)

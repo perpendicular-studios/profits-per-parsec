@@ -19,4 +19,4 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: b97ce0aa79dc1b448abeede5d0bf333f, type: 3}
   displayName: Launch Pad
   description: Universal expansion!
-  cashPerSecond: 0
+  cashPerTick: 50

@@ -19,7 +19,7 @@ public class PlayerStatController : GameController<PlayerStatController>
     public int governmentSupport { get { return _governmentSupport; } set { _governmentSupport = value; } }
     public int publicRelation { get { return _publicRelation; } set { _publicRelation = value; } }
 
-    void Start() {}
+    public string currentPlanet = "";
 
     void Update()
     {

@@ -116,6 +116,7 @@ public class PlanetClickHandler : MonoBehaviour
     private void EnterPlanet() {
         if (selectedObject != null)
         {
+            PlayerStatController.instance.currentPlanet = selectedObject.GetComponent<Transform>().parent.tag;
             SceneManager.LoadScene($"{selectedObject.GetComponent<Transform>().parent.tag}Scene");
         }
     }

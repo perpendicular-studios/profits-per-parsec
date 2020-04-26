@@ -13,5 +13,5 @@ public class Building : ScriptableObject
     [Header("Building Stats")]
     public string displayName;
     public string description;
-    public float cashPerSecond;
+    public int cashPerTick;
 }

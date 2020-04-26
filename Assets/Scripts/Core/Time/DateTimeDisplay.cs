@@ -7,17 +7,22 @@ public class DateTimeDisplay : MonoBehaviour
 {
     public Text textDisplay;
     public Button pauseButton;
+    public Button slowDownButton, speedUpButton;
+    public Text speedDisplay;
 
     public Sprite pauseImage, playImage;
 
     public void Awake()
     {
         pauseButton.onClick.AddListener(delegate { OnPause(); });
+        slowDownButton.onClick.AddListener(delegate { SlowDown(); });
+        speedUpButton.onClick.AddListener(delegate { SpeedUp(); });
     }
 
     public void Update()
     {
         textDisplay.text = DateTimeController.instance.GetFormattedDateTime();
+        speedDisplay.text = DateTimeController.instance.speed.ToString();
         UpdatePause();
     }
 
@@ -48,6 +53,16 @@ public class DateTimeDisplay : MonoBehaviour
             pauseButton.image.sprite = playImage;
             DateTimeController.instance.Pause();
         }
+    }
+
+    public void SlowDown()
+    {
+        DateTimeController.instance.SlowDown();
+    }
+
+    public void SpeedUp()
+    {
+        DateTimeController.instance.SpeedUp();
     }
 
 }

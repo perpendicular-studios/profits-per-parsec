@@ -11,8 +11,18 @@ public class DateTimeController : GameController<DateTimeController> {
     private int currentYear = 0;
 
     public bool paused = false;
+    public int speed = 1;
 
     private double realTime = 0;
+
+    public delegate void DailyTick();
+    public static event DailyTick OnDailyTick;
+
+    public delegate void MonthlyTick();
+    public static event MonthlyTick OnMonthlyTick;
+
+    public delegate void AnnualTick();
+    public static event AnnualTick OnAnnualTick;
 
     public void FixedUpdate()
     {
@@ -20,18 +30,21 @@ public class DateTimeController : GameController<DateTimeController> {
         {
             currentDay++;
             realTime = 0;
+            OnDailyTick?.Invoke();
         }
 
         if (currentDay > 31)
         {
             currentMonth++;
             currentDay = 0;
+            OnMonthlyTick?.Invoke();
         }
 
         if (currentMonth > 12)
         {
             currentYear++;
             currentMonth = 0;
+            OnAnnualTick?.Invoke();
         }
         
         realTime += Time.deltaTime;   
@@ -47,6 +60,24 @@ public class DateTimeController : GameController<DateTimeController> {
     {
         paused = false;
         Time.timeScale = 1;
+    }
+
+    public void SlowDown()
+    {
+        if (speed > 1)
+        {
+            speed--;
+            Time.timeScale = speed;
+        }
+    }
+
+    public void SpeedUp()
+    {
+        if (speed < DateTimeConstants.MAX_TIME_SPEED)
+        {
+            speed++;
+            Time.timeScale = speed;
+        }
     }
 
     public string GetFormattedDateTime()

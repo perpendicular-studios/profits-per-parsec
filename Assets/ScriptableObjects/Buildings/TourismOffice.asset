@@ -19,4 +19,4 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 7396712ab0fc7f04792fb272d78ca9ab, type: 3}
   displayName: Tourism Office
   description: Travel the cosmos
-  cashPerSecond: 0
+  cashPerTick: 100
