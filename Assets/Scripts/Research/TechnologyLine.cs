@@ -1,21 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TechnologyLine : MonoBehaviour
 {
-    public TechnologyButton parent;
-    private Technology technology;
+    public ResearchDisplay display;
     private Vector3 pointA;
     private Vector3 pointB;
-    public RectTransform imageRectTransformPrefab;
-    public List<RectTransform> techLineList;
+    public GameObject imageRectTransformPrefab;
+
     private bool ranOnce = false;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        display = GetComponentInParent<ResearchDisplay>();
     }
 
     // Place in update because the line generation must happen after the intial instantiation
@@ -24,43 +25,62 @@ public class TechnologyLine : MonoBehaviour
         // Only need to run this code once
         if (!ranOnce)
         {
-            // Set initial variables
-            technology = parent.technology;
-            pointA = gameObject.transform.position;
-
-            // Loop through each prerequisite tech from the previous tier
-            foreach (TechnologyButton panel in parent.prerequsiteButtons)
-            {
-                // Instantiate a new image line
-                RectTransform imageRectTransform = Instantiate(imageRectTransformPrefab, parent.transform).GetComponent<RectTransform>();
-                pointB = panel.transform.position;
-
-                // Find relative distance between prev tech and new tech
-                Vector3 differenceVector = pointB - pointA;
-                differenceVector += new Vector3(30, 0, 0);
-
-                // Set image position and rotation
-                imageRectTransform.sizeDelta = new Vector2(differenceVector.magnitude, 4);
-                imageRectTransform.pivot = new Vector2(0, 0.5f);
-                imageRectTransform.position = pointA;
-
-                float angle = Mathf.Atan2(differenceVector.y, differenceVector.x) * Mathf.Rad2Deg;
-                imageRectTransform.localRotation = Quaternion.Euler(0, 0, angle);
-
-                // Add the line to a list
-                techLineList.Add(imageRectTransform);
-            }
+            CreateLine();
             ranOnce = true;
         }
-        
+        UpdateColor();
+    }
+
+    public void CreateLine()
+    {
+
+        // Loop through each prerequisite tech from the previous tier
+        foreach (TechnologyButton button in display.technologyButtons)
+        {
+            foreach(TechnologyButton prereq in button.prerequsiteButtons)
+            {
+                pointA = button.transform.position;
+
+                // Instantiate a new image line
+                GameObject go = Instantiate(imageRectTransformPrefab, prereq.transform);
+                pointB = prereq.transform.position;
+
+                // Find relative distance between prev tech and new tech
+                pointB += new Vector3(30, 0, 0);
+                pointA += new Vector3(-30, 0, 0);
+                Vector3 differenceVector = pointB - pointA;
+                //differenceVector += new Vector3(30, 0, 0);
+
+                // Set image position and rotation
+                go.GetComponent<RectTransform>().sizeDelta = new Vector2(differenceVector.magnitude, 4);
+                go.GetComponent<RectTransform>().pivot = new Vector2(0, 0.5f);
+                go.GetComponent<RectTransform>().position = pointA;
+
+                float angle = Mathf.Atan2(differenceVector.y, differenceVector.x) * Mathf.Rad2Deg;
+                go.GetComponent<RectTransform>().localRotation = Quaternion.Euler(0, 0, angle);
+
+                // Add the line to a list
+                button.preqrequsiteLines.Add(go);
+            }
+
+        }
     }
 
     // Changes the color of the line when the tech is unlocked
-    public void changeColor()
+    public void UpdateColor()
     {
-        foreach(RectTransform rt in techLineList)
+        foreach(TechnologyButton button in display.technologyButtons)
         {
-            rt.GetComponent<Image>().color = Color.blue;
+            if (!button.technology.isLocked)
+            {
+                foreach (GameObject go in button.preqrequsiteLines)
+                {
+                    go.GetComponent<RectTransform>().GetComponent<Image>().color = UnityEngine.Color.blue;
+                    Debug.Log("change to blue");
+
+
+                }
+            }
         }
     }
 }

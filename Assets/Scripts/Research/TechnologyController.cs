@@ -4,58 +4,29 @@ using UnityEngine;
 
 public class TechnologyController : GameController<TechnologyController>
 {
-    public List<Technology> unlockedTechList;
-    public int dataPoints;
+    public List<Technology> techListStates;                         //Contains a list of all technologies and their current status
+    public List<Technology> unlockedTechList;                       //Only contains a list of unlocked technologies for prerequsite checks
+    public int researchSpeed = 100;
+
+    public delegate void technologySync();
+    public static event technologySync SyncTech;
 
     void Awake()
     {
-        dataPoints = 10000;
+        unlockedTechList = new List<Technology>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void OnEnable()
-    {
-        TechnologyButton.OnTechClick += TryUnlock;
-        TechnologyButton.CheckUnlock += ShowIfCanUnlock;
-    }
-
-    public void OnDisable()
-    {
-        TechnologyButton.OnTechClick -= TryUnlock;
-        TechnologyButton.CheckUnlock -= ShowIfCanUnlock;
-    }
-
-    public void ShowIfCanUnlock(Technology tech, TechnologyButton button)
-    {
-        // Check if tech can be unlocked
-        if (CanUnlock(tech))
-        {
-            button.showCanUnlockImage();
-        }
-    }
-
-    public void TryUnlock(Technology tech, TechnologyButton button)
-    {
-        Debug.Log("Test Unlock");
-        // Check if tech can be unlocked
-        if(CanUnlock(tech))
-        {
-            Unlock(tech, button);
-            Debug.Log("Unlocked");
-        }
+        researchSpeed = PlayerStatController.instance.researchSpeed;
     }
 
     public bool CanUnlock(Technology tech)
     {
         // Check if tech is currently unlocked, if it is already unlocked return false
-        if (!unlockedTechList.Contains(tech))
+        if (tech.isLocked)
         {
-            Debug.Log("Has not been unlocked");
             // Check if tech prerequisties are fulfilled
             foreach (Technology t in tech.prerequisite)
             {
@@ -65,14 +36,7 @@ public class TechnologyController : GameController<TechnologyController>
                     return false;
                 }
             }
-
-            // Check if player data points are enough to purchase the technology
-            if (dataPoints >= tech.researchCost)
-            {
-                return true;
-            }
-            Debug.Log("Not enough data points");
-            return false;
+            return true;
         }
         Debug.Log("Already Unlocked");
         return false;
@@ -81,7 +45,21 @@ public class TechnologyController : GameController<TechnologyController>
     public void Unlock(Technology tech, TechnologyButton button)
     {
         unlockedTechList.Add(tech);
-        button.unlockImage();
-        
+        tech.isLocked = false;
+        button.UnlockImage();
+
+        //Update unlockable techs 
+        SyncTech?.Invoke();
+    }
+
+    // When player clicks on a technology to begin research
+    public void StartResearch(Technology technology, TechnologyButton button)
+    {
+        // If technology is currently locked and prerequisites are satisified 
+        if (CanUnlock(technology))
+        {
+            // Start Research Timer
+            Unlock(technology, button);
+        }
     }
 }

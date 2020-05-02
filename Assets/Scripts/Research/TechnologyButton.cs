@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
     public Technology technology;
+    public List<Technology> ownedTechnologies;
+    public int researchSpeed;
 
     public GameObject hoverPanel;
     public Text displayTitle;
@@ -16,22 +18,14 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
     public Image techIconUnlocked;
     public Image techIconLocked;
     public Image panelBackground;
-    public GameObject techLine;
     public List<TechnologyButton> prerequsiteButtons;
+    public List<GameObject> preqrequsiteLines;
 
-
-    private Button button;
     private ResearchDisplay display;
-
-    public delegate void technologyClickHandler(Technology technology, TechnologyButton button);
-    public static event technologyClickHandler OnTechClick;
-
-    public delegate void checkTech(Technology technology, TechnologyButton button);
-    public static event checkTech CheckUnlock;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
+        TechnologyController.instance.StartResearch(technology, this);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -44,53 +38,74 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
         hoverPanel.SetActive(false);
     }
 
-    public void Awake()
+    public void OnEnable()
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(delegate { OnClick(); });
-        panelBackground = GetComponent<Image>();
-        display = GetComponentInParent<ResearchDisplay>();
-        hoverPanel.SetActive(false);
-        technology.isLocked = true;
+        TechnologyController.SyncTech += ShowCanUnlockImage;
     }
 
-    public void Start()
+    public void OnDisable()
     {
-        // Set all variables to equal the scriptable object
-        if (technology != null)
-        {
-            displayTitle.text = technology.displayName;
-            displayDescription.text = technology.description;
-            techIconLocked.sprite = technology.lockedImage;
-            researchCost.text = technology.researchCost.ToString();
-            hoverPanel.GetComponent<ResearchToolTips>().SetToolTipSize(displayTitle, displayDescription);
-        }
+        TechnologyController.SyncTech -= ShowCanUnlockImage;
     }
 
     public void Update()
     {
-        CheckUnlock?.Invoke(technology, this);
+        //Get current research speed
+        researchSpeed = PlayerStatController.instance.researchSpeed;
+    }
+
+    public void SetTechnology(Technology tech)
+    {
+        technology = tech;
+
+        // Initialize list if necessary
+        if (TechnologyController.instance.techListStates == null)
+        {
+            TechnologyController.instance.techListStates = new List<Technology>();
+        }
+
+        // If technology controller singleton does not contain the current technology add to the list (should only happen on game launch)
+        if (!TechnologyController.instance.techListStates.Exists(t => t.displayName == technology.displayName))
+        {
+            TechnologyController.instance.techListStates.Add(technology);
+            technology.isLocked = true;
+        }
+
+        // Mandatory setup tasks
+        panelBackground = GetComponent<Image>();
+        display = GetComponentInParent<ResearchDisplay>();
+        hoverPanel.SetActive(false);
+
+        // Technology Setup
+        displayTitle.text = technology.displayName;
+        displayDescription.text = technology.description;
+        techIconLocked.sprite = technology.lockedImage;
+        researchCost.text = technology.researchCost.ToString();
+        hoverPanel.GetComponent<ResearchToolTips>().SetToolTipSize(displayTitle, displayDescription);
+        ShowCanUnlockImage();
+
+        if (!tech.isLocked)
+        {
+            UnlockImage();
+        }
     }
 
     // Shows that a tech can be unlocked or progress of unlock
-    public void showCanUnlockImage()
+    public void ShowCanUnlockImage()
     {
-        techIconLocked.sprite = technology.unlockedImage;
-        techIconLocked.color = Color.white;
+        if (TechnologyController.instance.CanUnlock(technology))
+        {
+            techIconLocked.sprite = technology.unlockedImage;
+            techIconLocked.color = Color.white;
+        }
+
     }
 
     // Updates tech icon image and changes the color
-    public void unlockImage()
+    public void UnlockImage()
     {
         Debug.Log("Unlocked Image");
         techIconLocked.sprite = technology.unlockedImage;
         techIconLocked.color = Color.blue;
-        techLine.GetComponent<TechnologyLine>().changeColor();
     }
-
-    public void OnClick()
-    {
-        OnTechClick?.Invoke(technology, this);
-    }
-
 }

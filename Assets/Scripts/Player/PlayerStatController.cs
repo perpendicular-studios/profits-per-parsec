@@ -14,15 +14,17 @@ public class PlayerStatController : GameController<PlayerStatController>
     [Range(-100, 100)]
     private int _governmentSupport;
 
+    private int _researchSpeed;
+
     public int cash { get { return _cash; } set { _cash = value; } }
     public float growthRate { get { return _growthRate; } set { _growthRate = value; } }
     public int governmentSupport { get { return _governmentSupport; } set { _governmentSupport = value; } }
     public int publicRelation { get { return _publicRelation; } set { _publicRelation = value; } }
+    public int researchSpeed { get { return _researchSpeed; } set { _researchSpeed = value; } }
 
     public string currentPlanet = "";
 
     void Update()
     {
-        
     }
 }

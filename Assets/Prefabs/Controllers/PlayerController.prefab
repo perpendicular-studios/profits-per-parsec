@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8919025609262930628}
   - component: {fileID: 8919025609262930630}
   - component: {fileID: 271170881}
-  - component: {fileID: 1958455992}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Player
@@ -68,20 +67,6 @@ MonoBehaviour:
   selectedBuildingObject: {fileID: 0}
   selectedBuildingMaterial: {fileID: 2100000, guid: dd0a65a28a0e7d64ba726b9da5459394,
     type: 2}
---- !u!114 &1958455992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8919025609262930631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c690ff160e1be469865c5e54776bc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unlockedTechList: []
-  dataPoints: 10000
 --- !u!1001 &8919025608492896463
 PrefabInstance:
   m_ObjectHideFlags: 0

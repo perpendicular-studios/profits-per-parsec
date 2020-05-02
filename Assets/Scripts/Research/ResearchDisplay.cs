@@ -9,6 +9,7 @@ public class ResearchDisplay : MonoBehaviour
     public Transform panelParent;
     public Image researchBackground;
     public ResearchDisplay prevDisplay;
+    public TechnologyLine lineGenerator;
    
     public List<TechnologyButton> technologyButtons;
 
@@ -24,15 +25,19 @@ public class ResearchDisplay : MonoBehaviour
 
     private void GenerateTechPanels()
     {
+        technologyButtons = new List<TechnologyButton>();
         foreach (Technology technology in technologies)
         {
-            TechnologyButton panel = Instantiate(technology.researchUIPrefab, panelParent).GetComponent<TechnologyButton>();
-            panel.technology = technology;
-            panel.name = technology.displayName;
+            TechnologyButton button = Instantiate(technology.researchUIPrefab, panelParent).GetComponent<TechnologyButton>();
+            button.technology = technology;
+            button.name = technology.displayName;
+            button.SetTechnology(technology);
+            technologyButtons.Add(button);
         }
 
-        technologyButtons = new List<TechnologyButton>();
-        technologyButtons.AddRange(GetComponentsInChildren<TechnologyButton>());
+
+
+
     }
 
     private void SetPrerequisiteInstances()
