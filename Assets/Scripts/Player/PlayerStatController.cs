@@ -14,7 +14,7 @@ public class PlayerStatController : GameController<PlayerStatController>
     [Range(-100, 100)]
     private int _governmentSupport;
 
-    private int _researchSpeed;
+    private int _researchSpeed = 100;
 
     public int cash { get { return _cash; } set { _cash = value; } }
     public float growthRate { get { return _growthRate; } set { _growthRate = value; } }

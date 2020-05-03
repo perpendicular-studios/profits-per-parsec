@@ -34,10 +34,6 @@ public class ResearchDisplay : MonoBehaviour
             button.SetTechnology(technology);
             technologyButtons.Add(button);
         }
-
-
-
-
     }
 
     private void SetPrerequisiteInstances()

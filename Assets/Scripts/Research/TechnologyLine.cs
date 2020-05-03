@@ -19,6 +19,16 @@ public class TechnologyLine : MonoBehaviour
         display = GetComponentInParent<ResearchDisplay>();
     }
 
+    private void OnEnable()
+    {
+        TechnologyController.SyncTech += UpdateColor;
+    }
+
+    private void OnDisable()
+    {
+        TechnologyController.SyncTech -= UpdateColor;
+    }
+
     // Place in update because the line generation must happen after the intial instantiation
     void Update()
     {
@@ -27,8 +37,7 @@ public class TechnologyLine : MonoBehaviour
         {
             CreateLine();
             ranOnce = true;
-        }
-        UpdateColor();
+        }   
     }
 
     public void CreateLine()

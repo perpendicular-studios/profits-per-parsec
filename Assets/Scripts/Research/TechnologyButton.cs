@@ -25,7 +25,7 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        TechnologyController.instance.StartResearch(technology, this);
+        TechnologyController.instance.StartResearch(technology);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -41,17 +41,17 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
     public void OnEnable()
     {
         TechnologyController.SyncTech += ShowCanUnlockImage;
+        DateTimeController.OnDailyTick += UpdateTechnologyText;
     }
 
     public void OnDisable()
     {
         TechnologyController.SyncTech -= ShowCanUnlockImage;
+        DateTimeController.OnDailyTick -= UpdateTechnologyText;
     }
 
     public void Update()
     {
-        //Get current research speed
-        researchSpeed = PlayerStatController.instance.researchSpeed;
     }
 
     public void SetTechnology(Technology tech)
@@ -68,6 +68,7 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
         if (!TechnologyController.instance.techListStates.Exists(t => t.displayName == technology.displayName))
         {
             TechnologyController.instance.techListStates.Add(technology);
+            TechnologyController.instance.techProgress.Add(technology, technology.researchCost);
             technology.isLocked = true;
         }
 
@@ -80,17 +81,19 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
         displayTitle.text = technology.displayName;
         displayDescription.text = technology.description;
         techIconLocked.sprite = technology.lockedImage;
-        researchCost.text = technology.researchCost.ToString();
+        int researchTime = technology.researchCost;
+        if (researchSpeed != 0)
+        {
+            researchTime /= researchSpeed;
+        }
+
+        researchCost.text = researchTime.ToString();
         hoverPanel.GetComponent<ResearchToolTips>().SetToolTipSize(displayTitle, displayDescription);
         ShowCanUnlockImage();
 
-        if (!tech.isLocked)
-        {
-            UnlockImage();
-        }
     }
 
-    // Shows that a tech can be unlocked or progress of unlock
+    // Shows that a tech can be unlocked or if it is unlocked
     public void ShowCanUnlockImage()
     {
         if (TechnologyController.instance.CanUnlock(technology))
@@ -99,6 +102,10 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
             techIconLocked.color = Color.white;
         }
 
+        if (!technology.isLocked)
+        {
+            UnlockImage();
+        }
     }
 
     // Updates tech icon image and changes the color
@@ -107,5 +114,28 @@ public class TechnologyButton : MonoBehaviour, IPointerEnterHandler, IPointerCli
         Debug.Log("Unlocked Image");
         techIconLocked.sprite = technology.unlockedImage;
         techIconLocked.color = Color.blue;
+    }
+
+    // Controls the text for number of days required for research
+    public void UpdateTechnologyText()
+    {
+        researchSpeed = PlayerStatController.instance.researchSpeed;
+        int researchTime = TechnologyController.instance.techProgress[technology];
+
+        // Make sure research speed is not zero
+        if (researchSpeed != 0)
+        {
+            researchTime /= researchSpeed;
+        }
+
+        // If research complete show nothing 
+        if (researchTime != 0)
+        {
+            researchCost.text = researchTime.ToString() + " Days";
+        }
+        else
+        {
+            researchCost.text = string.Empty;
+        }
     }
 }
