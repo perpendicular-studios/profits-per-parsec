@@ -24,8 +24,7 @@ public class OrbitMotion : MonoBehaviour
     // Called before start
     void Awake()
     {
-        lr = GetComponent<LineRenderer>();
-        CalculateEllipse();
+
     }
 
     // Start is called before the first frame update
@@ -36,6 +35,8 @@ public class OrbitMotion : MonoBehaviour
             orbitActive = false;
             return;
         }
+        lr = GetComponent<LineRenderer>();
+        CalculateEllipse();
         SetOrbitingObjectPosition();
         StartCoroutine(AnimateOrbit());
     }

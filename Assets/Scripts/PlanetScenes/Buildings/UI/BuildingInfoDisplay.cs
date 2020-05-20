@@ -51,9 +51,20 @@ public class BuildingInfoDisplay : MonoBehaviour
 
     public void DisableBuildingInfoDisplay()
     {
-        panelBackground.enabled = false;
-        titleDisplay.enabled = false;
-        buildingImageDisplay.enabled = false;
+        if(panelBackground != null)
+        {
+            panelBackground.enabled = false;
+
+        }
+        if(titleDisplay != null)
+        {
+            titleDisplay.enabled = false;
+        }
+        if(buildingImageDisplay != null)
+        {
+            buildingImageDisplay.enabled = false;
+        }
+
     }
 
 }

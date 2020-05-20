@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &564478087213648559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 564478087213648557}
+  - component: {fileID: 564478087213648556}
+  m_Layer: 0
+  m_Name: PlanetGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &564478087213648557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564478087213648559}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &564478087213648556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564478087213648559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65585e20d1ba50d43883f33583c82e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sunCenter: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
+  planets:
+  - {fileID: 11400000, guid: d188a4a147f196343adcbebde700416a, type: 2}
+  - {fileID: 11400000, guid: afe60decbcada514892bc4b228b91dd8, type: 2}
+  - {fileID: 11400000, guid: d40f2c9063783cb45bbfebc7f59e21d7, type: 2}
+  - {fileID: 11400000, guid: d4c9f28cd02b6764c808e63be0b08bbd, type: 2}
+  - {fileID: 11400000, guid: d3633e83361217145bf6c970eae1f9e9, type: 2}
+  - {fileID: 11400000, guid: 5c1b4773a5b5c3741be0a0fe50195247, type: 2}
+  - {fileID: 11400000, guid: 2ff9cfc8df7c1bc419d6a108330549dd, type: 2}
+  - {fileID: 11400000, guid: 279c16fc02a6904408bb5a0bc30d860d, type: 2}
+  - {fileID: 11400000, guid: 7c920a6ffd4d084488a9022946530f00, type: 2}
+  moons:
+  - {fileID: 11400000, guid: df4eb5ca55b1d0c48becec1bb8df297c, type: 2}
+  planetModelList: []
+  planetCenter: {fileID: 2803033528010323186, guid: 30c8e0c1d925500418a4aedd878d514d,
+    type: 3}

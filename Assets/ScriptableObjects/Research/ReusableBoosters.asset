@@ -16,9 +16,12 @@ MonoBehaviour:
     type: 3}
   lockedImage: {fileID: 21300000, guid: 41c6f94d80f9e034a9c63dcf97d30f5c, type: 3}
   unlockedImage: {fileID: 21300000, guid: 7b7de2430deee964da27ba2590989b37, type: 3}
+  currentImage: {fileID: 0}
   displayName: Reusable Boosters
   description: Decrease Launch Cost
-  researchCost: 0
+  researchCost: 3000
+  tier: 0
+  researchCategory: 0
+  inProgress: 0
   isLocked: 1
-  disableLeft: 1
   prerequisite: []

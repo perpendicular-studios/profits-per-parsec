@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91cd628c5f387544b815521ec7e17cb5, type: 3}
+  m_Name: Uranus
+  m_EditorClassIdentifier: 
+  planetName: Uranus
+  orbitPathX: 90
+  orbitPathY: 0
+  orbitPathZ: 90
+  orbitProgress: 0
+  orbitPeriod: 800
+  orbitActive: 1
+  segments: 0
+  rotationSpeed: 50
+  dampAmt: 2
+  model: {fileID: 4624308775568554101, guid: cc58f690736eb964d9bbaae43732fa6a, type: 3}
+  orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
+  hasMoon: 0

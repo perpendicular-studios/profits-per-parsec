@@ -10,15 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91cd628c5f387544b815521ec7e17cb5, type: 3}
-  m_Name: PlanetList
+  m_Name: Sun
   m_EditorClassIdentifier: 
-  assetList:
-  - Mercury
-  - Venus
-  - Earth
-  - Mars
-  - Jupiter
-  - Saturn
-  - Uranus
-  - Neptune
-  - Pluto
+  planetName: Sun
+  posX: 0
+  posY: 0
+  posZ: 0
+  rotX: 0
+  rotY: 0
+  rotZ: 0
+  orbitPathX: 0
+  orbitPathY: 0
+  orbitPathZ: 0
+  orbitProgress: 0
+  orbitPeriod: 0
+  orbitActive: 0
+  segments: 0
+  rotationSpeed: 0
+  dampAmt: 0
+  model: {fileID: 5053201663359832640, guid: 682de4a5920da2b46ad18c0ccb54adb7, type: 3}
+  orbiting: {fileID: 0}
+  hasMoon: 0

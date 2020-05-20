@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
@@ -22,19 +23,63 @@ public class CameraController : MonoBehaviour
     public float nearZoomLimit = 2f;
     public float farZoomLimit = 20f;
 
-    private ZoomStrategy zoomStrategy;
+    public ZoomStrategy zoomStrategy;
     private Vector3 frameMove;
     private float frameRotate;
-    private float frameZoom;
+    public float frameZoom;
 
     private Camera cam;
+    
 
     void Awake()
     {
         cam = GetComponentInChildren<Camera>();
-        cam.transform.localPosition = new Vector3(0f, Mathf.Abs(cameraOffset.y), -Mathf.Abs(cameraOffset.x));
+        
+
+        //Define dictionary in player controller
+        if (PlayerStatController.instance.cameraList == null)
+        {
+            PlayerStatController.instance.cameraList = new Dictionary<string, CameraInfo>();
+        }
+
+        //If current scene is loaded for first time 
+        if (!PlayerStatController.instance.cameraList.ContainsKey(SceneManager.GetActiveScene().name))
+        {
+            //Set intial coords
+            cam.transform.localPosition = new Vector3(0f, Mathf.Abs(cameraOffset.y), -Mathf.Abs(cameraOffset.x));
+
+        }
+
         zoomStrategy = new PerspectiveZoomStrategy(cam, cameraOffset, initialZoom);
         cam.transform.LookAt(transform.position + Vector3.up * lookAtOffset);
+
+        //If scene was never loaded create dictionary key value
+        if (!PlayerStatController.instance.cameraList.ContainsKey(SceneManager.GetActiveScene().name))
+        {
+            PlayerStatController.instance.cameraList.Add(SceneManager.GetActiveScene().name, new CameraInfo());
+
+        }
+        // If scene was loaded set camera to dictionary value
+        else
+        {
+            PerspectiveZoomStrategy zs = (zoomStrategy) as PerspectiveZoomStrategy;
+            transform.position = new Vector3(
+                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].posX,
+                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].posY,
+                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].posZ
+                );
+            transform.eulerAngles = new Vector3(
+                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].rotX,
+                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].rotY,
+                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].rotZ
+                );
+            cam.transform.localPosition = new Vector3(
+                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].camPosX,
+                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].camPosY,
+                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].camPosZ
+                );
+            zs.currentZoomLevel = PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].zoomLevel;
+        }
     }
 
     void LateUpdate()

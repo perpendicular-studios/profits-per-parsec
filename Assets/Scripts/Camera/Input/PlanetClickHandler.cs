@@ -12,6 +12,7 @@ public class PlanetClickHandler : MonoBehaviour
     public bool selected = false;
     public bool toggle = false;
     public PlanetDisplay planetDisplay;
+    public PlanetGenerator planetGenerator;
 
     [SerializeField] [Range(0f, 0.5f)]
     public float lerpCount;
@@ -26,8 +27,14 @@ public class PlanetClickHandler : MonoBehaviour
         PlanetDisplay.OnEnterPlanet += EnterPlanet;
     }
 
+    private void OnDisable()
+    {
+        PlanetDisplay.OnEnterPlanet -= EnterPlanet;
+    }
+
     void Update()
     {
+
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -116,8 +123,28 @@ public class PlanetClickHandler : MonoBehaviour
     private void EnterPlanet() {
         if (selectedObject != null)
         {
-            PlayerStatController.instance.currentPlanet = selectedObject.GetComponent<Transform>().parent.tag;
-            SceneManager.LoadScene($"{selectedObject.GetComponent<Transform>().parent.tag}Scene");
+            //Save planet orbit locations
+            planetGenerator.SavePositions();
+
+            PlayerStatController.instance.currentPlanet = selectedObject.GetComponent<Transform>().parent.GetComponent<PlanetCenterInfo>().planet.planetName;
+            
+            GameObject focus = GameObject.FindGameObjectWithTag("Focus");
+            PerspectiveZoomStrategy zoomStrategy = (focus.GetComponent<CameraController>().zoomStrategy) as PerspectiveZoomStrategy;
+            //Set prev cam info
+            CameraInfo prevCameraInfo = new CameraInfo(
+                    focus.transform.position.x,
+                    focus.transform.position.y,
+                    focus.transform.position.z,
+                    focus.transform.eulerAngles.x,
+                    focus.transform.eulerAngles.y,
+                    focus.transform.eulerAngles.z,
+                    Camera.main.transform.localPosition.x,
+                    Camera.main.transform.localPosition.y,
+                    Camera.main.transform.localPosition.z,
+                    zoomStrategy.currentZoomLevel
+                    );
+            PlayerStatController.instance.cameraList[(SceneManager.GetActiveScene().name)] = prevCameraInfo;
+            SceneManager.LoadScene($"{selectedObject.GetComponent<Transform>().parent.GetComponent<PlanetCenterInfo>().planet.planetName}Scene");
         }
     }
 

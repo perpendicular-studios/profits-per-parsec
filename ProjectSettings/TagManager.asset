@@ -18,6 +18,7 @@ TagManager:
   - Venus
   - RocketLauncher
   - PauseButton
+  - Focus
   layers:
   - Default
   - TransparentFX

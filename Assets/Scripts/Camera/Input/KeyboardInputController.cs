@@ -29,12 +29,7 @@ public class KeyboardInputController : InputController
             OnMoveInput?.Invoke(Vector3.right);
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene("SolarSystemTest");
-        }
-
-        ToggleUI(KeyCode.T, ResearchDisplay);
+        ToggleUI(KeyCode.R, ResearchDisplay);
         ToggleUI(KeyCode.Y, AdvisorDisplay);
     }
 

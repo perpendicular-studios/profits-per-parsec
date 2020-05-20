@@ -16,12 +16,15 @@ MonoBehaviour:
     type: 3}
   lockedImage: {fileID: 21300000, guid: 41c6f94d80f9e034a9c63dcf97d30f5c, type: 3}
   unlockedImage: {fileID: 21300000, guid: 8dcb4d7a4bcdbaa4788c5913c20816eb, type: 3}
+  currentImage: {fileID: 0}
   displayName: Rockets Tier 2
   description: Discoveries in further rocket mechanics allows for optimal spacing
     and travel
-  researchCost: 0
+  researchCost: 3000
+  tier: 0
+  researchCategory: 0
+  inProgress: 0
   isLocked: 1
-  disableLeft: 0
   prerequisite:
   - {fileID: 11400000, guid: e2de781008e70134995ef8065148cb0b, type: 2}
   - {fileID: 11400000, guid: 1d0a6af88fdee0e4595f04fa067cae7f, type: 2}

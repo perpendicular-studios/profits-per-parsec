@@ -24,6 +24,11 @@ public class PlayerStatController : GameController<PlayerStatController>
 
     public string currentPlanet = "";
 
+    public Dictionary<string, CameraInfo> cameraList;
+    private void Start()
+    {
+    }
+
     void Update()
     {
     }

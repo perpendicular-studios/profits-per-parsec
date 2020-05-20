@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91cd628c5f387544b815521ec7e17cb5, type: 3}
+  m_Name: Moon
+  m_EditorClassIdentifier: 
+  planetName: Moon
+  orbitPathX: 2
+  orbitPathY: 0
+  orbitPathZ: 2
+  orbitProgress: 0
+  orbitPeriod: 1000
+  orbitActive: 1
+  segments: 0
+  rotationSpeed: 50
+  dampAmt: 2
+  model: {fileID: 3923176710511623099, guid: 48683788264422540999026bd327a3c7, type: 3}
+  orbiting: {fileID: 11400000, guid: d40f2c9063783cb45bbfebc7f59e21d7, type: 2}
+  hasMoon: 0
+  isMoon: 1

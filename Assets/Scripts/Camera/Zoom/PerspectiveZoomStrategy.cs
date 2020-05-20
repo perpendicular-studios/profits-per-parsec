@@ -5,7 +5,7 @@ using UnityEngine;
 public class PerspectiveZoomStrategy : ZoomStrategy
 {
     Vector3 normalizedCameraPosition;
-    float currentZoomLevel;
+    public float currentZoomLevel;
     public PerspectiveZoomStrategy(Camera cam, Vector3 offset, float startingZoom)
     {
         normalizedCameraPosition = new Vector3(0f, Mathf.Abs(offset.y), -Mathf.Abs(offset.x)).normalized;

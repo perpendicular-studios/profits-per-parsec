@@ -16,9 +16,13 @@ MonoBehaviour:
     type: 3}
   lockedImage: {fileID: 21300000, guid: 41c6f94d80f9e034a9c63dcf97d30f5c, type: 3}
   unlockedImage: {fileID: 21300000, guid: 7a20e335c64fc7146a6bde2d8e389c46, type: 3}
+  currentImage: {fileID: 0}
   displayName: Outer Travel
   description: Allows rockets to travel to Jupiter and Saturn
-  researchCost: 0
+  researchCost: 3000
+  tier: 0
+  researchCategory: 0
+  inProgress: 0
   isLocked: 1
   prerequisite:
   - {fileID: 11400000, guid: 3069bd98e7472064684db8be28b6974e, type: 2}

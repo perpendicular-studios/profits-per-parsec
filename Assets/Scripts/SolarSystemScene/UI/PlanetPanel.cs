@@ -27,7 +27,7 @@ public class PlanetPanel : MonoBehaviour
     {
         if(planet != null)
         {
-            displayTitle.text = planet.transform.parent.gameObject.tag;
+            displayTitle.text = planet.transform.parent.gameObject.GetComponent<PlanetCenterInfo>().planet.planetName;
             displayImage.sprite = Resources.Load<Sprite>($"Sprites/sprite_{planet.tag}");
         }
     }

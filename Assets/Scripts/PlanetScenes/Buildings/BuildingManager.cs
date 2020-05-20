@@ -7,7 +7,7 @@ public class BuildingManager : MonoBehaviour
 
     public BuildingTerrainGrid terrainGrid;
     public Material activeBuildingMaterial;
-    public PlanetList planetList;
+
 
     private GameObject activeBuilding;
     private Building activeBuildingObject;
@@ -27,11 +27,11 @@ public class BuildingManager : MonoBehaviour
         if (BuildingController.instance.allBuildings == null)
         {
             BuildingController.instance.allBuildings = new Dictionary<string, List<Building>>();
-            foreach (string planet in planetList.assetList)
-            {
-                Debug.Log("Adding building list for: " + planet);
-                BuildingController.instance.allBuildings.Add(planet, new List<Building>());
-            }
+            //foreach (string planet in planetList.assetList)
+            //{
+            //    Debug.Log("Adding building list for: " + planet);
+            //    BuildingController.instance.allBuildings.Add(planet, new List<Building>());
+            //}
         }
     }
 

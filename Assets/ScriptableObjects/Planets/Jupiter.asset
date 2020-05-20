@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91cd628c5f387544b815521ec7e17cb5, type: 3}
+  m_Name: Jupiter
+  m_EditorClassIdentifier: 
+  planetName: Jupiter
+  orbitPathX: 60
+  orbitPathY: 0
+  orbitPathZ: 60
+  orbitProgress: 0
+  orbitPeriod: 250
+  orbitActive: 1
+  segments: 0
+  rotationSpeed: 40
+  dampAmt: 2
+  model: {fileID: 5010826964874791124, guid: 58b536a153d8b2b46b26903a84b3f07c, type: 3}
+  orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
+  hasMoon: 0

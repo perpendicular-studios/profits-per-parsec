@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91cd628c5f387544b815521ec7e17cb5, type: 3}
+  m_Name: Earth
+  m_EditorClassIdentifier: 
+  planetName: Earth
+  orbitPathX: 30
+  orbitPathY: 0
+  orbitPathZ: 30
+  orbitProgress: 0
+  orbitPeriod: 999
+  orbitActive: 1
+  segments: 0
+  rotationSpeed: 50
+  dampAmt: 2
+  model: {fileID: 8958132190660230186, guid: da6009a898ee5cb40827473f1a21ceab, type: 3}
+  orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
+  hasMoon: 1
