@@ -26,7 +26,6 @@ public class AdvisorListHire : MonoBehaviour
 
     public int advisorHireLimit = 5;                         //Limit of advisor choices that the player can choose from
 
-    public List<Advisor> advisorListBacklog;                 //List of advisors with custom advisors and randomly generated advisors, which the currentHireList will draw from
     private List<AdvisorPanel> advisorPanels;                 //In game list of advisors that the player will be able to hire as panels
 
     //Variables indicating if the category is currently sorted
@@ -40,6 +39,12 @@ public class AdvisorListHire : MonoBehaviour
 
     private void Awake()
     {
+        //Initialize List if necessary
+        if (PlayerStatController.instance.advisorHire == null)
+        {
+            PlayerStatController.instance.advisorHire = new List<Advisor>();
+            PlayerStatController.instance.advisorListBacklog = new List<Advisor>();
+        }
         advisorPanels = new List<AdvisorPanel>();
         ResetSorts();
     }
@@ -81,7 +86,7 @@ public class AdvisorListHire : MonoBehaviour
         newAdvisor.engineering = Random.Range(1, 10);
         newAdvisor.cost = (newAdvisor.knowledge + newAdvisor.commerce + newAdvisor.charisma + newAdvisor.engineering) * 10;
         newAdvisor.monthlyCost = newAdvisor.cost / 5;
-        advisorListBacklog.Add(newAdvisor);
+        PlayerStatController.instance.advisorListBacklog.Add(newAdvisor);
     }
 
     string GenerateAdvisorName(List<string> firstNames, List<string> lastNames)
@@ -104,25 +109,40 @@ public class AdvisorListHire : MonoBehaviour
     //Refills the advisors you can choose to hire from, up to the number a certain limit
     void RenewAdvisors()
     {
+        List<Advisor> advisorBackList = PlayerStatController.instance.advisorListBacklog;
+        List<Advisor> advisorHireList = PlayerStatController.instance.advisorHire;
         int random;
-        int currHireSize = advisorPanels.Count;
-        //Fill up the current hire list that the player can see
-        for (int i = 0; i < advisorHireLimit - currHireSize; i++)
-        {
-            Debug.Log(advisorHireLimit - currHireSize);
-            //Generates a random index 
-            random = Random.Range(0, advisorListBacklog.Count);
+        int currHireSize = advisorHireList.Count;
 
+        //Create panels for current existing advisors
+        foreach (Advisor a in advisorHireList)
+        {
             //Create a panel for the advisor and add to panels list
             AdvisorPanel panel = Instantiate(advisorPanelPrefab, panelParent).GetComponent<AdvisorPanel>();
-            panel.advisor = advisorListBacklog[random];
-            panel.name = advisorListBacklog[random].displayName;
+            panel.advisor = a;
+            panel.name = a.displayName;
             panel.GetComponentInChildren<HireAdvisor>().advisorListHirePage = gameObject;
             panel.GetComponentInChildren<RemoveAdvisorCandidate>().advisorList = this;
             advisorPanels.Add(panel);
+        }
+
+        //Fill up the current hire list if there is still space 
+        for (int i = 0; i < advisorHireLimit - currHireSize; i++)
+        {
+            //Generates a random index 
+            random = Random.Range(0, advisorBackList.Count);
+
+            //Create a panel for the advisor and add to panels list
+            AdvisorPanel panel = Instantiate(advisorPanelPrefab, panelParent).GetComponent<AdvisorPanel>();
+            panel.advisor = advisorBackList[random];
+            panel.name = advisorBackList[random].displayName;
+            panel.GetComponentInChildren<HireAdvisor>().advisorListHirePage = gameObject;
+            panel.GetComponentInChildren<RemoveAdvisorCandidate>().advisorList = this;
+            advisorPanels.Add(panel);
+            advisorHireList.Add(advisorBackList[random]);
 
             //Remove from backlog list
-            advisorListBacklog.RemoveAt(random);
+            advisorBackList.RemoveAt(random);
         }
 
         //Update Back Log list if necessary
@@ -132,7 +152,7 @@ public class AdvisorListHire : MonoBehaviour
     //Update back log when less than 100 advisors
     void UpdateBackLog()
     {
-        if(advisorListBacklog.Count < 100)
+        if(PlayerStatController.instance.advisorListBacklog.Count < 100)
         {
             for(int i = 0; i < 50; i++)
             {
@@ -170,7 +190,9 @@ public class AdvisorListHire : MonoBehaviour
         Advisor advisor = advisorPanel.GetComponent<AdvisorPanel>().advisor;
         //Set it to a new Advisor Panel in the advisor list assign
         advisorListInventory.GetComponent<AdvisorListAssign>().AddAdvisor(advisor);
+
         //Remove advisor from this list
+        PlayerStatController.instance.advisorHire.Remove(advisor);
         advisorPanels.Remove(advisorPanel.GetComponent<AdvisorPanel>());
         Destroy(advisorPanel);
     }

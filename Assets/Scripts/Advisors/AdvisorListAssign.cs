@@ -9,7 +9,7 @@ public class AdvisorListAssign : MonoBehaviour
     public GameObject advisorListHirePage;
     public GameObject advisorPanelEmployedPrefab;
 
-    private List<AdvisorPanel> advisorPanels;                   //List of currently hired advisors that can be assigned to a planet
+    public List<AdvisorPanel> advisorPanels;                   //List of currently hired advisors that can be assigned to a planet
 
     //Variables indicating if the category is currently sorted
     private bool ageSort;
@@ -23,13 +23,16 @@ public class AdvisorListAssign : MonoBehaviour
 
     private void Awake()
     {
-        advisorPanels = new List<AdvisorPanel>();
+        if (PlayerStatController.instance.advisorAssign == null)
+        {
+            PlayerStatController.instance.advisorAssign = new List<Advisor>();
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        InitializeAdvisorPanels();
     }
 
     // Update is called once per frame
@@ -43,6 +46,22 @@ public class AdvisorListAssign : MonoBehaviour
         ResetSorts();
     }
 
+    public void InitializeAdvisorPanels()
+    {
+        List<Advisor> advisorAssignList = PlayerStatController.instance.advisorAssign;
+
+        //Create panels for current existing advisors
+        foreach (Advisor a in advisorAssignList)
+        {
+            //Create a panel for the advisor and add to panels list
+            AdvisorPanel panel = Instantiate(advisorPanelEmployedPrefab, panelParent).GetComponent<AdvisorPanel>();
+            panel.advisor = a;
+            panel.name = a.displayName;
+            panel.GetComponentInChildren<FireAdvisor>().advisorList = this;
+            advisorPanels.Add(panel);
+        }
+    }
+
     public void AddAdvisor(Advisor advisor)
     {
         //Create a panel for the advisor and add to panels list
@@ -51,6 +70,7 @@ public class AdvisorListAssign : MonoBehaviour
         panel.name = advisor.displayName;
         panel.GetComponentInChildren<FireAdvisor>().advisorList = this;
         advisorPanels.Add(panel);
+        PlayerStatController.instance.advisorAssign.Add(advisor);
     }
 
     void UpdatePanels()
@@ -223,6 +243,8 @@ public class AdvisorListAssign : MonoBehaviour
 
     public void FireAdvisor(AdvisorPanel panel)
     {
+        Advisor a = panel.GetComponent<AdvisorPanel>().advisor;
+        PlayerStatController.instance.advisorAssign.Remove(a);
         advisorPanels.Remove(panel);
         Destroy(panel.gameObject);
         advisorListHirePage.GetComponent<AdvisorListHire>().AddAdvisorFromBeingFired(panel);

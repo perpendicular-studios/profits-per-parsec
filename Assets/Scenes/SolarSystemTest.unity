@@ -119,6 +119,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 21060403, guid: 3dc3be05ccad09b4cba59ce3cc381715, type: 3}
+      propertyPath: selectedTab
+      value: 
+      objectReference: {fileID: 1038615407}
     - target: {fileID: 66201322392480716, guid: 3dc3be05ccad09b4cba59ce3cc381715,
         type: 3}
       propertyPath: m_ShowMaskGraphic
@@ -2372,6 +2376,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1038615407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7552223750263824682, guid: 3dc3be05ccad09b4cba59ce3cc381715,
+    type: 3}
+  m_PrefabInstance: {fileID: 27970196}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3625ed02faccaf34aa201764096d4307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1254351413 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2426405729970064081, guid: 3dc3be05ccad09b4cba59ce3cc381715,

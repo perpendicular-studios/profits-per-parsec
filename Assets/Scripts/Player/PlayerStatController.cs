@@ -25,6 +25,13 @@ public class PlayerStatController : GameController<PlayerStatController>
     public string currentPlanet = "";
 
     public Dictionary<string, CameraInfo> cameraList;
+
+    public List<Advisor> advisorListBacklog;                        //List of advisors with custom advisors and randomly generated advisors, which the currentHireList will draw from
+
+    public List<Advisor> advisorHire;                               //List to keep track of advisors available to hire
+
+    public List<Advisor> advisorAssign;                             //List to keep track of hired advisors
+
     private void Start()
     {
     }
