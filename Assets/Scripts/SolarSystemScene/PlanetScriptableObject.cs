@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Objects/PlanetScriptableObject", order = 4)]
 public class PlanetScriptableObject : ScriptableObject
 {
-    [Header("Planet Name")]
+    [Header("Planet Data")]
     public string planetName;
 
     [Header("Orbit Data")]
