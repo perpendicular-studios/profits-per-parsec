@@ -125,6 +125,7 @@ public class PlanetClickHandler : MonoBehaviour
         {
             //Save planet orbit locations
             planetGenerator.SavePositions();
+            PlanetController.instance.resetTimeCounter();
             PlayerStatController.instance.SaveCameraDataForScene(SceneManager.GetActiveScene().name);
 
             PlayerStatController.instance.currentPlanet = selectedObject.GetComponent<Transform>().parent.GetComponent<PlanetCenterInfo>().planet;

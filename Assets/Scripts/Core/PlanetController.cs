@@ -30,4 +30,10 @@ public class PlanetController : GameController<PlanetController>
     {
         timePassed++;
     }
+
+    //Used to reset time counter to 0 when entering a planet to update planet locations upon reloading the solar system scene
+    public void resetTimeCounter()
+    {
+        timePassed = 0;
+    }
 }
