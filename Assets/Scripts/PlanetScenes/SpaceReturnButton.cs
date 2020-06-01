@@ -22,23 +22,7 @@ public class SpaceReturnButton : MonoBehaviour
     }
     public void OnClick()
     {
-
-        GameObject focus = GameObject.FindGameObjectWithTag("Focus");
-        PerspectiveZoomStrategy zoomStrategy = (focus.GetComponent<CameraController>().zoomStrategy) as PerspectiveZoomStrategy;
-        //Set prev cam info
-        CameraInfo prevCameraInfo = new CameraInfo(
-                focus.transform.position.x,
-                focus.transform.position.y,
-                focus.transform.position.z,
-                focus.transform.eulerAngles.x,
-                focus.transform.eulerAngles.y,
-                focus.transform.eulerAngles.z,
-                Camera.main.transform.localPosition.x,
-                Camera.main.transform.localPosition.y,
-                Camera.main.transform.localPosition.z,
-                zoomStrategy.currentZoomLevel
-                ); 
-        PlayerStatController.instance.cameraList[(SceneManager.GetActiveScene().name)] = prevCameraInfo;
+        PlayerStatController.instance.SaveCameraDataForScene(SceneManager.GetActiveScene().name);
 
         SceneManager.LoadScene(spaceSceneName);
     }

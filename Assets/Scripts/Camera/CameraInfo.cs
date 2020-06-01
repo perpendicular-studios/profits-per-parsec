@@ -5,16 +5,16 @@ using UnityEngine;
 public class CameraInfo
 {
 
-    public float posX;
-    public float posY;
-    public float posZ;
-    public float rotX;
-    public float rotY;
-    public float rotZ;
-    public float camPosX;
-    public float camPosY;
-    public float camPosZ;
-    public float zoomLevel;
+    private float posX;
+    private float posY;
+    private float posZ;
+    private float rotX;
+    private float rotY;
+    private float rotZ;
+    private float camPosX;
+    private float camPosY;
+    private float camPosZ;
+    private float zoomLevel;
 
     public CameraInfo()
     {
@@ -33,6 +33,26 @@ public class CameraInfo
         this.camPosY = camPosY;
         this.camPosZ = camPosZ;
         this.zoomLevel = zoomLevel;
+    }
+
+    public Vector3 GetPositionVector()
+    {
+        return new Vector3(posX, posY, posZ);
+    }
+
+    public Vector3 GetRotationVector()
+    {
+        return new Vector3(rotX, rotY, rotZ);
+    }
+
+    public Vector3 GetCameraPositionVector()
+    {
+        return new Vector3(camPosX, camPosY, camPosZ);
+    }
+
+    public float GetZoomLevel()
+    {
+        return zoomLevel;
     }
 
     public override string ToString()

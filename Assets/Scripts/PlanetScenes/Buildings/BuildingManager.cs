@@ -22,17 +22,27 @@ public class BuildingManager : MonoBehaviour
     public void Awake()
     {
         placedBuildings = new List<GameObject>();
-        terrainGrid = GetComponentInChildren<BuildingTerrainGrid>();
 
-        if (BuildingController.instance.allBuildings == null)
+        Planet currentPlanet = PlayerStatController.instance.currentPlanet;
+        List<BuildingInfo> savedBuildingInfo = new List<BuildingInfo>();
+
+        if (currentPlanet != null)
         {
-            BuildingController.instance.allBuildings = new Dictionary<string, List<Building>>();
-            //foreach (string planet in planetList.assetList)
-            //{
-            //    Debug.Log("Adding building list for: " + planet);
-            //    BuildingController.instance.allBuildings.Add(planet, new List<Building>());
-            //}
+            savedBuildingInfo = BuildingController.instance.GetBuildingInfoListForPlanet(currentPlanet);
         }
+
+        if (savedBuildingInfo.Count > 0)
+        {
+            foreach(BuildingInfo buildingInfo in savedBuildingInfo)
+            {
+                GameObject placedBuilding = Instantiate(buildingInfo.building.buildingModelPrefab, buildingInfo.GetPositionVector(), Quaternion.identity);
+                placedBuilding.layer = LayerMask.NameToLayer("Buildings");
+                placedBuilding.GetComponent<MeshRenderer>().material = buildingInfo.building.buildingModelPrefab.GetComponent<MeshRenderer>().sharedMaterial;
+                placedBuildings.Add(placedBuilding);
+            }
+        }
+
+        terrainGrid = GetComponentInChildren<BuildingTerrainGrid>();
     }
 
     public void OnEnable()
@@ -107,9 +117,17 @@ public class BuildingManager : MonoBehaviour
                 GameObject placedBuilding = Instantiate(activeBuildingObject.buildingModelPrefab, finalPosition, finalRotation);
                 placedBuilding.layer = LayerMask.NameToLayer("Buildings");
                 placedBuilding.GetComponent<MeshRenderer>().material = activeBuildingObject.buildingModelPrefab.GetComponent<MeshRenderer>().sharedMaterial;
+                placedBuilding.GetComponent<BuildingInfo>().building = activeBuildingObject;
 
                 Debug.Log($"Creating building for planet: {PlayerStatController.instance.currentPlanet}");
-                BuildingController.instance.allBuildings[PlayerStatController.instance.currentPlanet].Add(placedBuilding.GetComponent<BuildingInfo>().building);
+
+                BuildingController.instance.SaveBuildingForPlanet(
+                    PlayerStatController.instance.currentPlanet,
+                    placedBuilding.GetComponent<BuildingInfo>().building,
+                    placedBuilding.transform.position.x, 
+                    placedBuilding.transform.position.y, 
+                    placedBuilding.transform.position.z);
+
                 placedBuildings.Add(placedBuilding);
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStatController : GameController<PlayerStatController>
 {
@@ -22,8 +23,8 @@ public class PlayerStatController : GameController<PlayerStatController>
     public int publicRelation { get { return _publicRelation; } set { _publicRelation = value; } }
     public int researchSpeed { get { return _researchSpeed; } set { _researchSpeed = value; } }
 
-    public string currentPlanet = "";
-
+    public Planet currentPlanet;
+    
     public Dictionary<string, CameraInfo> cameraList;
 
     public List<Advisor> advisorListBacklog;                        //List of advisors with custom advisors and randomly generated advisors, which the currentHireList will draw from
@@ -32,11 +33,56 @@ public class PlayerStatController : GameController<PlayerStatController>
 
     public List<Advisor> advisorAssign;                             //List to keep track of hired advisors
 
-    private void Start()
+    public bool CameraExistsForScene(string scene)
     {
+        if(cameraList == null)
+        {
+            cameraList = new Dictionary<string, CameraInfo>();
+        }
+        
+        if(!cameraList.ContainsKey(scene))
+        {
+            cameraList.Add(scene, new CameraInfo());
+            return false;
+        }
+
+        return true;
     }
 
-    void Update()
+    public void SaveCameraDataForScene(string scene)
     {
+        GameObject focus = GameObject.FindGameObjectWithTag("Focus");
+        PerspectiveZoomStrategy zoomStrategy = (focus.GetComponent<CameraController>().zoomStrategy) as PerspectiveZoomStrategy;
+        //Set prev cam info
+        CameraInfo prevCameraInfo = new CameraInfo(
+                focus.transform.position.x,
+                focus.transform.position.y,
+                focus.transform.position.z,
+                focus.transform.eulerAngles.x,
+                focus.transform.eulerAngles.y,
+                focus.transform.eulerAngles.z,
+                Camera.main.transform.localPosition.x,
+                Camera.main.transform.localPosition.y,
+                Camera.main.transform.localPosition.z,
+                zoomStrategy.currentZoomLevel
+                );
+
+        cameraList[SceneManager.GetActiveScene().name] = prevCameraInfo;
+    }
+
+    public CameraInfo GetCameraInfoForScene(string scene)
+    {
+
+        if (cameraList == null)
+        {
+            cameraList = new Dictionary<string, CameraInfo>();
+        }
+
+        if (!cameraList.ContainsKey(scene))
+        {
+            cameraList.Add(scene, new CameraInfo());
+        }
+
+        return cameraList[scene];
     }
 }

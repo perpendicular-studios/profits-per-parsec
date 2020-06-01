@@ -34,51 +34,24 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         cam = GetComponentInChildren<Camera>();
-        
-
-        //Define dictionary in player controller
-        if (PlayerStatController.instance.cameraList == null)
-        {
-            PlayerStatController.instance.cameraList = new Dictionary<string, CameraInfo>();
-        }
-
-        //If current scene is loaded for first time 
-        if (!PlayerStatController.instance.cameraList.ContainsKey(SceneManager.GetActiveScene().name))
-        {
-            //Set intial coords
-            cam.transform.localPosition = new Vector3(0f, Mathf.Abs(cameraOffset.y), -Mathf.Abs(cameraOffset.x));
-
-        }
 
         zoomStrategy = new PerspectiveZoomStrategy(cam, cameraOffset, initialZoom);
         cam.transform.LookAt(transform.position + Vector3.up * lookAtOffset);
 
-        //If scene was never loaded create dictionary key value
-        if (!PlayerStatController.instance.cameraList.ContainsKey(SceneManager.GetActiveScene().name))
+        // Check if CameraInfo already saved for active scene. If so, load it in. Otherwise initialize it.
+        if (!PlayerStatController.instance.CameraExistsForScene(SceneManager.GetActiveScene().name))
         {
-            PlayerStatController.instance.cameraList.Add(SceneManager.GetActiveScene().name, new CameraInfo());
-
+            //Set intial coords
+            cam.transform.localPosition = new Vector3(0f, Mathf.Abs(cameraOffset.y), -Mathf.Abs(cameraOffset.x));
         }
-        // If scene was loaded set camera to dictionary value
         else
         {
+            transform.position = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetPositionVector();
+            transform.eulerAngles = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetRotationVector();
+            cam.transform.localPosition = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetCameraPositionVector();
+
             PerspectiveZoomStrategy zs = (zoomStrategy) as PerspectiveZoomStrategy;
-            transform.position = new Vector3(
-                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].posX,
-                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].posY,
-                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].posZ
-                );
-            transform.eulerAngles = new Vector3(
-                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].rotX,
-                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].rotY,
-                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].rotZ
-                );
-            cam.transform.localPosition = new Vector3(
-                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].camPosX,
-                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].camPosY,
-                PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].camPosZ
-                );
-            zs.currentZoomLevel = PlayerStatController.instance.cameraList[SceneManager.GetActiveScene().name].zoomLevel;
+            zs.currentZoomLevel = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetZoomLevel();
         }
     }
 

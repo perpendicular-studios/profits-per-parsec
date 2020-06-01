@@ -4,21 +4,53 @@ using UnityEngine;
 
 public class BuildingController : GameController<BuildingController>
 {
-    public Dictionary<string, List<Building>> allBuildings;
+    private Dictionary<Planet, List<BuildingInfo>> _allBuildings;
 
     public void Awake()
     {
         DateTimeController.OnDailyTick += UpdateBuildingIncome;
     }
 
+    public List<BuildingInfo> GetBuildingInfoListForPlanet(Planet planet) {
+
+        if (_allBuildings == null)
+        {
+            _allBuildings = new Dictionary<Planet, List<BuildingInfo>>();
+        }
+
+        if (!_allBuildings.ContainsKey(planet))
+        {
+            _allBuildings[planet] = new List<BuildingInfo>();
+        }
+
+        return _allBuildings[planet];
+    }
+
+
+    public void SaveBuildingForPlanet(Planet planet, Building building, float posX, float posY, float posZ)
+    {
+        if (_allBuildings == null)
+        {
+            _allBuildings = new Dictionary<Planet, List<BuildingInfo>>();
+        }
+
+        if (!_allBuildings.ContainsKey(planet))
+        {
+            _allBuildings[planet] = new List<BuildingInfo>();
+        }
+
+        _allBuildings[planet].Add(new BuildingInfo(building, posX, posY, posZ));
+    }
+
     public void UpdateBuildingIncome()
     {
-        foreach(KeyValuePair<string, List<Building>> kv in allBuildings)
+        foreach(List<BuildingInfo> value in _allBuildings.Values)
         {
-            foreach(Building building in kv.Value)
+            foreach(BuildingInfo buildingInfo in value)
             {
-                PlayerStatController.instance.cash += building.cashPerTick;
+                PlayerStatController.instance.cash += buildingInfo.building.cashPerTick;
             }
         }
     }
 }
+
