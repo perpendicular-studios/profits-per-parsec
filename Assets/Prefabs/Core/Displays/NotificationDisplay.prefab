@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1529840062440380328}
   - component: {fileID: 1529840062440380329}
   - component: {fileID: 1045795626116831312}
+  - component: {fileID: 3600942587584066218}
   m_Layer: 5
   m_Name: NotificationDisplay
   m_TagString: Untagged
@@ -35,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -50}
+  m_AnchoredPosition: {x: 250, y: -75}
   m_SizeDelta: {x: 464, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1529840062440380328
@@ -85,3 +86,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd393223ad6ba54b906581f2fa95f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notificationPanelPrefab: {fileID: 713746082401366258, guid: 2a4d77ebebee2e943a496cb6197d319c,
+    type: 3}
+  notificationList: {fileID: 11400000, guid: be9b9a5ef31275e47aed3425286ed2d9, type: 2}
+  activeNotifications: []
+--- !u!114 &3600942587584066218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529840062440380331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 32, y: 32}
+  m_Spacing: {x: 26, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2

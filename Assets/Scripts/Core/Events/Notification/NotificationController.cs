@@ -26,13 +26,16 @@ public class NotificationController : GameController<NotificationController>
     {
         foreach(NotificationInfo notificationInfo in allNotifications)
         {
-            bool notificationSatisfied = notificationInfo.notificationPredicatePrefab.GetComponent<INotificationPredicate>().EvaluatePredicate();
+            GameObject notificationPredicate = Instantiate(notificationInfo.notificationPredicatePrefab, transform);
+            bool notificationSatisfied = notificationPredicate.GetComponent<INotificationPredicate>().EvaluatePredicate();
             if(notificationSatisfied)
             {
+                Debug.Log("Notification Satisfied!");
                 OnNotificationAdded?.Invoke(notificationInfo);
             }
             else
             {
+                Debug.Log("Notification Not Satisfied!");
                 OnNotificationDeleted?.Invoke(notificationInfo);
             }
         }

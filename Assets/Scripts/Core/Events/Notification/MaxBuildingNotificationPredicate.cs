@@ -6,7 +6,11 @@ public class MaxBuildingNotificationPredicate : MonoBehaviour, INotificationPred
 {
     public bool EvaluatePredicate()
     {
-        return BuildingController.instance.GetBuildingInfoListForPlanet(PlayerStatController.instance.currentPlanet).Count > PlayerStatController.instance.maxBuildings;
+        int currentBuildings = BuildingController.instance.GetBuildingInfoListForPlanet(PlayerStatController.instance.currentPlanet).Count;
+        int maxBuildings = PlayerStatController.instance.maxBuildings;
+
+        Debug.Log($"Checking currentBuildings={currentBuildings} > maxBuildings={maxBuildings}");
+        return currentBuildings > maxBuildings;
     }
 
 }

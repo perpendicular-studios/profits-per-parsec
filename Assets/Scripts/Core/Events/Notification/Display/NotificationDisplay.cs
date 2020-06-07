@@ -5,11 +5,23 @@ using UnityEngine;
 public class NotificationDisplay : MonoBehaviour
 {
     public GameObject notificationPanelPrefab;
+    public NotificationAssetList notificationList;
+
     public List<GameObject> activeNotifications;
+   
 
     private void Awake()
     {
         activeNotifications = new List<GameObject>();
+
+        if (notificationList != null)
+        {
+            foreach (NotificationInfo notificationInfo in notificationList.assetList)
+            {
+                NotificationController.instance.CreateNotification(notificationInfo);
+            }
+        }
+
     }
 
     public void OnEnable()

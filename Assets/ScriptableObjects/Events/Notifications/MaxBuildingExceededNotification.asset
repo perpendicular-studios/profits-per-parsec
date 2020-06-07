@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45979c73f351f70478a722fb3ef85acc, type: 3}
   m_Name: MaxBuildingExceededNotification
   m_EditorClassIdentifier: 
-  notificationIcon: {fileID: 0}
-  notificationBacking: {fileID: 0}
+  notificationIcon: {fileID: 21300000, guid: 41c6f94d80f9e034a9c63dcf97d30f5c, type: 3}
+  notificationBacking: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   defaultNotificationDescription: Exceeded Max Buildings!
   notificationPredicatePrefab: {fileID: 848010140197787436, guid: 394a198cc14c84a4cb15f9d8c39becd2,
     type: 3}
