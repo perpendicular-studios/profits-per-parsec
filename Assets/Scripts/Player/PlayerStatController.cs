@@ -19,6 +19,8 @@ public class PlayerStatController : GameController<PlayerStatController>
 
     private int _maxBuildings = 3;
 
+    private int _numRockets = 0;
+
     public int cash { get { return _cash; } set { _cash = value; } }
     public float growthRate { get { return _growthRate; } set { _growthRate = value; } }
     public int governmentSupport { get { return _governmentSupport; } set { _governmentSupport = value; } }
@@ -26,6 +28,8 @@ public class PlayerStatController : GameController<PlayerStatController>
     public int researchSpeed { get { return _researchSpeed; } set { _researchSpeed = value; } }
 
     public int maxBuildings { get { return _maxBuildings; } set { _maxBuildings = value; } }
+
+    public int numRockets { get { return _numRockets; } set { _numRockets = value; } }
 
     public Planet currentPlanet;
     
