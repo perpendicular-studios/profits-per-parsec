@@ -9,6 +9,8 @@ public class PlayerStatDisplay : MonoBehaviour
     public GameObject growthRatePanel;
     public GameObject publicRelationPanel;
     public GameObject governmentSupportPanel;
+    public GameObject maxBuildingPanel;
+    public GameObject rocketsPanel;
     
     public void Update()
     {
@@ -21,6 +23,27 @@ public class PlayerStatDisplay : MonoBehaviour
         growthRatePanel.GetComponent<PlayerStatPanel>().valueText.text = growthRateString;
         publicRelationPanel.GetComponent<PlayerStatPanel>().valueText.text = publicRelationString;
         governmentSupportPanel.GetComponent<PlayerStatPanel>().valueText.text = governmentSupportString;
+
+        if (PlayerStatController.instance.currentPlanet != null)
+        {
+            maxBuildingPanel.SetActive(true);
+            int currentBuildings = BuildingController.instance.GetBuildingInfoListForPlanet(PlayerStatController.instance.currentPlanet).Count;
+            int maxBuildings = PlayerStatController.instance.maxBuildings;
+
+            maxBuildingPanel.GetComponent<PlayerStatPanel>().valueText.text = $"{currentBuildings}/{maxBuildings}";
+            if(currentBuildings >= maxBuildings)
+            {
+                maxBuildingPanel.GetComponent<PlayerStatPanel>().valueText.color = Color.red;
+            }
+
+            rocketsPanel.GetComponent<PlayerStatPanel>().valueText.text = PlayerStatController.instance.numRockets.ToString();
+        }
+        else
+        {
+            maxBuildingPanel.SetActive(false);
+            rocketsPanel.SetActive(false);
+        }
+
     }
 
 

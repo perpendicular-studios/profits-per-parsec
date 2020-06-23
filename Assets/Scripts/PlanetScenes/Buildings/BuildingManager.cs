@@ -128,6 +128,9 @@ public class BuildingManager : MonoBehaviour
                     placedBuilding.transform.position.y, 
                     placedBuilding.transform.position.z);
 
+                // Check notifications when building is placed.
+                NotificationController.instance.UpdateNotifications();
+
                 placedBuildings.Add(placedBuilding);
             }
         }

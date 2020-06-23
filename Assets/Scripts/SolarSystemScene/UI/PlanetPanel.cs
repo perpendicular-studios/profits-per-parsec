@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Events;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -20,7 +17,7 @@ public class PlanetPanel : MonoBehaviour
         button = GetComponentInChildren<Button>();
         button.GetComponentInChildren<Text>().text = "Enter Planet";
         UnityAction action = new UnityAction(display.OnClick);
-        UnityEventTools.AddPersistentListener(button.onClick, action);
+        button.onClick.AddListener(action);
     }
 
     public void Update()

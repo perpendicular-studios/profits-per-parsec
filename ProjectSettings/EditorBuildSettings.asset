@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/VenusScene.unity
-    guid: 33dbefdde384613439ac10309c8115dc
-  - enabled: 1
     path: Assets/Scenes/SolarSystemTest.unity
     guid: a2a9aac02aa2c244e979b60a5685089c
+  - enabled: 1
+    path: Assets/Scenes/VenusScene.unity
+    guid: 33dbefdde384613439ac10309c8115dc
   m_configObjects: {}
