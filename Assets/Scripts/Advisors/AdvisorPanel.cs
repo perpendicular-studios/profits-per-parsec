@@ -72,16 +72,37 @@ public class AdvisorPanel : MonoBehaviour
 
     private void DropdownValueChangedHandler(Dropdown target)
     {
-        //If idle is selected
-        if(target.value == 0)
+        if (target.value == 0)
         {
-            isAssigned = false;
+            {
+                isAssigned = false; isAssigned = false;
+
+                //Remove advisor from current planet
+                if (advisor.workingPlanet != null)
+                {
+                    advisor.workingPlanet.RemoveAdvisor(advisor);
+                    advisor.workingPlanet = null;
+                }
+            }
         }
         else
         {
-            isAssigned = true;
-            
-            //Assign advisor to planet here
+            {
+                isAssigned = true; isAssigned = true;
+
+
+                //Assign advisor to planet here	            //Remove advisor from current planet
+                if (advisor.workingPlanet != null)
+                {
+                    advisor.workingPlanet.RemoveAdvisor(advisor);
+                    advisor.workingPlanet = null;
+                }
+
+                //Assign advisor to new planet
+                Planet p = PlanetController.instance.planets.Find(t => t.planetName == target.options[target.value].text);
+                p.AddAdvisor(advisor);
+                advisor.workingPlanet = p;
+            }
         }
         Debug.Log("selected: " + target.options[target.value].text);
     }

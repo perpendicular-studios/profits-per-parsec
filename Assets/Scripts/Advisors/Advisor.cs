@@ -18,4 +18,5 @@ public class Advisor : ScriptableObject
     public int commerce;
     public int charisma;
     public int engineering;
+    public Planet workingPlanet;
 }
