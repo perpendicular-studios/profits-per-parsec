@@ -24,34 +24,4 @@ public class Planet
     public int dampAmt;
     public GameObject model;
     public Planet orbiting;
-
-    //Planet Modifiers
-    public int researchSpeed;
-    public int energy;
-    public int tourismRevenue;
-    public int espionageSpeed;
-    public int espionageSuccessRate;
-    public int manufacturingSpeed;
-    public int miningProduction;
-
-    public List<Advisor> planetAdvisors;
-
-    public void AddAdvisor(Advisor a)
-    {
-        if (planetAdvisors == null)
-        {
-            planetAdvisors = new List<Advisor>();
-        }
-        planetAdvisors.Add(a);
-    }
-
-    public void RemoveAdvisor(Advisor a)
-    {
-        planetAdvisors.Remove(a);
-    }
-
-    public void ApplyAdvisorModifiers(Advisor a)
-    {
-
-    }
 }

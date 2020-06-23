@@ -1886,7 +1886,9 @@ MonoBehaviour:
     m_Options:
     - m_Text: Idle
       m_Image: {fileID: 0}
-    - m_Text: Venus
+    - m_Text: Earth
+      m_Image: {fileID: 0}
+    - m_Text: Moon
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

@@ -76,30 +76,13 @@ public class AdvisorPanel : MonoBehaviour
         if(target.value == 0)
         {
             isAssigned = false;
-
-            //Remove advisor from current planet
-            if (advisor.workingPlanet != null)
-            {
-                advisor.workingPlanet.RemoveAdvisor(advisor);
-                advisor.workingPlanet = null;
-            }
         }
         else
         {
             isAssigned = true;
-
-            //Remove advisor from current planet
-            if(advisor.workingPlanet != null)
-            {
-                advisor.workingPlanet.RemoveAdvisor(advisor);
-                advisor.workingPlanet = null;
-            }
-
-            //Assign advisor to new planet
-            Planet p = PlanetController.instance.planets.Find(t => t.planetName == target.options[target.value].text);
-            p.AddAdvisor(advisor);
-            advisor.workingPlanet = p;
+            
+            //Assign advisor to planet here
         }
-        
+        Debug.Log("selected: " + target.options[target.value].text);
     }
 }
