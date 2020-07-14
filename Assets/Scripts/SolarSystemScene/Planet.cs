@@ -9,6 +9,7 @@ public class Planet
 {
 
     public string planetName;
+    public int order;
 
     public int orbitPathX;
     public int orbitPathY;
@@ -20,6 +21,7 @@ public class Planet
 
     public bool hasMoon;
     public bool isMoon;
+    public bool innerPlanet;
     public int rotationSpeed;
     public int dampAmt;
     public GameObject model;

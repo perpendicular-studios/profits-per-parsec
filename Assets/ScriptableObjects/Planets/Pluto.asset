@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Pluto
   m_EditorClassIdentifier: 
   planetName: Pluto
+  order: 10
   orbitPathX: 140
   orbitPathY: 20
   orbitPathZ: 125
@@ -25,3 +26,4 @@ MonoBehaviour:
   model: {fileID: 7456762646512713849, guid: 8c70664c527142140b152be6f8eec69e, type: 3}
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 0
+  isMoon: 0

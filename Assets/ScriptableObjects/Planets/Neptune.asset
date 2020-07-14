@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Neptune
   m_EditorClassIdentifier: 
   planetName: Neptune
+  order: 9
   orbitPathX: 105
   orbitPathY: 0
   orbitPathZ: 105
@@ -25,3 +26,4 @@ MonoBehaviour:
   model: {fileID: 9028586981676282276, guid: 4b59c3a09c41e6846a094872ee9cd52b, type: 3}
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 0
+  isMoon: 0

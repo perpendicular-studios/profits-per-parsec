@@ -13,7 +13,7 @@ public class PlanetGenerator : MonoBehaviour
     public GameObject planetCenter;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //Initialize Lists if necessary
         if(PlanetController.instance.planets == null)
@@ -53,6 +53,7 @@ public class PlanetGenerator : MonoBehaviour
     {
         // Set variables in planet class equal to scriptable object
         planet.planetName = so.planetName;
+        planet.order = so.order;
         planet.orbitPathX = so.orbitPathX;
         planet.orbitPathY = so.orbitPathY;
         planet.orbitPathZ = so.orbitPathZ;
@@ -65,6 +66,7 @@ public class PlanetGenerator : MonoBehaviour
         planet.model = so.model;
         planet.hasMoon = so.hasMoon;
         planet.isMoon = so.isMoon;
+        planet.innerPlanet = so.innerPlanet;
 
         // Setting the correct orbiting object
         if(so.orbiting != null)

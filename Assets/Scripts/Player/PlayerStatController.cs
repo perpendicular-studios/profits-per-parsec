@@ -35,11 +35,15 @@ public class PlayerStatController : GameController<PlayerStatController>
     
     public Dictionary<string, CameraInfo> cameraList;
 
+    public List<Planet> unLockedPlanets;                            //List of planets a player has colonized and can send rockets to
+
     public List<Advisor> advisorListBacklog;                        //List of advisors with custom advisors and randomly generated advisors, which the currentHireList will draw from
 
     public List<Advisor> advisorHire;                               //List to keep track of advisors available to hire
 
     public List<Advisor> advisorAssign;                             //List to keep track of hired advisors
+
+   
 
     public bool CameraExistsForScene(string scene)
     {

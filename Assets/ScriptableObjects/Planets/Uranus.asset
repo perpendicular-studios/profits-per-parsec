@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Uranus
   m_EditorClassIdentifier: 
   planetName: Uranus
+  order: 8
   orbitPathX: 90
   orbitPathY: 0
   orbitPathZ: 90
@@ -25,3 +26,4 @@ MonoBehaviour:
   model: {fileID: 4624308775568554101, guid: cc58f690736eb964d9bbaae43732fa6a, type: 3}
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 0
+  isMoon: 0

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Saturn
   m_EditorClassIdentifier: 
   planetName: Saturn
+  order: 7
   orbitPathX: 75
   orbitPathY: 0
   orbitPathZ: 75
@@ -25,3 +26,4 @@ MonoBehaviour:
   model: {fileID: 5774827258678556993, guid: 51f69b927457dad42a3aca010cf5a7a8, type: 3}
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 0
+  isMoon: 0

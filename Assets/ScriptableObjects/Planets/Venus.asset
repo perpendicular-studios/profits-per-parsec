@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Venus
   m_EditorClassIdentifier: 
   planetName: Venus
+  order: 2
   orbitPathX: 20
   orbitPathY: 0
   orbitPathZ: 20
@@ -25,3 +26,5 @@ MonoBehaviour:
   model: {fileID: 1101239608789887517, guid: ed8f8ccc06bcd604cb6119a0867b1e7d, type: 3}
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 0
+  isMoon: 0
+  innerPlanet: 1

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Jupiter
   m_EditorClassIdentifier: 
   planetName: Jupiter
+  order: 6
   orbitPathX: 60
   orbitPathY: 0
   orbitPathZ: 60
@@ -25,3 +26,4 @@ MonoBehaviour:
   model: {fileID: 5010826964874791124, guid: 58b536a153d8b2b46b26903a84b3f07c, type: 3}
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 0
+  isMoon: 0
