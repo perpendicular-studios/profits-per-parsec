@@ -29,7 +29,7 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Buildings
+  - Sectors
   - Terrain
   - ActiveBuilding
   - RocketDisplayModels
