@@ -10,14 +10,11 @@ public class GridSystem : MonoBehaviour
     public int height;
     public int width;
     public int tileSize;
-    public Material genericMaterial, selectedMateril;
+    public Material genericMaterial, selectedMaterial;
     public SectorDisplay sectorDisplay;
    
     public Tile[] tileList;
     public int currTile;
-    public int currX;
-    public int currZ;
-    private bool mouseOff;
 
     void Awake()
     {
@@ -58,13 +55,8 @@ public class GridSystem : MonoBehaviour
     void Update()
     {
 
-        if (!Input.GetMouseButton(0))
-        {
-            mouseOff = true;
-        }
-
         //Check if tile is clicked 
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && mouseOff)
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -79,7 +71,7 @@ public class GridSystem : MonoBehaviour
 
                     if (xCol < width && zRow < height)
                     {
-                        tileList[zRow * height + xCol].gameObject.GetComponent<MeshRenderer>().material = selectedMateril;
+                        tileList[zRow * height + xCol].gameObject.GetComponent<MeshRenderer>().material = selectedMaterial;
 
                         //Check if tile has a sector
                         if(tileList[zRow * height + xCol].hasSector)
@@ -95,8 +87,6 @@ public class GridSystem : MonoBehaviour
                     }
                 }
             }
-
-            mouseOff = false;
         }
     }
 
