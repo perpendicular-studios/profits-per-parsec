@@ -32,6 +32,9 @@ public class GridSystem : MonoBehaviour
                 for (int z = 0; z < height; z++)
                 {
                     GameObject newTile = CreateTile(x, z);
+                    //Set tileList from singleton values to the new tile
+                    newTile.GetComponent<Tile>().hasSector = tileList[z * height + x].hasSector;
+                    //Set tileList to attach to the gameobject
                     tileList[z * height + x] = newTile.GetComponent<Tile>();
                 }
             }
