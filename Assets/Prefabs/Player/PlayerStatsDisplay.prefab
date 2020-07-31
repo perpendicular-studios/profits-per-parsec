@@ -446,7 +446,7 @@ MonoBehaviour:
   growthRatePanel: {fileID: 2455103512170365379}
   publicRelationPanel: {fileID: 9132024673245528500}
   governmentSupportPanel: {fileID: 8042898669352345135}
-  maxBuildingPanel: {fileID: 7429703354995090069}
+  maxSectorPanel: {fileID: 7429703354995090069}
   rocketsPanel: {fileID: 8871042006340249515}
 --- !u!1 &5885045865330810054
 GameObject:
@@ -1184,11 +1184,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 608912837012547869, guid: de98368c7105c6b498f077500f71261f,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4506995811632281699, guid: de98368c7105c6b498f077500f71261f,
         type: 3}

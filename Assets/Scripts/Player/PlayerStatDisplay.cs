@@ -9,7 +9,7 @@ public class PlayerStatDisplay : MonoBehaviour
     public GameObject growthRatePanel;
     public GameObject publicRelationPanel;
     public GameObject governmentSupportPanel;
-    public GameObject maxBuildingPanel;
+    public GameObject maxSectorPanel;
     public GameObject rocketsPanel;
     
     public void Update()
@@ -26,21 +26,21 @@ public class PlayerStatDisplay : MonoBehaviour
 
         if (PlayerStatController.instance.currentPlanet != null)
         {
-            maxBuildingPanel.SetActive(true);
-            int currentBuildings = BuildingController.instance.GetBuildingInfoListForPlanet(PlayerStatController.instance.currentPlanet).Count;
-            int maxBuildings = PlayerStatController.instance.maxBuildings;
+            maxSectorPanel.SetActive(true);
+            int currentSectors = SectorController.instance.GetSectorInfoListForPlanet(PlayerStatController.instance.currentPlanet).Count;
+            int maxSectors = PlayerStatController.instance.maxSectors;
 
-            maxBuildingPanel.GetComponent<PlayerStatPanel>().valueText.text = $"{currentBuildings}/{maxBuildings}";
-            if(currentBuildings >= maxBuildings)
+            maxSectorPanel.GetComponent<PlayerStatPanel>().valueText.text = $"{currentSectors}/{maxSectors}";
+            if(currentSectors >= maxSectors)
             {
-                maxBuildingPanel.GetComponent<PlayerStatPanel>().valueText.color = Color.red;
+                maxSectorPanel.GetComponent<PlayerStatPanel>().valueText.color = Color.red;
             }
 
             rocketsPanel.GetComponent<PlayerStatPanel>().valueText.text = PlayerStatController.instance.numRockets.ToString();
         }
         else
         {
-            maxBuildingPanel.SetActive(false);
+            maxSectorPanel.SetActive(false);
             rocketsPanel.SetActive(false);
         }
 
