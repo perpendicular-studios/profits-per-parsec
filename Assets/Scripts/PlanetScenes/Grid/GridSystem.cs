@@ -14,7 +14,6 @@ public class GridSystem : MonoBehaviour
     public SectorDisplay sectorDisplay;
    
     public Tile[] tileList;
-    public GameObject[] objectList;
     public int currTile;
     public int currX;
     public int currZ;
@@ -22,8 +21,6 @@ public class GridSystem : MonoBehaviour
 
     void Awake()
     {
-        objectList = new GameObject[width * height];
-
         Planet currentPlanet = PlayerStatController.instance.currentPlanet;
 
         if (currentPlanet != null)
@@ -38,9 +35,7 @@ public class GridSystem : MonoBehaviour
                 for (int z = 0; z < height; z++)
                 {
                     GameObject newTile = CreateTile(x, z);
-                    objectList[z * height + x] = newTile;
-                    newTile.GetComponent<TileManager>().tile = tileList[z * height + x];
-                    newTile.GetComponent<TileManager>().grid = this;
+                    tileList[z * height + x] = newTile.GetComponent<Tile>();
                 }
             }
         }
@@ -52,10 +47,8 @@ public class GridSystem : MonoBehaviour
                 for (int z = 0; z < height; z++)
                 {
                     GameObject newTile = CreateTile(x, z);
-                    objectList[z * height + x] = newTile;
                     tileList[z * height + x] = new Tile();
-                    newTile.GetComponent<TileManager>().tile = tileList[z * height + x];
-                    newTile.GetComponent<TileManager>().grid = this;
+                    tileList[z * height + x] = newTile.GetComponent<Tile>();
                 }
             }
         }
@@ -86,10 +79,10 @@ public class GridSystem : MonoBehaviour
 
                     if (xCol < width && zRow < height)
                     {
-                        objectList[zRow * height + xCol].GetComponent<MeshRenderer>().material = selectedMateril;
+                        tileList[zRow * height + xCol].gameObject.GetComponent<MeshRenderer>().material = selectedMateril;
 
                         //Check if tile has a sector
-                        if(objectList[zRow * height + xCol].GetComponent<TileManager>().tile.hasSector)
+                        if(tileList[zRow * height + xCol].hasSector)
                         {
                             //Sector UI stuff here
                         }
@@ -109,9 +102,9 @@ public class GridSystem : MonoBehaviour
 
     void ResetMaterial()
     {
-        foreach(GameObject go in objectList)
+        foreach(Tile tile in tileList)
         {
-            go.GetComponent<MeshRenderer>().material = genericMaterial;
+            tile.gameObject.GetComponent<MeshRenderer>().material = genericMaterial;
         }
         sectorDisplay.DisableSectorPanels();
     }
@@ -127,7 +120,7 @@ public class GridSystem : MonoBehaviour
         MeshRenderer meshRenderer = go.AddComponent<MeshRenderer>();
         go.AddComponent<MeshFilter>().mesh = CreateMesh(x, z);
         meshRenderer.material = genericMaterial;
-        go.AddComponent<TileManager>();
+        go.AddComponent<Tile>();
         return go;
     }
 
