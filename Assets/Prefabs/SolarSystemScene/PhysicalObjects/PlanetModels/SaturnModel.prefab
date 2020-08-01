@@ -105,9 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccd608fbd988e7b46978fbdbf738e94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  segments: 23
-  innerRadius: 0.7
-  thickness: 0.5
+  segments: 75
+  innerRadius: 0.6
+  thickness: 0.2
   ringMat: {fileID: 2100000, guid: a96ea294b95fd274c9670b235aef93cf, type: 2}
 --- !u!1 &5774827259837032734
 GameObject:

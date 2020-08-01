@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Moon
   m_EditorClassIdentifier: 
   planetName: Moon
+  order: 4
   orbitPathX: 2
   orbitPathY: 0
   orbitPathZ: 2
@@ -26,3 +27,4 @@ MonoBehaviour:
   orbiting: {fileID: 11400000, guid: d40f2c9063783cb45bbfebc7f59e21d7, type: 2}
   hasMoon: 0
   isMoon: 1
+  innerPlanet: 1

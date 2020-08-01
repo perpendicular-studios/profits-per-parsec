@@ -33,6 +33,7 @@ public class CameraController : MonoBehaviour
 
     void Awake()
     {
+        initialZoom = cameraOffset.y;
         cam = GetComponentInChildren<Camera>();
 
         zoomStrategy = new PerspectiveZoomStrategy(cam, cameraOffset, initialZoom);

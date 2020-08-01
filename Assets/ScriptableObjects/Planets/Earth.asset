@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Earth
   m_EditorClassIdentifier: 
   planetName: Earth
+  order: 3
   orbitPathX: 30
   orbitPathY: 0
   orbitPathZ: 30
@@ -26,3 +27,4 @@ MonoBehaviour:
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 1
   isMoon: 0
+  innerPlanet: 1

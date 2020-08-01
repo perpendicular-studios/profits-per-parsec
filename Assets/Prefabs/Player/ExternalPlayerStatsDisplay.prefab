@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 2200881605470013662}
   - component: {fileID: 6262126028593889905}
   m_Layer: 5
-  m_Name: MaxBuildingPanel
+  m_Name: MaxSectorPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6895585194977198427}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 

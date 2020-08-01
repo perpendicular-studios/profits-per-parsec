@@ -10,6 +10,7 @@ public class KeyboardInputController : InputController
     public static event ZoomInputHandler OnZoom;
     public GameObject ResearchDisplay;
     public GameObject AdvisorDisplay;
+    public GameObject RocketDisplay;
     public void Update()
     {
         if (Input.GetKey(KeyCode.W))
@@ -29,8 +30,9 @@ public class KeyboardInputController : InputController
             OnMoveInput?.Invoke(Vector3.right);
         }
 
-        ToggleUI(KeyCode.R, ResearchDisplay);
+        ToggleUI(KeyCode.T, ResearchDisplay);
         ToggleUI(KeyCode.Y, AdvisorDisplay);
+        ToggleUI(KeyCode.R, RocketDisplay);
     }
 
     void ToggleUI(KeyCode key, GameObject display)
@@ -55,6 +57,7 @@ public class KeyboardInputController : InputController
     {
         ResearchDisplay.SetActive(false);
         AdvisorDisplay.SetActive(false);
+        RocketDisplay.SetActive(false);
     }
 
 }

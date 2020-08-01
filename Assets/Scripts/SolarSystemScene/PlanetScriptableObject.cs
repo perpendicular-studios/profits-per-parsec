@@ -7,6 +7,7 @@ public class PlanetScriptableObject : ScriptableObject
 {
     [Header("Planet Data")]
     public string planetName;
+    public int order;
 
     [Header("Orbit Data")]
     public int orbitPathX;
@@ -25,4 +26,5 @@ public class PlanetScriptableObject : ScriptableObject
     public PlanetScriptableObject orbiting;
     public bool hasMoon;
     public bool isMoon;
+    public bool innerPlanet;
 }

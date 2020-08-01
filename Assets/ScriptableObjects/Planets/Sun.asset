@@ -13,12 +13,7 @@ MonoBehaviour:
   m_Name: Sun
   m_EditorClassIdentifier: 
   planetName: Sun
-  posX: 0
-  posY: 0
-  posZ: 0
-  rotX: 0
-  rotY: 0
-  rotZ: 0
+  order: 0
   orbitPathX: 0
   orbitPathY: 0
   orbitPathZ: 0
@@ -31,3 +26,5 @@ MonoBehaviour:
   model: {fileID: 5053201663359832640, guid: 682de4a5920da2b46ad18c0ccb54adb7, type: 3}
   orbiting: {fileID: 0}
   hasMoon: 0
+  isMoon: 0
+  innerPlanet: 1
