@@ -91,6 +91,7 @@ public class PlanetGenerator : MonoBehaviour
 
         // Generate sun model
         sun = Instantiate(sunParent.model, new Vector3(0, 0, 0), Quaternion.identity);
+        sun.name = "Sun";
         sun.GetComponent<PlanetCenterInfo>().planet = sunParent;
 
         //Generate planet and moon models
@@ -100,6 +101,7 @@ public class PlanetGenerator : MonoBehaviour
             if (!p.isMoon)
             {
                 GameObject go = Instantiate(planetCenter, new Vector3(0, 0, 0), Quaternion.identity, sun.transform);
+                go.name = p.planetName;
                 SetPlanetPositions(go, p);
                 planetModelList.Add(go);
 
@@ -109,7 +111,7 @@ public class PlanetGenerator : MonoBehaviour
                     //Create moon model
                     GameObject moonObject = Instantiate(planetCenter, new Vector3(0, 0, 0), Quaternion.identity, go.transform.GetChild(0));
                     Planet moon = PlanetController.instance.planets.Find(t => t.orbiting.planetName == p.planetName);
-                    print(moon.planetName);
+                    moonObject.name = moon.planetName;
                     SetPlanetPositions(moonObject, moon);
                     planetModelList.Add(moonObject);
                 }

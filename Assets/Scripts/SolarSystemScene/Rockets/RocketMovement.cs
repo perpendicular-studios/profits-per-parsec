@@ -24,12 +24,12 @@ public class RocketMovement : MonoBehaviour
     {
         if(targetString != null)
         {
-            target = GameObject.FindGameObjectWithTag(targetString).GetComponentInChildren<OrbitMotion>().orbitingObject.transform;
+            target = GameObject.Find(targetString).GetComponentInChildren<OrbitMotion>().orbitingObject.transform;
         }
 
-        if(startPositionString != null)
+        if (startPositionString != null)
         {
-            startPosition = GameObject.FindGameObjectWithTag(startPositionString).GetComponent<OrbitMotion>().orbitingObject.transform;
+            startPosition = GameObject.Find(startPositionString).GetComponent<OrbitMotion>().orbitingObject.transform;
         }
 
         transform.position = startPosition.position;

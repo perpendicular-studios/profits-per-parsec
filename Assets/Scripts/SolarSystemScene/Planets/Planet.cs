@@ -36,6 +36,11 @@ public class Planet
     public int manufacturingSpeed;
     public int miningProduction;
 
+    //Planet Rockets
+    public int idleRockets = 0;                 //rockets that are not in service
+    public int currConnections = 0;             //rockets that are in service and travel to and from the planet
+    public int maxConnections = 5;              //maximum number of rockets that can be on a planet (maxConnections >= idleRockets + currConnections)
+
     public List<Advisor> planetAdvisors;
 
     public void AddAdvisor(Advisor a)

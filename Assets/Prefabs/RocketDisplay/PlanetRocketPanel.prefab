@@ -451,10 +451,12 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Rockets
+  m_Text: 'Rockets
+
+'
 --- !u!1 &5936879883185822108
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,9 +660,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c917906b2342f354289c0a42273748c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planetA:
+    planetName: 
+    order: 0
+    orbitPathX: 0
+    orbitPathY: 0
+    orbitPathZ: 0
+    orbitProgress: 0
+    orbitPeriod: 0
+    orbitActive: 0
+    segments: 0
+    hasMoon: 0
+    isMoon: 0
+    innerPlanet: 0
+    rotationSpeed: 0
+    dampAmt: 0
+    model: {fileID: 0}
+    researchSpeed: 0
+    energy: 0
+    tourismRevenue: 0
+    espionageSpeed: 0
+    espionageSuccessRate: 0
+    manufacturingSpeed: 0
+    miningProduction: 0
+    idleRockets: 0
+    currConnections: 0
+    maxConnections: 5
+    planetAdvisors: []
+  planetB:
+    planetName: 
+    order: 0
+    orbitPathX: 0
+    orbitPathY: 0
+    orbitPathZ: 0
+    orbitProgress: 0
+    orbitPeriod: 0
+    orbitActive: 0
+    segments: 0
+    hasMoon: 0
+    isMoon: 0
+    innerPlanet: 0
+    rotationSpeed: 0
+    dampAmt: 0
+    model: {fileID: 0}
+    researchSpeed: 0
+    energy: 0
+    tourismRevenue: 0
+    espionageSpeed: 0
+    espionageSuccessRate: 0
+    manufacturingSpeed: 0
+    miningProduction: 0
+    idleRockets: 0
+    currConnections: 0
+    maxConnections: 5
+    planetAdvisors: []
   titleText: {fileID: 5936879883185822108}
   profit: {fileID: 8209578347046198243}
-  rockets: {fileID: 3705666454727718713}
+  rocketText: {fileID: 6210872814423048060}
+  rocketCount: {fileID: 3814422592196649132}
+  connectionSlider: {fileID: 5927815922559244270}
   idleRockets: {fileID: 3130793381842988840}
   constructingRockets: {fileID: 3225251729406904365}
 --- !u!1 &7658177704814426431
@@ -786,6 +844,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2149808163868876557}
   - component: {fileID: 5927815922559244270}
+  - component: {fileID: 2691303197155033815}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -857,11 +916,51 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 100
-  m_WholeNumbers: 0
+  m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6633213481727131097}
+        m_MethodName: EditRocketValueText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2691303197155033815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8431923896096291641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 14
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6633213481727131097}
+          m_MethodName: SetRocketConnectionValue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  delegates: []
 --- !u!1 &8665012156102687203
 GameObject:
   m_ObjectHideFlags: 0

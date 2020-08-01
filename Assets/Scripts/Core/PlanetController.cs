@@ -9,7 +9,7 @@ public class PlanetController : GameController<PlanetController>
     public Planet sun;
     public List<Planet> planets;
     public Planet currentPlanet;
-
+    
     public int timePassed = 0;
 
     private void OnEnable()
