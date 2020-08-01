@@ -23,7 +23,7 @@ public class SpaceReturnButton : MonoBehaviour
     public void OnClick()
     {
         PlayerStatController.instance.SaveCameraDataForScene(SceneManager.GetActiveScene().name);
-
+        PlayerStatController.instance.currentPlanet = null;
         SceneManager.LoadScene(spaceSceneName);
     }
 }
