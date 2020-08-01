@@ -40,6 +40,7 @@ public class NotificationDisplay : MonoBehaviour
     {
         GameObject newNotificationObject = Instantiate(notificationPanelPrefab, transform);
         newNotificationObject.GetComponent<NotificationPanel>().notificationInfo = notificationInfo;
+        activeNotifications.Add(newNotificationObject);
     }
 
     private void OnNotificationDeleted(NotificationInfo notificationInfo)

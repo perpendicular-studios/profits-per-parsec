@@ -11,7 +11,28 @@ public class PlayerStatDisplay : MonoBehaviour
     public GameObject governmentSupportPanel;
     public GameObject maxSectorPanel;
     public GameObject rocketsPanel;
-    
+
+    public void Awake()
+    {
+        if (PlayerStatController.instance.currentPlanet != null)
+        {
+            if (!string.IsNullOrEmpty(PlayerStatController.instance.currentPlanet.planetName))
+            {
+                maxSectorPanel.SetActive(true);
+            }
+            else
+            {
+                maxSectorPanel.SetActive(false);
+                rocketsPanel.SetActive(false);
+            }
+        }
+        else
+        {
+            maxSectorPanel.SetActive(false);
+            rocketsPanel.SetActive(false);
+        }
+    }
+
     public void Update()
     {
         string cashString = PlayerStatController.instance.cash.ToString();
@@ -26,7 +47,6 @@ public class PlayerStatDisplay : MonoBehaviour
 
         if (PlayerStatController.instance.currentPlanet != null)
         {
-            maxSectorPanel.SetActive(true);
             int currentSectors = SectorController.instance.GetSectorInfoListForPlanet(PlayerStatController.instance.currentPlanet).Count;
             int maxSectors = PlayerStatController.instance.maxSectors;
 
@@ -38,12 +58,6 @@ public class PlayerStatDisplay : MonoBehaviour
 
             rocketsPanel.GetComponent<PlayerStatPanel>().valueText.text = PlayerStatController.instance.numRockets.ToString();
         }
-        else
-        {
-            maxSectorPanel.SetActive(false);
-            rocketsPanel.SetActive(false);
-        }
-
     }
 
 

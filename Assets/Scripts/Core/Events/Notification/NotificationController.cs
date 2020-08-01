@@ -11,10 +11,17 @@ public class NotificationController : GameController<NotificationController>
     public delegate void DeleteNotification(NotificationInfo notificationObject);
 
     public List<NotificationInfo> allNotifications;
+    public List<NotificationInfo> addedNotifications;
 
     public void Awake()
     {
         allNotifications = new List<NotificationInfo>();
+        addedNotifications = new List<NotificationInfo>();
+    }
+
+    public void OnEnable()
+    {
+        DateTimeController.OnDailyTick += UpdateNotifications;
     }
 
     public void CreateNotification(NotificationInfo notificationInfo)
@@ -31,12 +38,20 @@ public class NotificationController : GameController<NotificationController>
             if(notificationSatisfied)
             {
                 Debug.Log("Notification Satisfied!");
-                OnNotificationAdded?.Invoke(notificationInfo);
+                if (!addedNotifications.Contains(notificationInfo))
+                {
+                    OnNotificationAdded?.Invoke(notificationInfo);
+                    addedNotifications.Add(notificationInfo);
+                }
             }
             else
             {
                 Debug.Log("Notification Not Satisfied!");
-                OnNotificationDeleted?.Invoke(notificationInfo);
+                if (allNotifications.Contains(notificationInfo))
+                {
+                    OnNotificationDeleted?.Invoke(notificationInfo);
+                    addedNotifications.Remove(notificationInfo);
+                }
             }
         }
     }

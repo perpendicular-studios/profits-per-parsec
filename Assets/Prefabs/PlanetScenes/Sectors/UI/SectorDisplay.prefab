@@ -111,5 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sectors: []
-  panelParent: {fileID: 0}
+  panelParent: {fileID: 1433853660429816234}
   shopBackground: {fileID: 0}
