@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class Tile : MonoBehaviour
 {
     //public GridSystem grid;
-    public bool hasSector;
+    public SectorInfo sector;
 
     // Start is called before the first frame update
     void Start()

@@ -28,7 +28,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5627708377478960890}
+  - {fileID: 8634097496554497536}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85ecfb99e4b9cf24ab4445800804ddaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 5627708377478960889}
+  grid: {fileID: 8634097496554497539}
   activeSectorMaterial: {fileID: 2100000, guid: d972a60c955af274b88736fcf0182f59,
     type: 2}
---- !u!1001 &910491237232588079
+--- !u!1001 &3848728210023728597
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -116,17 +116,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac1e291aaded54341a89258c9bbf1a24, type: 3}
---- !u!4 &5627708377478960890 stripped
+--- !u!4 &8634097496554497536 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4808459047936533461, guid: ac1e291aaded54341a89258c9bbf1a24,
     type: 3}
-  m_PrefabInstance: {fileID: 910491237232588079}
+  m_PrefabInstance: {fileID: 3848728210023728597}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5627708377478960889 stripped
+--- !u!114 &8634097496554497539 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4808459047936533462, guid: ac1e291aaded54341a89258c9bbf1a24,
     type: 3}
-  m_PrefabInstance: {fileID: 910491237232588079}
+  m_PrefabInstance: {fileID: 3848728210023728597}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1

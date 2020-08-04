@@ -8,20 +8,25 @@ public class SectorInfoDisplay : MonoBehaviour
     public Image panelBackground;
     public Text titleDisplay;
     public Image sectorImageDisplay;
-    public Sector selectedSector;
+    public SectorInfo selectedSector;
 
     public void Awake()
     {
-        SectorInfoController.OnSectorClicked += OnSectorClicked;
         DisableSectorInfoDisplay();
+    }
+
+    public void OnEnable()
+    {
+        GridSystem.OnSectorClicked += OnSectorClicked;
+        GridSystem.OnSectorDeselect += DisableSectorInfoDisplay;
     }
 
     public void Update()
     {
         if(selectedSector != null)
         {
-            titleDisplay.text = selectedSector.displayName;
-            sectorImageDisplay.sprite = selectedSector.image;
+            titleDisplay.text = selectedSector.sector.displayName;
+            sectorImageDisplay.sprite = selectedSector.sector.image;
         }
         else
         {
@@ -29,7 +34,7 @@ public class SectorInfoDisplay : MonoBehaviour
         }
     }
 
-    public void OnSectorClicked(Sector sector)
+    public void OnSectorClicked(SectorInfo sector)
     {
         this.selectedSector = sector;
         if (selectedSector != null)

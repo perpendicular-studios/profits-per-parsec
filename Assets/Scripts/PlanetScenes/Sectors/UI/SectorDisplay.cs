@@ -20,6 +20,12 @@ public class SectorDisplay : MonoBehaviour
         DisableSectorPanels();
     }
 
+    public void OnEnable()
+    {
+        GridSystem.OnSectorClicked += EnableSectorPanels;
+        GridSystem.OnSectorDeselect += DisableSectorPanels;
+    }
+
     private void GenerateSectorPanels()
     {
         foreach(Sector sector in sectors)
@@ -37,17 +43,20 @@ public class SectorDisplay : MonoBehaviour
 
     }
 
-    public void EnableSectorPanels()
+    public void EnableSectorPanels(SectorInfo sector)
     {
-        shopBackground.enabled = true;
-        foreach(SectorPanel panel in sectorPanels)
+        if (sector == null)
         {
-            panel.displayTitle.enabled = true;
-            panel.displayDescription.enabled = true;
-            panel.sectorImage.enabled = true;
-            panel.panelBackground.enabled = true;
+            shopBackground.enabled = true;
+            foreach (SectorPanel panel in sectorPanels)
+            {
+                panel.displayTitle.enabled = true;
+                panel.displayDescription.enabled = true;
+                panel.sectorImage.enabled = true;
+                panel.panelBackground.enabled = true;
+            }
+            isEnabled = true;
         }
-        isEnabled = true;
     }
 
     public void DisableSectorPanels()
