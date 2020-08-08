@@ -35,11 +35,11 @@ public class SectorManager : MonoBehaviour
         {
             foreach(SectorInfo sectorInfo in savedSectorInfo)
             {
-                GameObject placedSector = Instantiate(sectorInfo.sector.sectorModelPrefab, grid.tileList[sectorInfo.GetTileNum()].gameObject.transform.position, Quaternion.identity);
+                GameObject placedSector = Instantiate(sectorInfo.sector.sectorModelPrefab, grid.tileList[sectorInfo.tileNum].gameObject.transform.position, Quaternion.identity);
                 //Reposition sector
                 placedSector.transform.position += new Vector3(grid.tileSize / 2, 0, grid.tileSize / 2);
                 //Set parent
-                placedSector.transform.parent = grid.tileList[sectorInfo.GetTileNum()].gameObject.transform;
+                placedSector.transform.parent = grid.tileList[sectorInfo.tileNum].gameObject.transform;
                 placedSector.layer = LayerMask.NameToLayer("Sectors");
                 placedSector.GetComponent<MeshRenderer>().material = sectorInfo.sector.sectorModelPrefab.GetComponent<MeshRenderer>().sharedMaterial;
                 placedSectors.Add(placedSector);
@@ -69,7 +69,14 @@ public class SectorManager : MonoBehaviour
 
         //Let the tile know a sector has been placed on it
         grid.tileList[grid.currTile].sector = placedSector.GetComponent<SectorInfo>();
-        TileController.instance.SaveTileForPlanet(PlayerStatController.instance.currentPlanet, grid.tileList);
+
+        List<TileInfo> tileInfoList = new List<TileInfo>();
+        foreach (Tile tile in grid.tileList)
+        {
+            tileInfoList.Add(new TileInfo(tile));
+        }
+
+        TileController.instance.SaveTileForPlanet(PlayerStatController.instance.currentPlanet, tileInfoList);
 
         // Check notifications when sector is placed.
         NotificationController.instance.UpdateNotifications();

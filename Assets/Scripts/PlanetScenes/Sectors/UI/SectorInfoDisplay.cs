@@ -49,9 +49,19 @@ public class SectorInfoDisplay : MonoBehaviour
 
     public void EnableSectorInfoDiplay()
     {
-        panelBackground.enabled = true;
-        titleDisplay.enabled = true;
-        sectorImageDisplay.enabled = true;
+        if(panelBackground != null)
+        {
+            panelBackground.enabled = true;
+
+        }
+        if(titleDisplay != null)
+        {
+            titleDisplay.enabled = true;
+        }
+        if(sectorImageDisplay != null)
+        {
+            sectorImageDisplay.enabled = true;
+        }
     }
 
     public void DisableSectorInfoDisplay()

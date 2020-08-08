@@ -4,23 +4,12 @@ using UnityEngine;
 
 public class SectorInfo : MonoBehaviour
 {
-    private Sector _sector;
-    public Sector sector
-    {
-        get { return _sector; }
-        set { _sector = value; }
-    }
-
-    private int _tileNum;
+    public Sector sector;
+    public int tileNum;
 
     public SectorInfo(Sector sector, int tileNum)
     {
-        _sector = sector;
-        _tileNum = tileNum;
-    }
-
-    public int GetTileNum()
-    {
-        return _tileNum;
+        this.sector = sector;
+        this.tileNum = tileNum;
     }
 }

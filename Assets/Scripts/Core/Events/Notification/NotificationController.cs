@@ -29,6 +29,12 @@ public class NotificationController : GameController<NotificationController>
         allNotifications.Add(notificationInfo);
     }
 
+    public void ClearNotifications()
+    {
+        allNotifications.Clear();
+        addedNotifications.Clear();
+    }
+
     public void UpdateNotifications()
     {
         foreach(NotificationInfo notificationInfo in allNotifications)
@@ -53,6 +59,7 @@ public class NotificationController : GameController<NotificationController>
                     addedNotifications.Remove(notificationInfo);
                 }
             }
+            Destroy(notificationPredicate);
         }
     }
 }

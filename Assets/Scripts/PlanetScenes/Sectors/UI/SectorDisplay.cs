@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,14 +39,14 @@ public class SectorDisplay : MonoBehaviour
         sectorPanels.AddRange(GetComponentsInChildren<SectorPanel>());
     }
 
-    public void Update()
+    public void OnDestroy()
     {
-
+        sectorPanels.Clear();
     }
 
     public void EnableSectorPanels(SectorInfo sector)
     {
-        if (sector == null)
+        if (sector == null && shopBackground != null)
         {
             shopBackground.enabled = true;
             foreach (SectorPanel panel in sectorPanels)
@@ -55,20 +56,26 @@ public class SectorDisplay : MonoBehaviour
                 panel.sectorImage.enabled = true;
                 panel.panelBackground.enabled = true;
             }
-            isEnabled = true;
         }
+
+        isEnabled = true;
+        
     }
 
     public void DisableSectorPanels()
     {
-        shopBackground.enabled = false;
-        foreach (SectorPanel panel in sectorPanels)
+        if (shopBackground != null)
         {
-            panel.displayTitle.enabled = false;
-            panel.displayDescription.enabled = false;
-            panel.sectorImage.enabled = false;
-            panel.panelBackground.enabled = false;
+            shopBackground.enabled = false;
+            foreach (SectorPanel panel in sectorPanels)
+            {
+                panel.displayTitle.enabled = false;
+                panel.displayDescription.enabled = false;
+                panel.sectorImage.enabled = false;
+                panel.panelBackground.enabled = false;
+            }
         }
+
         isEnabled = false;
     }
 }

@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class TileController : GameController<TileController>
 {
-    private Dictionary<Planet, Tile[]> _allTiles;
+    private Dictionary<Planet, List<TileInfo>> _allTiles;
 
-    public Tile[] GetTileInfoListForPlanet(Planet planet)
+    public List<TileInfo> GetTileInfoListForPlanet(Planet planet)
     {
 
         if (_allTiles == null)
         {
-            _allTiles = new Dictionary<Planet, Tile[]>();
+            _allTiles = new Dictionary<Planet, List<TileInfo>>();
+            
         }
 
         if (!_allTiles.ContainsKey(planet))
@@ -22,11 +23,11 @@ public class TileController : GameController<TileController>
         return _allTiles[planet];
     }
 
-    public void SaveTileForPlanet(Planet planet, Tile[] tileArray)
+    public void SaveTileForPlanet(Planet planet, List<TileInfo> tileArray)
     {
         if (_allTiles == null)
         {
-            _allTiles = new Dictionary<Planet, Tile[]>();
+            _allTiles = new Dictionary<Planet, List<TileInfo>>();
         }
 
         if (!_allTiles.ContainsKey(planet))
@@ -36,17 +37,5 @@ public class TileController : GameController<TileController>
 
         _allTiles[planet] = tileArray;
 
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

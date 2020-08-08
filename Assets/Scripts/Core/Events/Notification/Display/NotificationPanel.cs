@@ -9,8 +9,9 @@ public class NotificationPanel : MonoBehaviour
     public Image notificationPanelIcon;
     public Image notificationPanelBacking;
 
-    public void Update()
+    public void Setup(NotificationInfo notificationInfo)
     {
+        this.notificationInfo = notificationInfo;
         if(notificationInfo != null)
         {
             notificationPanelIcon.sprite = notificationInfo.notificationIcon;

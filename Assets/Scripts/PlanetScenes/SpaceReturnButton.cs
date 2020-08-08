@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,14 +17,15 @@ public class SpaceReturnButton : MonoBehaviour
         button = GetComponent<Button>();
         button.onClick.AddListener(delegate { OnClick(); });
     }
-    private void Update()
-    {
-
-    }
+    
     public void OnClick()
     {
         PlayerStatController.instance.SaveCameraDataForScene(SceneManager.GetActiveScene().name);
         PlayerStatController.instance.currentPlanet = null;
+        
+        // Clear notifications when transitioning scenes
+        NotificationController.instance.ClearNotifications();
+        
         SceneManager.LoadScene(spaceSceneName);
     }
 }
