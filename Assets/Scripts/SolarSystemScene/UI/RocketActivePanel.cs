@@ -10,9 +10,9 @@ public class RocketActivePanel : MonoBehaviour
     public GameObject rocketListPanelScrollView;
     public GameObject rocketStatusPanelPrefab;
     public PlanetSelectionPanel planetSelectionPanel;
-    public List<RocketStatusPanelPrefab> activePanels;
+    public List<RocketStatusPanel> activePanels;
     public List<Rocket> rocketSelectionList;
-    public List<RocketStatusPanelPrefab> selectedPanels;
+    public List<RocketStatusPanel> selectedPanels;
     public int selectionIndex = 0;
     public int selectionIndex2 = 0;
     public bool controlDown = false;
@@ -33,7 +33,7 @@ public class RocketActivePanel : MonoBehaviour
     void Start()
     {
         rocketSelectionList = new List<Rocket>();
-        activePanels = new List<RocketStatusPanelPrefab>();
+        activePanels = new List<RocketStatusPanel>();
 
         deleteRocketButton.onClick.AddListener(() => DeleteRocket());
         transportRocketButton.onClick.AddListener(() => TransportRockets());
@@ -45,7 +45,7 @@ public class RocketActivePanel : MonoBehaviour
             foreach (Rocket rocket in PlayerStatController.instance.currentPlanet.currRockets)
             {
                 //Add rocket to list
-                RocketStatusPanelPrefab panel = Instantiate(rocketStatusPanelPrefab, rocketListPanel.transform).GetComponent<RocketStatusPanelPrefab>();
+                RocketStatusPanel panel = Instantiate(rocketStatusPanelPrefab, rocketListPanel.transform).GetComponent<RocketStatusPanel>();
                 panel.rocketActivePanel = this;
                 panel.rocket = rocket;
                 panel.SetText();
@@ -92,7 +92,7 @@ public class RocketActivePanel : MonoBehaviour
     {
         if(p.planetName == PlayerStatController.instance.currentPlanet.planetName)
         {
-            RocketStatusPanelPrefab panel = Instantiate(rocketStatusPanelPrefab, rocketListPanel.transform).GetComponent<RocketStatusPanelPrefab>();
+            RocketStatusPanel panel = Instantiate(rocketStatusPanelPrefab, rocketListPanel.transform).GetComponent<RocketStatusPanel>();
             panel.rocketActivePanel = this;
             panel.rocket = rocket;
             panel.SetText();
@@ -105,7 +105,7 @@ public class RocketActivePanel : MonoBehaviour
     {
         rocketSelectionList.Clear();
         selectedPanels.Clear();
-        foreach (RocketStatusPanelPrefab panel in activePanels)
+        foreach (RocketStatusPanel panel in activePanels)
         {
             panel.ResetHighlight();
         }
@@ -131,7 +131,7 @@ public class RocketActivePanel : MonoBehaviour
 
     public void UpdateText()
     {
-        foreach(RocketStatusPanelPrefab panel in selectedPanels.ToList())
+        foreach(RocketStatusPanel panel in selectedPanels.ToList())
         {
             panel.SetText();
         }
@@ -142,7 +142,7 @@ public class RocketActivePanel : MonoBehaviour
         int[] mapOrder = new[] { 0, 1, 2, 3 };
 
         activePanels = activePanels.OrderBy(x => mapOrder[(int) (x.rocket.rocketType)]).ToList();
-        foreach (RocketStatusPanelPrefab panel in activePanels)
+        foreach (RocketStatusPanel panel in activePanels)
         {
             panel.transform.SetAsLastSibling();
         }
@@ -206,7 +206,7 @@ public class RocketActivePanel : MonoBehaviour
         }
         rocketSelectionList.Clear();
 
-        foreach (RocketStatusPanelPrefab panel in selectedPanels)
+        foreach (RocketStatusPanel panel in selectedPanels)
         {
             activePanels.Remove(panel);
             Destroy(panel.gameObject);

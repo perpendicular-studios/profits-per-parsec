@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class RocketStatusPanelPrefab : MonoBehaviour, IPointerClickHandler
+public class RocketStatusPanel : MonoBehaviour, IPointerClickHandler
 {
     public Text rocketTypeText, rocketStatusText;
     public Image rocketTypeImage;

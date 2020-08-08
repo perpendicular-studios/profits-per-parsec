@@ -88,7 +88,7 @@ public class PlanetSelectionPanel : MonoBehaviour
             PlayerStatController.instance.currentPlanet.currRockets.Remove(rocket);
         }
 
-        foreach (RocketStatusPanelPrefab panel in rocketActivePanel.selectedPanels)
+        foreach (RocketStatusPanel panel in rocketActivePanel.selectedPanels)
         {
             rocketActivePanel.activePanels.Remove(panel);
             Destroy(panel.gameObject);

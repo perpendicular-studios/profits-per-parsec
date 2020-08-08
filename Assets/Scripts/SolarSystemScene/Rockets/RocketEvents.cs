@@ -5,80 +5,43 @@ using System;
 
 public class RocketEvents : MonoBehaviour
 {
-    public float rocketLaunchTimeDelay = 2;
     public GameObject rocketPrefab;
-
-    private float actionTime;
-    private float elapsedTime;
-    private bool launched = false;
-    private IEnumerator coroutine;
+    private IEnumerator launchCoroutine;
 
     void Awake()
     {
-        actionTime = rocketLaunchTimeDelay;
-        coroutine = Launch();
-        StartCoroutine(coroutine);
+
     }
-    /*
+   
     void FixedUpdate()
     {
-        elapsedTime += Time.unscaledDeltaTime;
-        if (elapsedTime > actionTime)
+        if(launchCoroutine == null)
         {
-            int currentTime = (int)Time.unscaledDeltaTime;
-            foreach (RocketPath rocketMovement in RocketController.instance.queuedRockets)
-            {
-
-                // Check if rocket path is queued
-                string startPosition = rocketMovement.startPosition;
-                string target = rocketMovement.target;
-
-                GameObject rocket = Instantiate(rocketPrefab);
-                rocket.GetComponent<RocketMovement>().startPositionString = startPosition;
-                rocket.GetComponent<RocketMovement>().targetString = target;
-
-                RocketController.instance.activeRockets.Add(rocket);
-
-                
-                if (RocketController.instance.IsRocketPathQueued(startPosition, target))
-                {
-                    GameObject rocket = Instantiate(rocketPrefab);
-                    rocket.GetComponent<RocketMovement>().startPositionString = startPosition;
-                    rocket.GetComponent<RocketMovement>().targetString = target;
-
-                    RocketController.instance.activeRockets.Add(rocket);
-                }
-            }
-
-            // Clear all queued rockets once they have been launched.
-            RocketController.instance.queuedRockets.Clear();
-
-            elapsedTime = 0;
+            launchCoroutine = Launch();
+            StartCoroutine(launchCoroutine);
         }
+
     }
-    */
+
     private IEnumerator Launch()
     {
-        while (true)
+        foreach (RocketPath rocketMovement in RocketController.instance.queuedRockets)
         {
-            foreach (RocketPath rocketMovement in RocketController.instance.queuedRockets)
-            {
 
-                // Check if rocket path is queued
-                string startPosition = rocketMovement.startPosition;
-                string target = rocketMovement.target;
+            // Check if rocket path is queued
+            string startPosition = rocketMovement.startPosition;
+            string target = rocketMovement.target;
 
-                GameObject rocket = Instantiate(rocketPrefab);
-                rocket.GetComponent<RocketMovement>().startPositionString = startPosition;
-                rocket.GetComponent<RocketMovement>().targetString = target;
+            GameObject rocket = Instantiate(rocketPrefab);
+            rocket.GetComponent<RocketMovement>().startPositionString = startPosition;
+            rocket.GetComponent<RocketMovement>().targetString = target;
 
-                RocketController.instance.activeRockets.Add(rocket);
-                yield return new WaitForSeconds(2);
-            }
-            RocketController.instance.queuedRockets.Clear();
-            yield return new WaitForSeconds(2);
-
+            RocketController.instance.activeRockets.Add(rocket);
+            yield return new WaitForSeconds(RocketConstants.ROCKET_QUEUE_DELAY);
         }
+        RocketController.instance.queuedRockets.Clear();
+        yield return new WaitForSeconds(RocketConstants.ROCKET_QUEUE_DELAY);
+        launchCoroutine = null;
     }
 }
 

@@ -84,9 +84,22 @@ public class Planet
 
     public void UpdateCurrentRockets()
     {
+        idleRockets = 0;
+        currConnections = 0;
+
         //Update logic later
-        idleRockets = currRockets.FindAll(x => x.status == RocketStatus.Idle).Count;
-        currConnections = currRockets.FindAll(x => x.status == RocketStatus.Connection).Count;
+        foreach (Rocket r in currRockets)
+        {
+            if(r.status == RocketStatus.Idle)
+            {
+                idleRockets++;
+            }
+            else if (r.status == RocketStatus.Connection)
+            {
+                currConnections++;
+            }
+
+        }
     }
 
     public void AddRocket(Rocket rocket)
