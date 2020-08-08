@@ -58,7 +58,7 @@ public class RocketDisplay : MonoBehaviour
             PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Uranus"));
             PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Neptune"));
             */
-            PlanetController.instance.currentPlanet = PlanetController.instance.planets.Find(x => x.planetName == "Earth");
+            PlayerStatController.instance.currentPlanet = PlanetController.instance.planets.Find(x => x.planetName == "Earth");
         }
         SetCenterInfoPanel();
         SetNavigationBar();
@@ -67,7 +67,7 @@ public class RocketDisplay : MonoBehaviour
 
     public void ChangeCenterPlanet(Planet p)
     {
-        PlanetController.instance.currentPlanet = p;
+        PlayerStatController.instance.currentPlanet = p;
         ClearCenter();
         SetCenterInfoPanel();
         SetNavigationBar();
@@ -83,16 +83,16 @@ public class RocketDisplay : MonoBehaviour
 
     public void SetCenterInfoPanel()
     {
-        GameObject centerPrefab = planetModelPrefabs.Find(x => x.name == PlanetController.instance.currentPlanet.planetName + "Model");
+        GameObject centerPrefab = planetModelPrefabs.Find(x => x.name == PlayerStatController.instance.currentPlanet.planetName + "Model");
         centerModel = SetModelAsChild(centerPrefab, centerPanel, centerScale);
-        centerPanel.GetComponentInChildren<Text>().text = PlanetController.instance.currentPlanet.planetName;
+        centerPanel.GetComponentInChildren<Text>().text = PlayerStatController.instance.currentPlanet.planetName;
         centerPanelRef = Instantiate(planetRocketPanel, centerInfoPanel.transform);
-        centerPanelRef.GetComponent<PlanetRocketPanel>().titleText.GetComponent<Text>().text = PlanetController.instance.currentPlanet.planetName;
+        centerPanelRef.GetComponent<PlanetRocketPanel>().titleText.GetComponent<Text>().text = PlayerStatController.instance.currentPlanet.planetName;
         //Edit center panel since it is slightly different than the rest
-        centerPanelRef.GetComponent<PlanetRocketPanel>().planetA = PlanetController.instance.currentPlanet;
+        centerPanelRef.GetComponent<PlanetRocketPanel>().planetA = PlayerStatController.instance.currentPlanet;
         centerPanelRef.GetComponentInChildren<Slider>().gameObject.SetActive(false);
         centerPanelRef.GetComponent<PlanetRocketPanel>().rocketCount.gameObject.SetActive(false);
-        centerPanelRef.GetComponent<PlanetRocketPanel>().rocketText.text = "Total Rocket Connections: " + PlanetController.instance.currentPlanet.currConnections;
+        centerPanelRef.GetComponent<PlanetRocketPanel>().rocketText.text = "Total Rocket Connections: " + PlayerStatController.instance.currentPlanet.currConnections;
     }
 
     public void SetNavigationBar()
@@ -136,7 +136,7 @@ public class RocketDisplay : MonoBehaviour
         {
             foreach (Planet p in PlayerStatController.instance.unLockedPlanets)
             {
-                if (p.planetName != PlanetController.instance.currentPlanet.planetName)
+                if (p.planetName != PlayerStatController.instance.currentPlanet.planetName)
                 {
                     CreatePanel(rightPanel.transform, p, count, true);
                     count++;
@@ -149,7 +149,7 @@ public class RocketDisplay : MonoBehaviour
         {
             foreach (Planet p in PlayerStatController.instance.unLockedPlanets)
             {
-                if (p.planetName != PlanetController.instance.currentPlanet.planetName)
+                if (p.planetName != PlayerStatController.instance.currentPlanet.planetName)
                 {
                     if (count < 3)
                     {
@@ -171,7 +171,7 @@ public class RocketDisplay : MonoBehaviour
         {
             foreach (Planet p in PlayerStatController.instance.unLockedPlanets)
             {
-                if (p.planetName != PlanetController.instance.currentPlanet.planetName)
+                if (p.planetName != PlayerStatController.instance.currentPlanet.planetName)
                 {
                     if (p.innerPlanet)
                     {
@@ -242,9 +242,9 @@ public class RocketDisplay : MonoBehaviour
             rocketPanel.transform.localPosition = new Vector3(-325, 0, 0);
         }
         //Set planet rocket panels
-        rocketPanel.GetComponent<PlanetRocketPanel>().planetA = PlanetController.instance.currentPlanet;
+        rocketPanel.GetComponent<PlanetRocketPanel>().planetA = PlayerStatController.instance.currentPlanet;
         rocketPanel.GetComponent<PlanetRocketPanel>().planetB = p;
-        rocketPanel.GetComponent<PlanetRocketPanel>().titleText.GetComponent<Text>().text = PlanetController.instance.currentPlanet.planetName + " to " + p.planetName;
+        rocketPanel.GetComponent<PlanetRocketPanel>().titleText.GetComponent<Text>().text = PlayerStatController.instance.currentPlanet.planetName + " to " + p.planetName;
         GameObject prefab = planetModelPrefabs.Find(x => x.name == p.planetName + "Model");
         GameObject model = SetModelAsChild(prefab, panel, sideScale);
         panelList.Add(panel);

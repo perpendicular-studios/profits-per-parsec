@@ -8,6 +8,7 @@ public class RocketMovement : MonoBehaviour
     public static event LandRocket OnRocketLand;
 
     public string targetString, startPositionString;
+    private bool currDirection = true;
 
     [SerializeField] public Transform target;
     [SerializeField] public Transform startPosition;
@@ -133,11 +134,33 @@ public class RocketMovement : MonoBehaviour
         if (collision.gameObject == target.gameObject)
         {
             OnRocketLand?.Invoke(gameObject);
+            SwitchDirection();
 
+            /*
             if (RocketController.instance.IsRocketPathActive(startPositionString, targetString))
             {
                 transform.position = startPosition.position;
             }
+            */
         }
     }
+
+    public void SwitchDirection()
+    {
+        if (currDirection)
+        {
+            target = GameObject.Find(startPositionString).GetComponentInChildren<OrbitMotion>().orbitingObject.transform;
+            startPosition = GameObject.Find(targetString).GetComponent<OrbitMotion>().orbitingObject.transform;
+            currDirection = false;
+        }
+        else
+        {
+            target = GameObject.Find(targetString).GetComponentInChildren<OrbitMotion>().orbitingObject.transform;
+            startPosition = GameObject.Find(startPositionString).GetComponent<OrbitMotion>().orbitingObject.transform;
+            currDirection = true;
+        }
+
+        transform.position = startPosition.position;
+    }
+
 }

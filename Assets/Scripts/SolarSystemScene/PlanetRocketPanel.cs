@@ -20,13 +20,13 @@ public class PlanetRocketPanel : MonoBehaviour
     {
         if(planetA != null && planetB != null)
         {
-            if (planetA.maxConnections < planetB.maxConnections)
+            if (planetA.maxCapacity < planetB.maxCapacity)
             {
-                connectionSlider.maxValue = planetA.maxConnections;
+                connectionSlider.maxValue = planetA.maxCapacity;
             }
             else
             {
-                connectionSlider.maxValue = planetB.maxConnections;
+                connectionSlider.maxValue = planetB.maxCapacity;
             }
         }
     }

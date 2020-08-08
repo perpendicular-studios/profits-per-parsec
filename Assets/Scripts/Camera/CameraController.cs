@@ -137,4 +137,10 @@ public class CameraController : MonoBehaviour
         frameZoom += zoomFactor;
     }
 
+    public void CenterCameraOnObject(GameObject go)
+    {
+        //Work in progress trying to center camera on a planet
+        cam.transform.LookAt(go.transform.position);
+    }
+
 }

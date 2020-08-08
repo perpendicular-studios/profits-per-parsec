@@ -18,7 +18,7 @@ MonoBehaviour:
   orbitPathY: 0
   orbitPathZ: 20
   orbitProgress: 0
-  orbitPeriod: 35
+  orbitPeriod: 800
   orbitActive: 1
   segments: 0
   rotationSpeed: 50

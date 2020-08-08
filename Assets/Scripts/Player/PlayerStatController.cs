@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -43,7 +44,21 @@ public class PlayerStatController : GameController<PlayerStatController>
 
     public List<Advisor> advisorAssign;                             //List to keep track of hired advisors
 
-   
+    public delegate void UnlockedNewPlanet();
+    public static event UnlockedNewPlanet OnPlanetUnlock;
+    public delegate void RocketBuilt(Rocket rocket, Planet planet);
+    public static event RocketBuilt OnRocketBuilt;
+
+
+    private void OnEnable()
+    {
+        DateTimeController.OnDailyTick += ConstructRockets;
+    }
+
+    private void OnDisable()
+    {
+        DateTimeController.OnDailyTick -= ConstructRockets;
+    }
 
     public bool CameraExistsForScene(string scene)
     {
@@ -96,5 +111,68 @@ public class PlayerStatController : GameController<PlayerStatController>
         }
 
         return cameraList[scene];
+    }
+
+    public void UnlockPlanet()
+    {
+        OnPlanetUnlock?.Invoke();
+    }
+
+    public void ConstructRockets()
+    {
+
+        if (unLockedPlanets == null)
+        {
+            unLockedPlanets = new List<Planet>();
+            unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Earth"));
+            unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Venus"));
+            /*
+            PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Mars"));
+            PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Mercury"));
+            PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Saturn"));
+            PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Moon"));
+            PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Jupiter"));
+            PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.sun);
+            PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Pluto"));
+            PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Uranus"));
+            PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Neptune"));
+            */
+            currentPlanet = PlanetController.instance.planets.Find(x => x.planetName == "Earth");
+
+            foreach(Planet p in unLockedPlanets)
+            {
+                p.currRockets = new List<Rocket>();
+            }
+
+            UnlockPlanet();
+        }
+
+        //Loop through player's unlocked planets
+        foreach (Planet p in unLockedPlanets)
+        {
+            //Check if the planet has any queued constructing rockets
+            if (p.rocketConstructionQueue != null)
+            {
+                //Loop through construction queue
+                foreach(RocketQueueItem constructingRocket in p.rocketConstructionQueue.ToList())
+                {
+                    constructingRocket.constructionTime--;
+
+                    //Rocket is finished construction
+                    if(constructingRocket.constructionTime <= 0)
+                    {
+                        p.constructingRockets--;
+                        p.idleRockets++;
+                        Rocket finishedRocket = new Rocket();
+                        finishedRocket.rocketType = constructingRocket.rocketType;
+                        finishedRocket.status = RocketStatus.Idle;
+                        p.currRockets.Add(finishedRocket);
+                        OnRocketBuilt?.Invoke(finishedRocket, p);
+                        p.rocketConstructionQueue.Remove(constructingRocket);
+                        //Debug.Log("Rocket Built!");
+                    }
+                }
+            }
+        }
     }
 }

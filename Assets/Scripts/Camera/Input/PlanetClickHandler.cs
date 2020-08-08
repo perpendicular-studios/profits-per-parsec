@@ -49,7 +49,7 @@ public class PlanetClickHandler : MonoBehaviour
                     // If currently selecting object save it so we can reset it
                     if (selectedObject != null)
                     {
-                        Debug.Log("Saving Object");
+                        //Debug.Log("Saving Object");
                         prevSelectedObject = selectedObject;
                     }
 
@@ -62,7 +62,7 @@ public class PlanetClickHandler : MonoBehaviour
                     {
                         resetObject(prevSelectedObject);
                         lerpCount = 0f;
-                        Debug.Log("Resetting Object");
+                        //Debug.Log("Resetting Object");
                     }
 
                     // Place code here when something is selected like displaying menus
@@ -73,6 +73,8 @@ public class PlanetClickHandler : MonoBehaviour
                     }
 
                     planetDisplay.GeneratePlanetPanel(selectedObject);
+                    PlayerStatController.instance.currentPlanet = PlanetController.instance.planets.Find(x => x.planetName == selectedObject.GetComponentInParent<PlanetCenterInfo>().planet.planetName);
+                    //Debug.Log("Set Current planet to " + selectedObject.GetComponentInParent<PlanetCenterInfo>().planet.planetName);
 
                     Debug.Log(hit.collider.gameObject.name);
                 }
@@ -93,7 +95,7 @@ public class PlanetClickHandler : MonoBehaviour
                 // Case when you click blank space
                 if (selectedObject != null)
                 {
-                    Debug.Log("Blank");
+                    //Debug.Log("Blank");
                     selected = false;
                     resetObject(selectedObject);
                     lerpCount = 0f;

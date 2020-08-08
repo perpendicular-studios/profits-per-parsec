@@ -32,6 +32,11 @@ public class RocketController : GameController<RocketController>
         SectorManager.OnRocketDestroy -= RemoveRocket;
     }
 
+    public void CreateConnection(string startPosition, string target)
+    {
+        queuedRockets.Add(new RocketPath(startPosition, target));
+    }
+
     public void CreateRocket(string startPosition, string target)
     {
         if (!IsRocketPathQueued(startPosition, target))
