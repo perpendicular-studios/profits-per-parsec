@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 673202073176624128}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 7380373659876409633}
   - {fileID: 6548424817681950877}
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelBackground: {fileID: 673202073176624190}
   titleDisplay: {fileID: 7408637417867170877}
-  sectorImageDisplay: {fileID: 0}
+  sectorImageDisplay: {fileID: 2299788084973054849}
   selectedSector: {fileID: 0}
 --- !u!1 &7109046319310329051
 GameObject:

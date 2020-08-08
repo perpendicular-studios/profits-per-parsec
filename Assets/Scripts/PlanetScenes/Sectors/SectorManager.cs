@@ -15,6 +15,10 @@ public class SectorManager : MonoBehaviour
 
     public delegate void DestroyRocket(string startPosition, string target);
     public static event DestroyRocket OnRocketDestroy;
+
+    public delegate void SectorPlaced();
+    public static event SectorPlaced OnSectorPlaced;
+
     public void Start()
     {
         placedSectors = new List<GameObject>();
@@ -64,13 +68,15 @@ public class SectorManager : MonoBehaviour
                     grid.currTile);
 
         //Let the tile know a sector has been placed on it
-        grid.tileList[grid.currTile].hasSector = true;
+        grid.tileList[grid.currTile].sector = placedSector.GetComponent<SectorInfo>();
         TileController.instance.SaveTileForPlanet(PlayerStatController.instance.currentPlanet, grid.tileList);
 
         // Check notifications when sector is placed.
         NotificationController.instance.UpdateNotifications();
 
         placedSectors.Add(placedSector);
+
+        OnSectorPlaced?.Invoke();
     }
 
     private bool IsMouseInScreen(Vector3 mousePosition)

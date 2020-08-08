@@ -11,10 +11,15 @@ public class GridSystem : MonoBehaviour
     public int width;
     public int tileSize;
     public Material genericMaterial, selectedMaterial;
-    public SectorDisplay sectorDisplay;
-   
+
     public Tile[] tileList;
     public int currTile;
+
+    public static event SectorClicked OnSectorClicked;
+    public delegate void SectorClicked(SectorInfo sector);
+
+    public static event SectorDeselect OnSectorDeselect;
+    public delegate void SectorDeselect();
 
     void Awake()
     {
@@ -33,7 +38,7 @@ public class GridSystem : MonoBehaviour
                 {
                     GameObject newTile = CreateTile(x, z);
                     //Set tileList from singleton values to the new tile
-                    newTile.GetComponent<Tile>().hasSector = tileList[z * height + x].hasSector;
+                    newTile.GetComponent<Tile>().sector = tileList[z * height + x].sector;
                     //Set tileList to attach to the gameobject
                     tileList[z * height + x] = newTile.GetComponent<Tile>();
                 }
@@ -52,6 +57,11 @@ public class GridSystem : MonoBehaviour
                 }
             }
         }
+    }
+
+    void OnEnable()
+    {
+        SectorManager.OnSectorPlaced += ResetMaterial;
     }
 
     // Update is called once per frame
@@ -77,14 +87,15 @@ public class GridSystem : MonoBehaviour
                         tileList[zRow * height + xCol].gameObject.GetComponent<MeshRenderer>().material = selectedMaterial;
 
                         //Check if tile has a sector
-                        if(tileList[zRow * height + xCol].hasSector)
+                        if(tileList[zRow * height + xCol].sector != null)
                         {
-                            //Sector UI stuff here
+                            //Sector info UI stuff here
+                            OnSectorClicked?.Invoke(tileList[zRow * height + xCol].sector);
                         }
                         //Tile is not occupied by a sector
                         else
                         {
-                            sectorDisplay.EnableSectorPanels();
+                            OnSectorClicked?.Invoke(null);
                         }
                         currTile = zRow * height + xCol;
                     }
@@ -99,7 +110,8 @@ public class GridSystem : MonoBehaviour
         {
             tile.gameObject.GetComponent<MeshRenderer>().material = genericMaterial;
         }
-        sectorDisplay.DisableSectorPanels();
+
+        OnSectorDeselect?.Invoke();
     }
 
 

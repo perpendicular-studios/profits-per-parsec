@@ -48,6 +48,9 @@ MonoBehaviour:
   tileSize: 10
   genericMaterial: {fileID: 2100000, guid: 4522fc6c4c4c90847992adb1e6405649, type: 2}
   selectedMaterial: {fileID: 2100000, guid: cc4e3f9107620c6438a600d9104f3a04, type: 2}
-  sectorDisplay: {fileID: 0}
+  sectorDisplayPrefab: {fileID: 3342471062836302619, guid: 937ccf92deabc5d43b76726564eda666,
+    type: 3}
+  sectorInfoDisplayPrefab: {fileID: 673202073176624128, guid: 4fbc6f8baf6bf2f43ac6782f07344cbf,
+    type: 3}
   tileList: []
   currTile: 0

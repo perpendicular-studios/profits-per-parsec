@@ -10,9 +10,6 @@ public class SectorInfoController : MonoBehaviour
     public GameObject selectedSectorObject;
     public Material selectedSectorMaterial;
 
-    public static event SectorClickHandler OnSectorClicked;
-    public delegate void SectorClickHandler(Sector sector);
-
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -37,7 +34,6 @@ public class SectorInfoController : MonoBehaviour
                 selectedSectorObject = hitObject;
                 selectedSector = sectorInfo.sector;
                 selectedSectorObject.GetComponent<MeshRenderer>().material = selectedSectorMaterial;
-                OnSectorClicked?.Invoke(selectedSector);
             }
             else
             {
@@ -47,7 +43,6 @@ public class SectorInfoController : MonoBehaviour
                 }
                 selectedSectorObject = null;
                 selectedSector = null;
-                OnSectorClicked?.Invoke(selectedSector);
             }
         }
         
