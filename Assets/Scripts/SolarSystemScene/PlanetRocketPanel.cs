@@ -45,7 +45,5 @@ public class PlanetRocketPanel : MonoBehaviour
     public void SetRocketConnectionValue()
     {
         rocketCount.text = connectionSlider.value.ToString();
-        Debug.Log("Rocket connections set to:");
-        RocketController.instance.CreateRocket(planetA.planetName, planetB.planetName);
     }
 }

@@ -34,12 +34,13 @@ public class RocketMovement : MonoBehaviour
         }
 
         transform.position = startPosition.position;
+        transform.LookAt(target);
         movementSpeed = 5;
         rotationalSpeed = 10;               //for collision make sure rotationalSpeed is 10x of movementSpeed
-        detectionDistance = 15;             //raycast detection distance
-        rayCastOffset = 0.25f;                 //raycast distance from center of rocket
-        bufferDuration = 30;                //sets rotateBuffer
-        emergencyDir = 10;
+        detectionDistance = 5;             //raycast detection distance
+        rayCastOffset = 0.25f;              //raycast distance from center of rocket
+        bufferDuration = 10;                //sets rotateBuffer
+        emergencyDir = 5;                  //scales emergency direction vector
 
     }
 
@@ -135,16 +136,10 @@ public class RocketMovement : MonoBehaviour
         {
             OnRocketLand?.Invoke(gameObject);
             SwitchDirection();
-
-            /*
-            if (RocketController.instance.IsRocketPathActive(startPositionString, targetString))
-            {
-                transform.position = startPosition.position;
-            }
-            */
         }
     }
 
+    //Make rocket wait a random amount of time before switching direction as well
     public void SwitchDirection()
     {
         if (currDirection)
@@ -161,6 +156,7 @@ public class RocketMovement : MonoBehaviour
         }
 
         transform.position = startPosition.position;
+        transform.LookAt(target);
     }
 
 }

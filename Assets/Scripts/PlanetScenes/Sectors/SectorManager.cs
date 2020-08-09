@@ -9,13 +9,6 @@ public class SectorManager : MonoBehaviour
 
     private List<GameObject> placedSectors;
 
-    // TODO : Move these to rocket UI screen
-    public delegate void LaunchRocket(string startPosition, string target);
-    public static event LaunchRocket OnRocketLaunch;
-
-    public delegate void DestroyRocket(string startPosition, string target);
-    public static event DestroyRocket OnRocketDestroy;
-
     public delegate void SectorPlaced();
     public static event SectorPlaced OnSectorPlaced;
 
