@@ -49,6 +49,16 @@ public class PlayerStatController : GameController<PlayerStatController>
     public delegate void RocketBuilt(Rocket rocket, Planet planet);
     public static event RocketBuilt OnRocketBuilt;
 
+    public void Awake()
+    {
+        unLockedPlanets = new List<Planet>();
+    }
+
+    public bool isUnlocked(Planet planet)
+    {
+        return unLockedPlanets.Contains(planet.isMoon ? planet.orbiting : planet);
+    }
+    
 
     private void OnEnable()
     {
@@ -79,7 +89,7 @@ public class PlayerStatController : GameController<PlayerStatController>
     public void SaveCameraDataForScene(string scene)
     {
         GameObject focus = GameObject.FindGameObjectWithTag("Focus");
-        PerspectiveZoomStrategy zoomStrategy = (focus.GetComponent<CameraController>().zoomStrategy) as PerspectiveZoomStrategy;
+        PerspectiveZoomStrategy zoomStrategy = (focus.GetComponent<ProfitsPerParsec.CameraController>().zoomStrategy) as PerspectiveZoomStrategy;
         //Set prev cam info
         CameraInfo prevCameraInfo = new CameraInfo(
                 focus.transform.position.x,
@@ -125,7 +135,7 @@ public class PlayerStatController : GameController<PlayerStatController>
         {
             unLockedPlanets = new List<Planet>();
             unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Earth"));
-            unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Venus"));
+            //PlunLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Venus"));
             /*
             PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Mars"));
             PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Mercury"));

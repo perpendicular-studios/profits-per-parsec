@@ -13,7 +13,7 @@ public class GridSystem : MonoBehaviour
     public int tileSize;
     public Material genericMaterial, selectedMaterial;
 
-    public List<Tile> tileList;
+    public List<SectorTile> tileList;
     public int currTile;
 
     public static event SectorClicked OnSectorClicked;
@@ -25,7 +25,7 @@ public class GridSystem : MonoBehaviour
     void Awake()
     {
         Planet currentPlanet = PlayerStatController.instance.currentPlanet;
-        List<TileInfo> planetTileInfoList = null;
+        List<SectorTileInfo> planetTileInfoList = null;
         
         if (currentPlanet != null)
         {
@@ -34,7 +34,7 @@ public class GridSystem : MonoBehaviour
         
         if(planetTileInfoList != null)
         {
-            tileList = new List<Tile>(new Tile[width * height]);
+            tileList = new List<SectorTile>(new SectorTile[width * height]);
 
             for (int x = 0; x < width; x++)
             {
@@ -43,29 +43,29 @@ public class GridSystem : MonoBehaviour
                     GameObject newTile = CreateTile(x, z);
                     //Set tileList from singleton values to the new tile
 
-                    TileInfo savedTile = planetTileInfoList[z * height + x];
+                    SectorTileInfo savedTile = planetTileInfoList[z * height + x];
                     if (savedTile.hasSector)
                     {
                         SectorInfo sectorInfo = newTile.AddComponent<SectorInfo>();
                         sectorInfo.sector = planetTileInfoList[z * height + x].sector;
                         sectorInfo.tileNum = planetTileInfoList[z * height + x].tileNum;
-                        newTile.GetComponent<Tile>().sector = sectorInfo;
+                        newTile.GetComponent<SectorTile>().sector = sectorInfo;
                     }
 
                     //Set tileList to attach to the gameobject
-                    tileList[z * height + x] = newTile.GetComponent<Tile>();
+                    tileList[z * height + x] = newTile.GetComponent<SectorTile>();
                 }
             }
         }
         else
         {
-            tileList = new List<Tile>(new Tile[width * height]);
+            tileList = new List<SectorTile>(new SectorTile[width * height]);
             for (int x = 0; x < width; x++)
             {
                 for (int z = 0; z < height; z++)
                 {
                     GameObject newTile = CreateTile(x, z);
-                    tileList[z * height + x] = newTile.GetComponent<Tile>();
+                    tileList[z * height + x] = newTile.GetComponent<SectorTile>();
                 }
             }
         }
@@ -123,7 +123,7 @@ public class GridSystem : MonoBehaviour
 
     void ResetMaterial()
     {
-        foreach(Tile tile in tileList)
+        foreach(SectorTile tile in tileList)
         {
             tile.gameObject.GetComponent<MeshRenderer>().material = genericMaterial;
         }
@@ -142,7 +142,7 @@ public class GridSystem : MonoBehaviour
         MeshRenderer meshRenderer = go.AddComponent<MeshRenderer>();
         go.AddComponent<MeshFilter>().mesh = CreateMesh(x, z);
         meshRenderer.material = genericMaterial;
-        go.AddComponent<Tile>();
+        go.AddComponent<SectorTile>();
         return go;
     }
 

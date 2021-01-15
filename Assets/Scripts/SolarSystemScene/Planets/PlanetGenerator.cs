@@ -9,10 +9,11 @@ public class PlanetGenerator : MonoBehaviour
     public PlanetScriptableObject sunCenter;
     public List<PlanetScriptableObject> planets;
     public List<PlanetScriptableObject> moons;
+    public GameObject planetModel;
     public List<GameObject> planetModelList;
     public GameObject planetCenter;
+    public GameObject sunModel;
 
-    // Start is called before the first frame update
     void Awake()
     {
         //Initialize Lists if necessary
@@ -20,6 +21,7 @@ public class PlanetGenerator : MonoBehaviour
         {
             PlanetController.instance.planets = new List<Planet>();
         }
+        
         //Add initial planet states from scriptable objects to planet classes in singleton (only occurs once on game launch)
         if (PlanetController.instance.sun == null)
         {
@@ -43,9 +45,15 @@ public class PlanetGenerator : MonoBehaviour
                 SetInitialPlanetStats(so, p);
                 PlanetController.instance.planets.Add(p);
             }
-
         }
+        
+        PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Earth"));
+        PlayerStatController.instance.unLockedPlanets.Add(PlanetController.instance.planets.Find(x => x.planetName == "Jupiter"));
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         GeneratePlanets();
     }
 
@@ -63,10 +71,14 @@ public class PlanetGenerator : MonoBehaviour
         planet.segments = so.segments;
         planet.rotationSpeed = so.rotationSpeed;
         planet.dampAmt = so.dampAmt;
-        planet.model = so.model;
         planet.hasMoon = so.hasMoon;
         planet.isMoon = so.isMoon;
         planet.innerPlanet = so.innerPlanet;
+        planet.worldScale = so.worldScale;
+        planet.zOffset = so.zOffset;
+        planet.planetHexMaterial = so.planetHexMaterial;
+        planet.planetPentMaterial = so.planetPentMaterial;
+        planet.lockedMaterial = so.lockedMaterial;
 
         // Setting the correct orbiting object
         if(so.orbiting != null)
@@ -90,7 +102,7 @@ public class PlanetGenerator : MonoBehaviour
         Planet sunParent = PlanetController.instance.sun;
 
         // Generate sun model
-        sun = Instantiate(sunParent.model, new Vector3(0, 0, 0), Quaternion.identity);
+        sun = Instantiate(sunModel, new Vector3(0, 0, 0), Quaternion.identity);
         sun.name = "Sun";
         sun.GetComponent<PlanetCenterInfo>().planet = sunParent;
 
@@ -100,7 +112,7 @@ public class PlanetGenerator : MonoBehaviour
             //If the planet is not a moon
             if (!p.isMoon)
             {
-                GameObject go = Instantiate(planetCenter, new Vector3(0, 0, 0), Quaternion.identity, sun.transform);
+                GameObject go = Instantiate(planetCenter, sun.transform);
                 go.name = p.planetName;
                 SetPlanetPositions(go, p);
                 planetModelList.Add(go);
@@ -109,7 +121,7 @@ public class PlanetGenerator : MonoBehaviour
                 if (p.hasMoon)
                 {
                     //Create moon model
-                    GameObject moonObject = Instantiate(planetCenter, new Vector3(0, 0, 0), Quaternion.identity, go.transform.GetChild(0));
+                    GameObject moonObject = Instantiate(planetCenter, go.transform.GetChild(0));
                     Planet moon = PlanetController.instance.planets.Find(t => t.orbiting.planetName == p.planetName);
                     moonObject.name = moon.planetName;
                     SetPlanetPositions(moonObject, moon);
@@ -135,18 +147,34 @@ public class PlanetGenerator : MonoBehaviour
         orbit.orbitPath.yAxis = p.orbitPathY;
         orbit.orbitPath.zAxis = p.orbitPathZ;
 
-        GameObject planetModel = Instantiate(p.model, new Vector3(0, 0, 0), Quaternion.identity, go.transform);
-        orbit.orbitingObject = planetModel.transform;
-        rotate.rotatingObject = planetModel.transform;
+        GameObject planetModelInstance = null;
+        if (p.isMoon)
+        {
+            planetModelInstance = Instantiate(planetModel, new Vector3(0, 0, p.zOffset), Quaternion.identity);
+            
+            planetModelInstance.transform.SetParent(go.transform);
+            planetModelInstance.GetComponent<Hexsphere>().setWorldScale(
+                p.worldScale /
+                p.orbiting.worldScale);
+        }
+        else
+        {
+            planetModelInstance = Instantiate(planetModel, new Vector3(0, 0, p.zOffset), Quaternion.identity, go.transform);
+        }
+
+        planetModelInstance.GetComponent<Hexsphere>().planet = p;
+        planetModelInstance.GetComponent<Hexsphere>().planetID = PlanetController.currentPlanetID++;
+        planetModelInstance.GetComponent<Hexsphere>().GroupMaterials_Hex[0] = PlayerStatController.instance.isUnlocked(p) ? p.planetHexMaterial : p.lockedMaterial;
+        planetModelInstance.GetComponent<Hexsphere>().GroupMaterials_Pent[0] = PlayerStatController.instance.isUnlocked(p) ? p.planetPentMaterial : p.lockedMaterial;
+        
+        planetModelInstance.GetComponentInChildren<NavigationManager>().pathRenderer = go.GetComponent<LineRenderer>();
+        planetModelInstance.name = $"{p.planetName}Model (Instance)";
+
+        orbit.orbitingObject = planetModelInstance.transform;
+        rotate.rotatingObject = planetModelInstance.transform;
 
         PlanetCenterInfo newPlanet = go.GetComponent<PlanetCenterInfo>();
         newPlanet.planet = p;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
 

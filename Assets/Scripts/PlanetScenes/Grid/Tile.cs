@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [Serializable]
-public class TileInfo
+public class SectorTileInfo
 {
     public Sector sector;
     public int tileNum;
     public bool hasSector;
 
-    public TileInfo(Tile tile)
+    public SectorTileInfo(SectorTile tile)
     {
         if (tile.sector != null)
         {
@@ -26,7 +26,7 @@ public class TileInfo
     }
 }
 
-public class Tile : MonoBehaviour
+public class SectorTile : MonoBehaviour
 {
     //public GridSystem grid;
     public SectorInfo sector;

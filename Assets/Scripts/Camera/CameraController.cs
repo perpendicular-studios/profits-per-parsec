@@ -4,143 +4,161 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CameraController : MonoBehaviour
+namespace ProfitsPerParsec
 {
-    [Header("Camera Position Settings")]
-    public Vector2 cameraOffset = new Vector2(10f, 14f);
-    public float lookAtOffset = 2f;
-    public float initialZoom = 5f;
-
-    [Header("Camera Movement Settings")]
-    public float inOutSpeed = 5f;
-    public float lateralSpeed = 5f;
-    public float rotateSpeed = 45f;
-    public float zoomSpeed = 4f;
-
-    [Header("Camera Bounds")]
-    public Vector2 minBounds = new Vector2(-100, -100);
-    public Vector2 maxBounds = new Vector2(100, 100);
-    public float nearZoomLimit = 2f;
-    public float farZoomLimit = 20f;
-
-    public ZoomStrategy zoomStrategy;
-    private Vector3 frameMove;
-    private float frameRotate;
-    public float frameZoom;
-
-    private Camera cam;
-    
-
-    void Awake()
+    public class CameraController : MonoBehaviour
     {
-        initialZoom = cameraOffset.y;
-        cam = GetComponentInChildren<Camera>();
+        [Header("Camera Position Settings")]
+        public Vector2 cameraOffset = new Vector2(10f, 14f);
+        public float lookAtOffset = 2f;
+        public float initialZoom = 5f;
+        
+        private Coroutine moveCameraToDestination;
 
-        zoomStrategy = new PerspectiveZoomStrategy(cam, cameraOffset, initialZoom);
-        cam.transform.LookAt(transform.position + Vector3.up * lookAtOffset);
+        [Header("Camera Movement Settings")]
+        public float inOutSpeed = 5f;
+        public float lateralSpeed = 5f;
+        public float rotateSpeed = 45f;
+        public float zoomSpeed = 4f;
+        public float focusMovementDuration = 1f;
 
-        // Check if CameraInfo already saved for active scene. If so, load it in. Otherwise initialize it.
-        if (!PlayerStatController.instance.CameraExistsForScene(SceneManager.GetActiveScene().name))
+        [Header("Camera Bounds")]
+        public Vector2 minBounds = new Vector2(-100, -100);
+        public Vector2 maxBounds = new Vector2(100, 100);
+        public float nearZoomLimit = 2f;
+        public float farZoomLimit = 20f;
+
+        public ZoomStrategy zoomStrategy;
+        private Vector3 frameMove;
+        private float frameRotate;
+        public float frameZoom;
+
+        private Camera cam;
+
+
+        void Awake()
         {
-            //Set intial coords
-            cam.transform.localPosition = new Vector3(0f, Mathf.Abs(cameraOffset.y), -Mathf.Abs(cameraOffset.x));
-        }
-        else
-        {
-            transform.position = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetPositionVector();
-            transform.eulerAngles = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetRotationVector();
-            cam.transform.localPosition = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetCameraPositionVector();
+            initialZoom = cameraOffset.y;
+            cam = GetComponentInChildren<Camera>();
 
-            PerspectiveZoomStrategy zs = (zoomStrategy) as PerspectiveZoomStrategy;
-            zs.currentZoomLevel = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetZoomLevel();
-        }
-    }
+            zoomStrategy = new PerspectiveZoomStrategy(cam, cameraOffset, initialZoom);
+            cam.transform.LookAt(transform.position + Vector3.up * lookAtOffset);
 
-    void LateUpdate()
-    {
-        if(frameMove != Vector3.zero)
-        {
-            float xMoveWithSpeed = frameMove.x * lateralSpeed;
-            float zMoveWithSpeed = frameMove.z * inOutSpeed;
-
-            /* Slow down when player is pressing shift while moving */
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            // Check if CameraInfo already saved for active scene. If so, load it in. Otherwise initialize it.
+            if (!PlayerStatController.instance.CameraExistsForScene(SceneManager.GetActiveScene().name))
             {
-                xMoveWithSpeed /= 2;
-                zMoveWithSpeed /= 2;
+                //Set intial coords
+                cam.transform.localPosition = new Vector3(0f, Mathf.Abs(cameraOffset.y), -Mathf.Abs(cameraOffset.x));
+            }
+            else
+            {
+                transform.position = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetPositionVector();
+                transform.eulerAngles = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetRotationVector();
+                cam.transform.localPosition = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetCameraPositionVector();
+
+                PerspectiveZoomStrategy zs = zoomStrategy as PerspectiveZoomStrategy;
+                zs.currentZoomLevel = PlayerStatController.instance.GetCameraInfoForScene(SceneManager.GetActiveScene().name).GetZoomLevel();
+            }
+        }
+
+        void LateUpdate()
+        {
+            if (frameMove != Vector3.zero)
+            {
+                float xMoveWithSpeed = frameMove.x * lateralSpeed;
+                float zMoveWithSpeed = frameMove.z * inOutSpeed;
+
+                /* Slow down when player is pressing shift while moving */
+                if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                {
+                    xMoveWithSpeed /= 2;
+                    zMoveWithSpeed /= 2;
+                }
+
+                Vector3 frameMoveWithSpeed = new Vector3(xMoveWithSpeed, frameMove.y, zMoveWithSpeed);
+                transform.position += transform.TransformDirection(frameMoveWithSpeed) * Time.unscaledDeltaTime;
+                CalculateBounds();
+                frameMove = Vector3.zero;
             }
 
-            Vector3 frameMoveWithSpeed = new Vector3(xMoveWithSpeed, frameMove.y, zMoveWithSpeed);
-            transform.position += transform.TransformDirection(frameMoveWithSpeed) * Time.unscaledDeltaTime;
-            CalculateBounds();
-            frameMove = Vector3.zero;
+            if (frameRotate != 0)
+            {
+                transform.Rotate(Vector3.up, frameRotate * Time.unscaledDeltaTime * rotateSpeed);
+                frameRotate = 0;
+            }
+
+            if (frameZoom < 0f)
+            {
+                zoomStrategy.ZoomIn(cam, Time.unscaledDeltaTime * Mathf.Abs(frameZoom) * zoomSpeed, nearZoomLimit);
+                frameZoom = 0f;
+            }
+            else if (frameZoom > 0f)
+            {
+                zoomStrategy.ZoomOut(cam, Time.unscaledDeltaTime * frameZoom * zoomSpeed, farZoomLimit);
+                frameZoom = 0f;
+            }
         }
 
-        if(frameRotate != 0)
+        private void CalculateBounds()
         {
-            transform.Rotate(Vector3.up, frameRotate * Time.unscaledDeltaTime * rotateSpeed);
-            frameRotate = 0;
+            transform.position = new Vector3(
+                Mathf.Clamp(transform.position.x, minBounds.x, maxBounds.x),
+                transform.position.y,
+                Mathf.Clamp(transform.position.z, minBounds.y, maxBounds.y));
         }
 
-        if(frameZoom < 0f)
+        void OnEnable()
         {
-            zoomStrategy.ZoomIn(cam, Time.unscaledDeltaTime * Mathf.Abs(frameZoom) * zoomSpeed, nearZoomLimit);
-            frameZoom = 0f;
+            MouseInputController.OnMoveInput += UpdateFrameMove;
+            MouseInputController.OnRotate += UpdateFrameRotate;
+            MouseInputController.OnZoom += UpdateFrameZoom;
+            KeyboardInputController.OnMoveInput += UpdateFrameMove;
+            KeyboardInputController.OnRotate += UpdateFrameRotate;
+            KeyboardInputController.OnZoom += UpdateFrameZoom;
         }
-        else if(frameZoom > 0f)
+
+        void OnDisable()
         {
-            zoomStrategy.ZoomOut(cam, Time.unscaledDeltaTime * frameZoom * zoomSpeed, farZoomLimit);
-            frameZoom = 0f;
+            MouseInputController.OnMoveInput -= UpdateFrameMove;
+            MouseInputController.OnRotate -= UpdateFrameRotate;
+            MouseInputController.OnZoom -= UpdateFrameZoom;
+            KeyboardInputController.OnMoveInput -= UpdateFrameMove;
+            KeyboardInputController.OnRotate -= UpdateFrameRotate;
+            KeyboardInputController.OnZoom -= UpdateFrameZoom;
         }
-    }
 
-    private void CalculateBounds()
-    {
-        transform.position = new Vector3(
-            Mathf.Clamp(transform.position.x, minBounds.x, maxBounds.x),
-            transform.position.y,
-            Mathf.Clamp(transform.position.z, minBounds.y, maxBounds.y));
-    }
+        private void UpdateFrameMove(Vector3 moveVector)
+        {
+            frameMove += moveVector;
+        }
 
-    void OnEnable()
-    {
-        MouseInputController.OnMoveInput += UpdateFrameMove;
-        MouseInputController.OnRotate += UpdateFrameRotate;
-        MouseInputController.OnZoom += UpdateFrameZoom;
-        KeyboardInputController.OnMoveInput += UpdateFrameMove;
-        KeyboardInputController.OnRotate += UpdateFrameRotate;
-        KeyboardInputController.OnZoom += UpdateFrameZoom;
-    }
+        private void UpdateFrameRotate(float degrees)
+        {
+            frameRotate += degrees;
+        }
 
-    void OnDisable()
-    {
-        MouseInputController.OnMoveInput -= UpdateFrameMove;
-        MouseInputController.OnRotate -= UpdateFrameRotate;
-        MouseInputController.OnZoom -= UpdateFrameZoom;
-        KeyboardInputController.OnMoveInput -= UpdateFrameMove;
-        KeyboardInputController.OnRotate -= UpdateFrameRotate;
-        KeyboardInputController.OnZoom -= UpdateFrameZoom;
-    }
+        private void UpdateFrameZoom(float zoomFactor)
+        {
+            frameZoom += zoomFactor;
+        }
 
-    private void UpdateFrameMove(Vector3 moveVector)
-    {
-        frameMove += moveVector;
-    }
+        public IEnumerator MoveToDestination(Vector3 source, Vector3 destination)
+        {
+            float elapsedTime = 0;
+            
+            while (elapsedTime < focusMovementDuration)
+            {
+                transform.position = Vector3.Lerp(source, destination, (elapsedTime / focusMovementDuration));
+                elapsedTime += Time.unscaledDeltaTime;
+                yield return null;
+            }
+            
+        }
+        
+        public void CenterCameraOnObject(GameObject go)
+        {
+            moveCameraToDestination = StartCoroutine(MoveToDestination(transform.position, go.transform.position));
+        }
 
-    private void UpdateFrameRotate(float degrees)
-    {
-        frameRotate += degrees;
     }
-
-    private void UpdateFrameZoom(float zoomFactor)
-    {
-        frameZoom += zoomFactor;
-    }
-
-    public void CenterCameraOnObject(GameObject go)
-    {
-        //Work in progress trying to center camera on a planet
-        cam.transform.LookAt(go.transform.position);
-    }
-
 }

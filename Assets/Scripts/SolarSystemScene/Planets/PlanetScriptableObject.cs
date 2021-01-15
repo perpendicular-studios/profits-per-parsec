@@ -8,6 +8,7 @@ public class PlanetScriptableObject : ScriptableObject
     [Header("Planet Data")]
     public string planetName;
     public int order;
+    public float worldScale;
 
     [Header("Orbit Data")]
     public int orbitPathX;
@@ -19,12 +20,20 @@ public class PlanetScriptableObject : ScriptableObject
     public bool orbitActive;
     public int segments;
 
+    [Header("Texture Data")] 
+    public Material lockedMaterial;
+    public Material planetHexMaterial;
+    public Material planetPentMaterial;
+    
+
     [Header("Rotation Data")]
     public int rotationSpeed;
     public int dampAmt;
-    public GameObject model;
     public PlanetScriptableObject orbiting;
     public bool hasMoon;
     public bool isMoon;
     public bool innerPlanet;
+
+    [Header("Position Data")] 
+    public int zOffset;
 }

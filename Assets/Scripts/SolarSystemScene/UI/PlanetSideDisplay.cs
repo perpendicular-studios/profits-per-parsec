@@ -8,7 +8,7 @@ public class PlanetSideDisplay : MonoBehaviour
     public GameObject contentHolder;
     public GameObject planetShortcutPrefab;
     public List<PlanetShortcutPanel> panelList;
-    public CameraController cameraController;
+    public ProfitsPerParsec.CameraController cameraController;
     public PlanetGenerator planetGenerator;
     public bool selectionMode = false;
 
@@ -16,12 +16,7 @@ public class PlanetSideDisplay : MonoBehaviour
     void Start()
     {
         panelList = new List<PlanetShortcutPanel>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        UpdateList();
     }
 
     private void OnEnable()

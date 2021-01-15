@@ -63,10 +63,10 @@ public class SectorManager : MonoBehaviour
         //Let the tile know a sector has been placed on it
         grid.tileList[grid.currTile].sector = placedSector.GetComponent<SectorInfo>();
 
-        List<TileInfo> tileInfoList = new List<TileInfo>();
-        foreach (Tile tile in grid.tileList)
+        List<SectorTileInfo> tileInfoList = new List<SectorTileInfo>();
+        foreach (SectorTile tile in grid.tileList)
         {
-            tileInfoList.Add(new TileInfo(tile));
+            tileInfoList.Add(new SectorTileInfo(tile));
         }
 
         TileController.instance.SaveTileForPlanet(PlayerStatController.instance.currentPlanet, tileInfoList);

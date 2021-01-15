@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -8,8 +10,9 @@ public class PlanetController : GameController<PlanetController>
 {
     public Planet sun;
     public List<Planet> planets;
-    
+
     public int timePassed = 0;
+    public static int currentPlanetID = -1;
 
     private void OnEnable()
     {
@@ -19,11 +22,6 @@ public class PlanetController : GameController<PlanetController>
     private void OnDisable()
     {
         DateTimeController.OnDailyTick -= IncrementTime;
-    }
-
-    private void Start()
-    {
-        
     }
 
     void IncrementTime()

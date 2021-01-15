@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 
 // To populate public fields from unity
 [System.Serializable]
@@ -25,8 +24,13 @@ public class Planet
     public bool innerPlanet;
     public int rotationSpeed;
     public int dampAmt;
-    public GameObject model;
     public Planet orbiting;
+    public float worldScale;
+    public int zOffset;
+
+    public Material planetPentMaterial;
+    public Material planetHexMaterial;
+    public Material lockedMaterial;
 
     //Planet Modifiers
     public int researchSpeed;

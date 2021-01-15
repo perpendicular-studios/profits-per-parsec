@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class TileController : GameController<TileController>
 {
-    private Dictionary<Planet, List<TileInfo>> _allTiles;
+    private Dictionary<Planet, List<SectorTileInfo>> _allTiles;
 
-    public List<TileInfo> GetTileInfoListForPlanet(Planet planet)
+    public List<SectorTileInfo> GetTileInfoListForPlanet(Planet planet)
     {
 
         if (_allTiles == null)
         {
-            _allTiles = new Dictionary<Planet, List<TileInfo>>();
+            _allTiles = new Dictionary<Planet, List<SectorTileInfo>>();
             
         }
 
@@ -23,11 +23,11 @@ public class TileController : GameController<TileController>
         return _allTiles[planet];
     }
 
-    public void SaveTileForPlanet(Planet planet, List<TileInfo> tileArray)
+    public void SaveTileForPlanet(Planet planet, List<SectorTileInfo> tileArray)
     {
         if (_allTiles == null)
         {
-            _allTiles = new Dictionary<Planet, List<TileInfo>>();
+            _allTiles = new Dictionary<Planet, List<SectorTileInfo>>();
         }
 
         if (!_allTiles.ContainsKey(planet))
