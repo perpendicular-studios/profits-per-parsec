@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4837117005874678437}
   m_Layer: 0
   m_Name: PlanetCenter
-  m_TagString: Earth
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,6 +69,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -80,6 +81,7 @@ LineRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -162,21 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bbe1e07201313645bb4a120900234d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 5
   dampAmt: 2
   rotatingObject: {fileID: 0}
-  planet:
-    planetName: 
-    orbitPathX: 0
-    orbitPathY: 0
-    orbitPathZ: 0
-    orbitProgress: 0
-    orbitPeriod: 0
-    orbitActive: 0
-    segments: 0
-    rotationSpeed: 0
-    dampAmt: 0
-    model: {fileID: 0}
 --- !u!114 &4837117005874678437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,3 +179,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a9f02b4fd900045a6992b4ab05e0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planet:
+    planetName: 
+    order: 0
+    orbitPathX: 0
+    orbitPathY: 0
+    orbitPathZ: 0
+    orbitProgress: 0
+    orbitPeriod: 0
+    orbitActive: 0
+    segments: 0
+    hasMoon: 0
+    isMoon: 0
+    innerPlanet: 0
+    rotationSpeed: 0
+    dampAmt: 0
+    model: {fileID: 0}
+    worldScale: 0
+    zOffset: 0
+    planetPentMaterial: {fileID: 0}
+    planetHexMaterial: {fileID: 0}
+    lockedMaterial: {fileID: 0}
+    researchSpeed: 0
+    energy: 0
+    tourismRevenue: 0
+    espionageSpeed: 0
+    espionageSuccessRate: 0
+    manufacturingSpeed: 0
+    miningProduction: 0
+    constructingRockets: 0
+    idleRockets: 0
+    currConnections: 0
+    maxCapacity: 5
+    planetAdvisors: []

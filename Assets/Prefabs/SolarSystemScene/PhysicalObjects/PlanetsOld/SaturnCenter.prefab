@@ -69,6 +69,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -80,6 +81,7 @@ LineRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -179,6 +181,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774827258678556994, guid: 51f69b927457dad42a3aca010cf5a7a8,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774827258678556994, guid: 51f69b927457dad42a3aca010cf5a7a8,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -194,6 +201,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774827258678556994, guid: 51f69b927457dad42a3aca010cf5a7a8,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.97297776
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774827258678556994, guid: 51f69b927457dad42a3aca010cf5a7a8,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.23089886
       objectReference: {fileID: 0}
@@ -205,16 +217,6 @@ PrefabInstance:
     - target: {fileID: 5774827258678556994, guid: 51f69b927457dad42a3aca010cf5a7a8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5774827258678556994, guid: 51f69b927457dad42a3aca010cf5a7a8,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.97297776
-      objectReference: {fileID: 0}
-    - target: {fileID: 5774827258678556994, guid: 51f69b927457dad42a3aca010cf5a7a8,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5774827258678556994, guid: 51f69b927457dad42a3aca010cf5a7a8,

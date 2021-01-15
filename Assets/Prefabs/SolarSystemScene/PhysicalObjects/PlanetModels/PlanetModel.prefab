@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6102797161170023674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4784328023938456929}
+  - component: {fileID: 2069535406169481536}
+  m_Layer: 0
+  m_Name: Navigation Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4784328023938456929
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102797161170023674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8958132190660230187}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2069535406169481536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102797161170023674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22765d07ab245b845a1b502b12e0f82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldTiles: []
+  pathRenderer: {fileID: 0}
+--- !u!1 &8958132190660230186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8958132190660230187}
+  - component: {fileID: 2018246448562406653}
+  - component: {fileID: 8958132190660230188}
+  m_Layer: 0
+  m_Name: PlanetModel
+  m_TagString: SpaceBody
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8958132190660230187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8958132190660230186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4784328023938456929}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2018246448562406653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8958132190660230186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8238698505e955045a9b22fb454d91bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planet:
+    planetName: 
+    order: 0
+    orbitPathX: 0
+    orbitPathY: 0
+    orbitPathZ: 0
+    orbitProgress: 0
+    orbitPeriod: 0
+    orbitActive: 0
+    segments: 0
+    hasMoon: 0
+    isMoon: 0
+    innerPlanet: 0
+    rotationSpeed: 0
+    dampAmt: 0
+    worldScale: 0
+    zOffset: 0
+    planetPentMaterial: {fileID: 0}
+    planetHexMaterial: {fileID: 0}
+    lockedMaterial: {fileID: 0}
+    researchSpeed: 0
+    energy: 0
+    tourismRevenue: 0
+    espionageSpeed: 0
+    espionageSuccessRate: 0
+    manufacturingSpeed: 0
+    miningProduction: 0
+    constructingRockets: 0
+    idleRockets: 0
+    currConnections: 0
+    maxCapacity: 5
+    planetAdvisors: []
+  planetID: 0
+  generateOnPlay: 1
+  GenerateAsSingleMesh: 0
+  Invert: 0
+  navManager: {fileID: 2069535406169481536}
+  GenerateTileColliders: 1
+  TileCount: 0
+  detailLevel: 2
+  GroupMaterials_Hex:
+  - {fileID: 2100000, guid: c61f00322092a9d44997e587af3a6658, type: 2}
+  GroupMaterials_Pent:
+  - {fileID: 2100000, guid: 3c8dd05ff7e19fa4c95d9795550ff694, type: 2}
+  GroupMaterials_HexExtruded: []
+  GroupMaterials_PentExtruded: []
+  selectedMaterial: {fileID: 2100000, guid: dd0a65a28a0e7d64ba726b9da5459394, type: 2}
+  planetScale: 1
+  vectors: []
+  indices: 
+  tiles: []
+  tilesGenerated: 0
+  TileColliderType: 0
+  TileMeshesRestored: 1
+--- !u!135 &8958132190660230188
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8958132190660230186}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

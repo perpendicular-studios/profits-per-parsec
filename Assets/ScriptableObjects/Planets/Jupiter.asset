@@ -14,16 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetName: Jupiter
   order: 6
+  worldScale: 8
   orbitPathX: 60
   orbitPathY: 0
   orbitPathZ: 60
   orbitProgress: 0
-  orbitPeriod: 250
+  orbitPeriod: 750
   orbitActive: 1
   segments: 0
-  rotationSpeed: 40
+  lockedMaterial: {fileID: 2100000, guid: 3086deba61ab2934e87b7b693eba279c, type: 2}
+  planetHexMaterial: {fileID: 2100000, guid: a7b6c43d1f6818342a67a1333095800f, type: 2}
+  planetPentMaterial: {fileID: 2100000, guid: a7b6c43d1f6818342a67a1333095800f, type: 2}
+  rotationSpeed: 2
   dampAmt: 2
-  model: {fileID: 5010826964874791124, guid: 58b536a153d8b2b46b26903a84b3f07c, type: 3}
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 0
   isMoon: 0
+  innerPlanet: 0
+  zOffset: 60

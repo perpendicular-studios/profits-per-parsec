@@ -14,17 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetName: Moon
   order: 4
+  worldScale: 1
   orbitPathX: 2
   orbitPathY: 0
   orbitPathZ: 2
   orbitProgress: 0
-  orbitPeriod: 1000
+  orbitPeriod: 2560
   orbitActive: 1
   segments: 0
-  rotationSpeed: 50
+  lockedMaterial: {fileID: 2100000, guid: 3086deba61ab2934e87b7b693eba279c, type: 2}
+  planetHexMaterial: {fileID: 2100000, guid: 339e2c2fd755218408fa6ff998944502, type: 2}
+  planetPentMaterial: {fileID: 2100000, guid: 339e2c2fd755218408fa6ff998944502, type: 2}
+  rotationSpeed: 5
   dampAmt: 2
-  model: {fileID: 3923176710511623099, guid: 48683788264422540999026bd327a3c7, type: 3}
   orbiting: {fileID: 11400000, guid: d40f2c9063783cb45bbfebc7f59e21d7, type: 2}
   hasMoon: 0
   isMoon: 1
   innerPlanet: 1
+  zOffset: 0

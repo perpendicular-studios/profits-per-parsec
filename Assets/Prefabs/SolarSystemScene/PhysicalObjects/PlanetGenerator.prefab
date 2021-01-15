@@ -56,6 +56,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7c920a6ffd4d084488a9022946530f00, type: 2}
   moons:
   - {fileID: 11400000, guid: df4eb5ca55b1d0c48becec1bb8df297c, type: 2}
+  planetModel: {fileID: 8958132190660230186, guid: 46bca4c6f6afda44583cec83babc4bf5,
+    type: 3}
   planetModelList: []
   planetCenter: {fileID: 2803033528010323186, guid: 30c8e0c1d925500418a4aedd878d514d,
+    type: 3}
+  sunModel: {fileID: 5053201663359832640, guid: 682de4a5920da2b46ad18c0ccb54adb7,
     type: 3}
