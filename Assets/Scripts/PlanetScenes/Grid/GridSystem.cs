@@ -48,7 +48,6 @@ public class GridSystem : MonoBehaviour
                     {
                         SectorInfo sectorInfo = newTile.AddComponent<SectorInfo>();
                         sectorInfo.sector = planetTileInfoList[z * height + x].sector;
-                        sectorInfo.tileNum = planetTileInfoList[z * height + x].tileNum;
                         newTile.GetComponent<SectorTile>().sector = sectorInfo;
                     }
 
@@ -69,11 +68,6 @@ public class GridSystem : MonoBehaviour
                 }
             }
         }
-    }
-
-    void OnEnable()
-    {
-        SectorManager.OnSectorPlaced += ResetMaterial;
     }
 
     // Update is called once per frame

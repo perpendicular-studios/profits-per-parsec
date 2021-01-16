@@ -23,7 +23,6 @@ public class SectorDisplay : MonoBehaviour
 
     public void OnEnable()
     {
-        GridSystem.OnSectorClicked += EnableSectorPanels;
         GridSystem.OnSectorDeselect += DisableSectorPanels;
     }
 
@@ -44,9 +43,9 @@ public class SectorDisplay : MonoBehaviour
         sectorPanels.Clear();
     }
 
-    public void EnableSectorPanels(SectorInfo sector)
+    public void EnableSectorPanels()
     {
-        if (sector == null && shopBackground != null)
+        if (shopBackground != null)
         {
             shopBackground.enabled = true;
             foreach (SectorPanel panel in sectorPanels)

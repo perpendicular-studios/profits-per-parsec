@@ -4,52 +4,52 @@ using UnityEngine;
 
 public class SectorController : GameController<SectorController>
 {
-    private Dictionary<Planet, List<SectorInfo>> _allSectors;
+    private Dictionary<Planet, List<Sector>> _allSectors;
 
     public void Awake()
     {
         DateTimeController.OnDailyTick += UpdateSectorIncome;
     }
 
-    public List<SectorInfo> GetSectorInfoListForPlanet(Planet planet) {
+    public List<Sector> GetSectorInfoListForPlanet(Planet planet) {
 
         if (_allSectors == null)
         {
-            _allSectors = new Dictionary<Planet, List<SectorInfo>>();
+            _allSectors = new Dictionary<Planet, List<Sector>>();
         }
 
         if (!_allSectors.ContainsKey(planet))
         {
-            _allSectors[planet] = new List<SectorInfo>();
+            _allSectors[planet] = new List<Sector>();
         }
 
         return _allSectors[planet];
     }
 
 
-    public void SaveSectorForPlanet(Planet planet, Sector sector, int tileNum)
+    public void SaveSectorForPlanet(Tile sectorTile)
     {
         if (_allSectors == null)
         {
-            _allSectors = new Dictionary<Planet, List<SectorInfo>>();
+            _allSectors = new Dictionary<Planet, List<Sector>>();
         }
 
-        if (!_allSectors.ContainsKey(planet))
+        if (!_allSectors.ContainsKey(sectorTile.parentPlanet.planet))
         {
-            _allSectors[planet] = new List<SectorInfo>();
+            _allSectors[sectorTile.parentPlanet.planet] = new List<Sector>();
         }
 
-        _allSectors[planet].Add(new SectorInfo(sector, tileNum));
+        _allSectors[sectorTile.parentPlanet.planet].Add(sectorTile.placedSector);
 
     }
 
     public void UpdateSectorIncome()
     {
-        foreach(List<SectorInfo> value in _allSectors.Values)
+        foreach(List<Sector> sectorInfoList in _allSectors.Values)
         {
-            foreach(SectorInfo sectorInfo in value)
+            foreach(Sector sectorInfo in sectorInfoList)
             {
-                PlayerStatController.instance.cash += sectorInfo.sector.cashPerTick;
+                PlayerStatController.instance.cash += sectorInfo.cashPerTick;
             }
         }
     }

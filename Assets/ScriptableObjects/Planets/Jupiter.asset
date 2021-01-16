@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetName: Jupiter
   order: 6
-  worldScale: 8
+  worldScale: 10
   orbitPathX: 60
   orbitPathY: 0
   orbitPathZ: 60

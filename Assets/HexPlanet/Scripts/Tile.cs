@@ -23,7 +23,9 @@ public class Tile : MonoBehaviour {
 	public Hexsphere parentPlanet;
 	
 	public List<Tile> neighborTiles;
-
+	
+	public Sector placedSector;
+	
 	//Tile Attributes
 	[Tooltip("Whether or not navigation will consider this tile as a valid to move over")]
 	public bool navigable = true;
@@ -162,6 +164,15 @@ public class Tile : MonoBehaviour {
 				selectedTile = null;
 			}
 		}
+	}
+
+	public void PlaceSector(Sector sector)
+	{
+		GameObject sectorModel = Instantiate(sector.sectorModelPrefab, transform);
+		sectorModel.GetComponent<SectorInfo>().sector = sector;
+		placedSector = sector;
+		sectorModel.transform.position = new Vector3(FaceCenter.x, FaceCenter.y + 0.1f, FaceCenter.z);
+		sectorModel.transform.up = transform.up;
 	}
 
 	public void placeObject(GameObject obj)
@@ -492,6 +503,11 @@ public class Tile : MonoBehaviour {
 
             mf.sharedMesh = mesh;
         }
+    }
+
+    public bool HasSector()
+    {
+	    return placedSector != null;
     }
 }
 

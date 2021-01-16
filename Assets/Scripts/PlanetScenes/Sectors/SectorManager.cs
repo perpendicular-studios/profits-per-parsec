@@ -1,82 +1,51 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SectorManager : MonoBehaviour
 {
-    public GridSystem grid;
-    public Material activeSectorMaterial;
 
     private List<GameObject> placedSectors;
-
-    public delegate void SectorPlaced();
-    public static event SectorPlaced OnSectorPlaced;
-
-    public void Start()
-    {
-        placedSectors = new List<GameObject>();
-
-        Planet currentPlanet = PlayerStatController.instance.currentPlanet;
-        List<SectorInfo> savedSectorInfo = new List<SectorInfo>();
-
-        if (currentPlanet != null)
-        {
-            savedSectorInfo = SectorController.instance.GetSectorInfoListForPlanet(currentPlanet);
-        }
-
-        if (savedSectorInfo.Count > 0)
-        {
-            foreach(SectorInfo sectorInfo in savedSectorInfo)
-            {
-                GameObject placedSector = Instantiate(sectorInfo.sector.sectorModelPrefab, grid.tileList[sectorInfo.tileNum].gameObject.transform.position, Quaternion.identity);
-                //Reposition sector
-                placedSector.transform.position += new Vector3(grid.tileSize / 2, 0, grid.tileSize / 2);
-                //Set parent
-                placedSector.transform.parent = grid.tileList[sectorInfo.tileNum].gameObject.transform;
-                placedSector.layer = LayerMask.NameToLayer("Sectors");
-                placedSector.GetComponent<MeshRenderer>().material = sectorInfo.sector.sectorModelPrefab.GetComponent<MeshRenderer>().sharedMaterial;
-                placedSectors.Add(placedSector);
-            }
-        }
-    }
+    private Sector selectedSector;
+    
+    public static Action<Tile> OnSectorSelectedAction;
 
     public void OnEnable()
     {
-        SectorPanel.OnSectorClick += PlaceSector;
+        SectorPanel.OnSectorClick += SectorHover;
+        Tile.OnTileClickedAction += PlaceSector;
     }
 
     public void OnDisable()
     {
-        SectorPanel.OnSectorClick -= PlaceSector;
+        SectorPanel.OnSectorClick -= SectorHover;
     }
 
-    public void PlaceSector(Sector sector)
+    public void SectorHover(Sector sector)
     {
-        GameObject placedSector = Instantiate(sector.sectorModelPrefab, grid.tileList[grid.currTile].gameObject.transform);
-        placedSector.transform.position += new Vector3(grid.tileSize / 2, 0, grid.tileSize / 2);
-        placedSector.GetComponent<SectorInfo>().sector = sector;
-        SectorController.instance.SaveSectorForPlanet(
-                    PlayerStatController.instance.currentPlanet,
-                    placedSector.GetComponent<SectorInfo>().sector,
-                    grid.currTile);
+        Pointer.instance.setMode(PointerStatus.BUILD_OK);
+        selectedSector = sector;
+    }
 
-        //Let the tile know a sector has been placed on it
-        grid.tileList[grid.currTile].sector = placedSector.GetComponent<SectorInfo>();
-
-        List<SectorTileInfo> tileInfoList = new List<SectorTileInfo>();
-        foreach (SectorTile tile in grid.tileList)
+    public void PlaceSector(Tile clickedTile)
+    {
+        if (selectedSector != null && !clickedTile.HasSector())
         {
-            tileInfoList.Add(new SectorTileInfo(tile));
+            clickedTile.PlaceSector(selectedSector);    
+            Pointer.instance.setMode(PointerStatus.TILE);
+            SectorController.instance.SaveSectorForPlanet(clickedTile);
         }
 
-        TileController.instance.SaveTileForPlanet(PlayerStatController.instance.currentPlanet, tileInfoList);
+        selectedSector = null;
+    }
 
-        // Check notifications when sector is placed.
-        NotificationController.instance.UpdateNotifications();
-
-        placedSectors.Add(placedSector);
-
-        OnSectorPlaced?.Invoke();
+    public void DisplaySectorInfo(Tile clickedTile)
+    {
+        if (selectedSector == null && clickedTile.HasSector())
+        {
+            OnSectorSelectedAction?.Invoke(clickedTile);
+        }
     }
 
     private bool IsMouseInScreen(Vector3 mousePosition)
@@ -88,19 +57,6 @@ public class SectorManager : MonoBehaviour
         float mouseY = mousePosition.y;
 
         return (mouseX >= 0 && mouseX <= screenWidth && mouseY >= 0 && mouseY <= screenHeight);
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // Delete all sectors
-            foreach(GameObject placedSector in placedSectors)
-            {
-                Destroy(placedSector);
-            }
-            placedSectors.Clear();
-        }
     }
 
 }

@@ -16,7 +16,6 @@ public class SectorTileInfo
         if (tile.sector != null)
         {
             sector = tile.sector.sector;
-            tileNum = tile.sector.tileNum;
             hasSector = true;
         }
         else
