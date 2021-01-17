@@ -1,26 +1,66 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SectorController : GameController<SectorController>
 {
-    private Dictionary<Planet, List<Sector>> _allSectors;
+    private Dictionary<Planet, List<Tile>> _allSectors;
+
+    public static Action OnSectorDeselect;
+    public Tile selectedTile;
 
     public void Awake()
-    {
+    {        
+        if (_allSectors == null)
+        {
+            _allSectors = new Dictionary<Planet, List<Tile>>();
+        }
+
         DateTimeController.OnDailyTick += UpdateSectorIncome;
     }
 
-    public List<Sector> GetSectorInfoListForPlanet(Planet planet) {
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (selectedTile != null)
+            {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.transform.gameObject.layer != LayerMask.NameToLayer("ActiveBuilding"))
+                    {
+                        selectedTile.placedSectorObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = 
+                            selectedTile.placedSectorObject.GetComponent<SectorInfo>().defaultSectorMaterial;
+
+                        selectedTile = null;
+                        OnSectorDeselect?.Invoke();
+                    }
+                }
+                else
+                {
+                    selectedTile.placedSectorObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = 
+                        selectedTile.placedSectorObject.GetComponent<SectorInfo>().defaultSectorMaterial;
+
+                    selectedTile = null;
+                    OnSectorDeselect?.Invoke();
+                }
+            }
+        }
+    }
+
+    public List<Tile> GetSectorInfoListForPlanet(Planet planet) {
 
         if (_allSectors == null)
         {
-            _allSectors = new Dictionary<Planet, List<Sector>>();
+            _allSectors = new Dictionary<Planet, List<Tile>>();
         }
 
         if (!_allSectors.ContainsKey(planet))
         {
-            _allSectors[planet] = new List<Sector>();
+            _allSectors[planet] = new List<Tile>();
         }
 
         return _allSectors[planet];
@@ -31,25 +71,25 @@ public class SectorController : GameController<SectorController>
     {
         if (_allSectors == null)
         {
-            _allSectors = new Dictionary<Planet, List<Sector>>();
+            _allSectors = new Dictionary<Planet, List<Tile>>();
         }
 
         if (!_allSectors.ContainsKey(sectorTile.parentPlanet.planet))
         {
-            _allSectors[sectorTile.parentPlanet.planet] = new List<Sector>();
+            _allSectors[sectorTile.parentPlanet.planet] = new List<Tile>();
         }
 
-        _allSectors[sectorTile.parentPlanet.planet].Add(sectorTile.placedSector);
+        _allSectors[sectorTile.parentPlanet.planet].Add(sectorTile);
 
     }
 
     public void UpdateSectorIncome()
     {
-        foreach(List<Sector> sectorInfoList in _allSectors.Values)
+        foreach(List<Tile> sectorTileList in _allSectors.Values)
         {
-            foreach(Sector sectorInfo in sectorInfoList)
+            foreach(Tile tile in sectorTileList)
             {
-                PlayerStatController.instance.cash += sectorInfo.cashPerTick;
+                PlayerStatController.instance.cash += tile.placedSector.cashPerTick;
             }
         }
     }

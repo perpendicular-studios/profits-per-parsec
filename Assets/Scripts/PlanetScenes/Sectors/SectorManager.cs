@@ -8,12 +8,14 @@ public class SectorManager : MonoBehaviour
 
     private List<GameObject> placedSectors;
     private Sector selectedSector;
-    
+
+    public Material selectedSectorMaterial;
     public static Action<Tile> OnSectorSelectedAction;
 
     public void OnEnable()
     {
         SectorPanel.OnSectorClick += SectorHover;
+        Tile.OnTileClickedAction += SelectSector;
         Tile.OnTileClickedAction += PlaceSector;
     }
 
@@ -35,18 +37,22 @@ public class SectorManager : MonoBehaviour
             clickedTile.PlaceSector(selectedSector);    
             Pointer.instance.setMode(PointerStatus.TILE);
             SectorController.instance.SaveSectorForPlanet(clickedTile);
+            SectorController.instance.selectedTile = null; //reset any previous selections of sectors on tiles
         }
 
-        selectedSector = null;
+        selectedSector = null; // reset selection from sector production 
     }
 
-    public void DisplaySectorInfo(Tile clickedTile)
+    public void SelectSector(Tile clickedTile)
     {
         if (selectedSector == null && clickedTile.HasSector())
         {
+            Debug.Log("selecting sector..");
+            clickedTile.placedSectorObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = selectedSectorMaterial;
+            SectorController.instance.selectedTile = clickedTile;
             OnSectorSelectedAction?.Invoke(clickedTile);
         }
-    }
+    } 
 
     private bool IsMouseInScreen(Vector3 mousePosition)
     {

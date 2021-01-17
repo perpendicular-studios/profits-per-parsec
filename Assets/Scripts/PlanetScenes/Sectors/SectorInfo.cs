@@ -5,9 +5,5 @@ using UnityEngine;
 public class SectorInfo : MonoBehaviour
 {
     public Sector sector;
-
-    public SectorInfo(Sector sector)
-    {
-        this.sector = sector;
-    }
+    public Material defaultSectorMaterial;
 }

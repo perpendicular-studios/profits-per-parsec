@@ -43,6 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85ecfb99e4b9cf24ab4445800804ddaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  activeSectorMaterial: {fileID: 2100000, guid: d972a60c955af274b88736fcf0182f59,
+  selectedSectorMaterial: {fileID: 2100000, guid: dd0a65a28a0e7d64ba726b9da5459394,
     type: 2}

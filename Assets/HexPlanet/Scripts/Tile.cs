@@ -24,7 +24,18 @@ public class Tile : MonoBehaviour {
 	
 	public List<Tile> neighborTiles;
 	
-	public Sector placedSector;
+	public Sector placedSector
+	{
+		get {
+			if (placedSectorObject == null)
+			{
+				return null;
+			}
+			return placedSectorObject.GetComponent<SectorInfo>().sector;
+		}
+	}
+
+	public GameObject placedSectorObject;
 	
 	//Tile Attributes
 	[Tooltip("Whether or not navigation will consider this tile as a valid to move over")]
@@ -169,10 +180,16 @@ public class Tile : MonoBehaviour {
 	public void PlaceSector(Sector sector)
 	{
 		GameObject sectorModel = Instantiate(sector.sectorModelPrefab, transform);
-		sectorModel.GetComponent<SectorInfo>().sector = sector;
-		placedSector = sector;
-		sectorModel.transform.position = new Vector3(FaceCenter.x, FaceCenter.y + 0.1f, FaceCenter.z);
+		sectorModel.transform.position = new Vector3(FaceCenter.x, FaceCenter.y + 0.01f, FaceCenter.z);
 		sectorModel.transform.up = transform.up;
+		sectorModel.GetComponent<SectorInfo>().sector = sector;
+		sectorModel.GetComponent<SectorInfo>().defaultSectorMaterial = sectorModel.GetComponentInChildren<MeshRenderer>().sharedMaterial;
+		
+		// Set tile and building to ActiveBuilding layer
+		sectorModel.layer = LayerMask.NameToLayer("ActiveBuilding");
+		gameObject.layer = LayerMask.NameToLayer("ActiveBuilding");
+		
+		placedSectorObject = sectorModel;
 	}
 
 	public void placeObject(GameObject obj)

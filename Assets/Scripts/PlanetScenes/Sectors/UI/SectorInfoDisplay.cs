@@ -18,10 +18,12 @@ public class SectorInfoDisplay : MonoBehaviour
     public void OnEnable()
     {
         SectorManager.OnSectorSelectedAction += OnSectorClicked;
+        SectorController.OnSectorDeselect += DisableSectorInfoDisplay;
     }
 
     public void OnSectorClicked(Tile sectorTile)
     {
+        selectedSector = sectorTile.placedSector;
         titleDisplay.text = selectedSector.displayName;
         sectorImageDisplay.sprite = selectedSector.image;
         
