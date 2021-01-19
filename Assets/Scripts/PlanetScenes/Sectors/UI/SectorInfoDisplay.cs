@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,10 @@ public class SectorInfoDisplay : MonoBehaviour
     public Text titleDisplay;
     public Image sectorImageDisplay;
     public Sector selectedSector;
+    public GameObject destinationButton;
 
+    public static Action<Transform> SelectRocketDestinationEvent;
+    
     public void Awake()
     {
         DisableSectorInfoDisplay();
@@ -26,6 +30,7 @@ public class SectorInfoDisplay : MonoBehaviour
         selectedSector = sectorTile.placedSector;
         titleDisplay.text = selectedSector.displayName;
         sectorImageDisplay.sprite = selectedSector.image;
+        destinationButton.GetComponent<Button>().onClick.AddListener(delegate { SelectRocketDestinationEvent?.Invoke(sectorTile.transform); });
         
         if (selectedSector != null)
         {
@@ -36,6 +41,7 @@ public class SectorInfoDisplay : MonoBehaviour
             DisableSectorInfoDisplay();
         }
     }
+
 
     public void EnableSectorInfoDiplay()
     {
@@ -51,6 +57,14 @@ public class SectorInfoDisplay : MonoBehaviour
         if(sectorImageDisplay != null)
         {
             sectorImageDisplay.enabled = true;
+        }
+
+        if (destinationButton != null)
+        {
+            if (selectedSector.sectorModelPrefab.layer == LayerMask.NameToLayer("RocketBase"))
+            {
+                destinationButton.SetActive(true);
+            }
         }
     }
 
@@ -68,6 +82,11 @@ public class SectorInfoDisplay : MonoBehaviour
         if(sectorImageDisplay != null)
         {
             sectorImageDisplay.enabled = false;
+        }
+
+        if (destinationButton != null)
+        {
+            destinationButton.SetActive(false);
         }
 
     }

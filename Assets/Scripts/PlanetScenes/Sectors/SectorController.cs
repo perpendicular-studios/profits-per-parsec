@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SectorController : GameController<SectorController>
 {
     private Dictionary<Planet, List<Tile>> _allSectors;
+    public List<GameObject> rocketBuildings = new List<GameObject>();
 
     public static Action OnSectorDeselect;
     public Tile selectedTile;
@@ -24,6 +26,12 @@ public class SectorController : GameController<SectorController>
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject(-1))    // is the touch on the GUI
+            {
+                // GUI Action
+                return;
+            }
+            
             if (selectedTile != null)
             {
                 RaycastHit hit;

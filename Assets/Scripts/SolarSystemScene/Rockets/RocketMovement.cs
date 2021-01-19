@@ -7,7 +7,6 @@ public class RocketMovement : MonoBehaviour
     public delegate void LandRocket(GameObject rocket);
     public static event LandRocket OnRocketLand;
 
-    public string targetString, startPositionString;
     private bool currDirection = true;
 
     [SerializeField] public Transform target;
@@ -20,19 +19,11 @@ public class RocketMovement : MonoBehaviour
     [SerializeField] float emergencyDir = 10;                  //angle of turn when object is detected (20 seems to be good)
     float rotateBuffer = 0;                               //how long emergency direction turning will last for when object is detected
 
+    public Coroutine switchDirections;
+    
     // Start is called at beginning
     void Start()
     {
-        if(targetString != null)
-        {
-            target = GameObject.Find(targetString).GetComponentInChildren<OrbitMotion>().orbitingObject.transform;
-        }
-
-        if (startPositionString != null)
-        {
-            startPosition = GameObject.Find(startPositionString).GetComponent<OrbitMotion>().orbitingObject.transform;
-        }
-
         transform.position = startPosition.position;
         transform.LookAt(target);
         movementSpeed = 5;
@@ -125,38 +116,29 @@ public class RocketMovement : MonoBehaviour
         {
             // If raycast hits ignorable object
             return hit.transform.gameObject == target.gameObject || hit.transform.gameObject == startPosition.gameObject 
-                || hit.transform.gameObject.tag == "Rocket"; 
+                || hit.transform.gameObject.CompareTag("Rocket"); 
         }
         return hit.transform.gameObject == target.gameObject || hit.transform.gameObject.tag == "Rocket";
     }
-
     private void OnCollisionEnter(Collision collision)
-    {   
+    {
         if (collision.gameObject == target.gameObject)
         {
             OnRocketLand?.Invoke(gameObject);
-            SwitchDirection();
+            if (switchDirections == null)
+            {
+                switchDirections = StartCoroutine(SwitchDirection());
+            }
         }
     }
 
     //Make rocket wait a random amount of time before switching direction as well
-    public void SwitchDirection()
+    public IEnumerator SwitchDirection()
     {
-        if (currDirection)
-        {
-            target = GameObject.Find(startPositionString).GetComponentInChildren<OrbitMotion>().orbitingObject.transform;
-            startPosition = GameObject.Find(targetString).GetComponent<OrbitMotion>().orbitingObject.transform;
-            currDirection = false;
-        }
-        else
-        {
-            target = GameObject.Find(targetString).GetComponentInChildren<OrbitMotion>().orbitingObject.transform;
-            startPosition = GameObject.Find(startPositionString).GetComponent<OrbitMotion>().orbitingObject.transform;
-            currDirection = true;
-        }
-
         transform.position = startPosition.position;
         transform.LookAt(target);
+        yield return new WaitForSeconds(RocketConstants.ROCKET_QUEUE_DELAY);
+        switchDirections = null;
     }
 
 }

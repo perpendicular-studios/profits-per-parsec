@@ -28,13 +28,9 @@ public class RocketEvents : MonoBehaviour
         foreach (RocketPath rocketMovement in RocketController.instance.queuedRockets)
         {
 
-            // Check if rocket path is queued
-            string startPosition = rocketMovement.startPosition;
-            string target = rocketMovement.target;
-
             GameObject rocket = Instantiate(rocketPrefab);
-            rocket.GetComponent<RocketMovement>().startPositionString = startPosition;
-            rocket.GetComponent<RocketMovement>().targetString = target;
+            rocket.GetComponent<RocketMovement>().startPosition = rocketMovement.startPosition;
+            rocket.GetComponent<RocketMovement>().target = rocketMovement.target;
 
             RocketController.instance.activeRockets.Add(rocket);
             yield return new WaitForSeconds(RocketConstants.ROCKET_QUEUE_DELAY);

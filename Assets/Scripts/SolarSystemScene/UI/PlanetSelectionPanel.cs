@@ -110,7 +110,6 @@ public class PlanetSelectionPanel : MonoBehaviour
             selectedPlanet.AddRocket(rocket);
             rocket.planetA = PlayerStatController.instance.currentPlanet;
             rocket.planetB = selectedPlanet;
-            RocketController.instance.CreateConnection(rocket.planetA.planetName, rocket.planetB.planetName);
         }
 
         ResetHighlight();

@@ -9,14 +9,19 @@ public class SectorManager : MonoBehaviour
     private List<GameObject> placedSectors;
     private Sector selectedSector;
 
-    public Material selectedSectorMaterial;
     public static Action<Tile> OnSectorSelectedAction;
+    public Material selectedSectorMaterial;
+    public Material validSelectionSectorMaterial;
 
+    public bool isSelectingRocketDestination;
+    public Transform startRocketBase;
+    
     public void OnEnable()
     {
         SectorPanel.OnSectorClick += SectorHover;
         Tile.OnTileClickedAction += SelectSector;
         Tile.OnTileClickedAction += PlaceSector;
+        SectorInfoDisplay.SelectRocketDestinationEvent += SelectAllRocketBases;
     }
 
     public void OnDisable()
@@ -45,14 +50,43 @@ public class SectorManager : MonoBehaviour
 
     public void SelectSector(Tile clickedTile)
     {
-        if (selectedSector == null && clickedTile.HasSector())
+        if (selectedSector == null && clickedTile.HasSector() && !isSelectingRocketDestination)
         {
             Debug.Log("selecting sector..");
             clickedTile.placedSectorObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = selectedSectorMaterial;
             SectorController.instance.selectedTile = clickedTile;
             OnSectorSelectedAction?.Invoke(clickedTile);
         }
-    } 
+
+        if (isSelectingRocketDestination && selectedSector == null && clickedTile.HasSector())
+        {
+            if (clickedTile.placedSector.sectorModelPrefab.layer == LayerMask.NameToLayer("RocketBase"))
+            {
+                RocketController.instance.CreateConnection(startRocketBase, clickedTile.transform);
+                DeselectAllRocketBases();
+            }
+        }
+    }
+
+    public void SelectAllRocketBases(Transform selectedRocketBase)
+    {
+        isSelectingRocketDestination = true;
+        startRocketBase = selectedRocketBase;
+        
+        foreach(GameObject obj in SectorController.instance.rocketBuildings)
+        {
+            obj.GetComponentInChildren<MeshRenderer>().material = validSelectionSectorMaterial;
+        }
+    }
+
+    public void DeselectAllRocketBases()
+    {
+        isSelectingRocketDestination = false;
+        foreach(GameObject obj in SectorController.instance.rocketBuildings)
+        {
+            obj.GetComponentInChildren<MeshRenderer>().material = obj.GetComponent<SectorInfo>().defaultSectorMaterial;
+        }
+    }
 
     private bool IsMouseInScreen(Vector3 mousePosition)
     {
