@@ -34,12 +34,13 @@ namespace ProfitsPerParsec
         public float frameZoom;
 
         private Camera cam;
-
-
+        public Camera planetCamera;
+        
         void Awake()
         {
             initialZoom = cameraOffset.y;
-            cam = GetComponentInChildren<Camera>();
+            cam = transform.GetComponentInChildren<Camera>();
+            EnableMainCamera();
 
             zoomStrategy = new PerspectiveZoomStrategy(cam, cameraOffset, initialZoom);
             cam.transform.LookAt(transform.position + Vector3.up * lookAtOffset);
@@ -97,6 +98,40 @@ namespace ProfitsPerParsec
                 zoomStrategy.ZoomOut(cam, Time.unscaledDeltaTime * frameZoom * zoomSpeed, farZoomLimit);
                 frameZoom = 0f;
             }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                ToggleCamera();
+            }
+        }
+
+        public void ToggleCamera()
+        {
+            if (cam.enabled)
+            {
+                EnablePlanetCamera();
+            }
+            else
+            {
+                EnableMainCamera();
+            }
+        }
+
+        public void EnableMainCamera()
+        {
+            planetCamera.enabled = false;
+            cam.enabled = true;
+        }
+
+        public void EnablePlanetCamera()
+        {
+            cam.enabled = false;
+            planetCamera.enabled = true;
+        }
+
+        public void FocusPlanetCameraOnTile(Transform transform)
+        {
+            EnablePlanetCamera();
+            planetCamera.GetComponent<PlanetCamera>().SetTarget(transform);
         }
 
         private void CalculateBounds()

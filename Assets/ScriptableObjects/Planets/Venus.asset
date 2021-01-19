@@ -15,9 +15,9 @@ MonoBehaviour:
   planetName: Venus
   order: 2
   worldScale: 2
-  orbitPathX: 20
+  orbitPathX: 40
   orbitPathY: 0
-  orbitPathZ: 20
+  orbitPathZ: 40
   orbitProgress: 0
   orbitPeriod: 800
   orbitActive: 1
@@ -25,11 +25,10 @@ MonoBehaviour:
   lockedMaterial: {fileID: 2100000, guid: 3086deba61ab2934e87b7b693eba279c, type: 2}
   planetHexMaterial: {fileID: 2100000, guid: 302368e6126e1f04fb34f3476c323006, type: 2}
   planetPentMaterial: {fileID: 2100000, guid: 302368e6126e1f04fb34f3476c323006, type: 2}
-  rotationSpeed: 50
+  rotationSpeed: 1
   dampAmt: 2
-  model: {fileID: 1101239608789887517, guid: ed8f8ccc06bcd604cb6119a0867b1e7d, type: 3}
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 0
   isMoon: 0
   innerPlanet: 1
-  zOffset: 20
+  zOffset: 40

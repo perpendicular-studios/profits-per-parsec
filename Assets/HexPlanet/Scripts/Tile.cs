@@ -152,12 +152,9 @@ public class Tile : MonoBehaviour {
 	
 	void OnMouseDown()
     {
-		//Demo function
-		//pathfindingDrawDemo ();
-        if(OnTileClickedAction != null)
-        {
-            OnTileClickedAction.Invoke(this);
-        }
+		GameObject focus = GameObject.FindGameObjectWithTag("Focus");
+		ProfitsPerParsec.CameraController cameraController = focus.GetComponent<ProfitsPerParsec.CameraController>();
+		cameraController.FocusPlanetCameraOnTile(transform);
 	}
 
 	/// <summary>

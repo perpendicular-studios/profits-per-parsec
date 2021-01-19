@@ -15,9 +15,9 @@ MonoBehaviour:
   planetName: Mars
   order: 5
   worldScale: 3
-  orbitPathX: 40
+  orbitPathX: 80
   orbitPathY: 0
-  orbitPathZ: 40
+  orbitPathZ: 80
   orbitProgress: 0
   orbitPeriod: 200
   orbitActive: 1
@@ -27,9 +27,8 @@ MonoBehaviour:
   planetPentMaterial: {fileID: 2100000, guid: 302368e6126e1f04fb34f3476c323006, type: 2}
   rotationSpeed: 0
   dampAmt: 0
-  model: {fileID: 5159140548655069275, guid: 0000c41eb34bbcb479a37479231ba444, type: 3}
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 0
   isMoon: 0
   innerPlanet: 1
-  zOffset: 40
+  zOffset: 80
