@@ -10,11 +10,13 @@ public class SectorManager : MonoBehaviour
     private Sector selectedSector;
 
     public static Action<Tile> OnSectorSelectedAction;
+    public static Action OnRocketDestinationSelection;
+    
     public Material selectedSectorMaterial;
     public Material validSelectionSectorMaterial;
 
     public bool isSelectingRocketDestination;
-    public Transform startRocketBase;
+    public GameObject startRocketBaseTile;
     
     public void OnEnable()
     {
@@ -62,16 +64,19 @@ public class SectorManager : MonoBehaviour
         {
             if (clickedTile.placedSector.sectorModelPrefab.layer == LayerMask.NameToLayer("RocketBase"))
             {
-                RocketController.instance.CreateConnection(startRocketBase, clickedTile.transform);
+                startRocketBaseTile.GetComponentInChildren<SectorInfo>().planetDestinationName =
+                    clickedTile.parentPlanet.planet.planetName;
+                
+                RocketController.instance.CreateConnection(startRocketBaseTile.transform, clickedTile.transform);
                 DeselectAllRocketBases();
             }
         }
     }
 
-    public void SelectAllRocketBases(Transform selectedRocketBase)
+    public void SelectAllRocketBases(Tile startTile)
     {
         isSelectingRocketDestination = true;
-        startRocketBase = selectedRocketBase;
+        startRocketBaseTile = startTile.gameObject;
         
         foreach(GameObject obj in SectorController.instance.rocketBuildings)
         {
@@ -86,6 +91,7 @@ public class SectorManager : MonoBehaviour
         {
             obj.GetComponentInChildren<MeshRenderer>().material = obj.GetComponent<SectorInfo>().defaultSectorMaterial;
         }
+        OnRocketDestinationSelection?.Invoke();
     }
 
     private bool IsMouseInScreen(Vector3 mousePosition)
