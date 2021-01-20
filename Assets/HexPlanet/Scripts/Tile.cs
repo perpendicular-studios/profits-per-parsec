@@ -156,6 +156,11 @@ public class Tile : MonoBehaviour {
 	
 	void OnMouseDown()
     {
+		if (OnTileClickedAction != null)
+		{
+			OnTileClickedAction.Invoke(this);
+		}
+
 		selected = true;
 		gameObject.GetComponent<MeshRenderer>().sharedMaterial = GetComponentInParent<Hexsphere>().selectedMaterial;
 		GameObject focus = GameObject.FindGameObjectWithTag("Focus");
