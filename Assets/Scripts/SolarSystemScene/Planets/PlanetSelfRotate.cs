@@ -13,6 +13,6 @@ public class PlanetSelfRotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rotatingObject.Rotate((Vector3.up * rotationSpeed) * (Time.deltaTime * dampAmt), Space.Self);
+        rotatingObject.Rotate((Vector3.up * rotationSpeed/2) * (Time.deltaTime * dampAmt), Space.Self);
     }
 }

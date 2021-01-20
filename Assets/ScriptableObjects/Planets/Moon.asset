@@ -25,7 +25,7 @@ MonoBehaviour:
   lockedMaterial: {fileID: 2100000, guid: 3086deba61ab2934e87b7b693eba279c, type: 2}
   planetHexMaterial: {fileID: 2100000, guid: 339e2c2fd755218408fa6ff998944502, type: 2}
   planetPentMaterial: {fileID: 2100000, guid: 339e2c2fd755218408fa6ff998944502, type: 2}
-  rotationSpeed: 5
+  rotationSpeed: 1
   dampAmt: 2
   orbiting: {fileID: 11400000, guid: d40f2c9063783cb45bbfebc7f59e21d7, type: 2}
   hasMoon: 0

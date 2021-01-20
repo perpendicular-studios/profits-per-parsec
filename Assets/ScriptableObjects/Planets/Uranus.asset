@@ -15,9 +15,9 @@ MonoBehaviour:
   planetName: Uranus
   order: 8
   worldScale: 6
-  orbitPathX: 90
+  orbitPathX: 180
   orbitPathY: 0
-  orbitPathZ: 90
+  orbitPathZ: 180
   orbitProgress: 0
   orbitPeriod: 800
   orbitActive: 1
@@ -25,11 +25,10 @@ MonoBehaviour:
   lockedMaterial: {fileID: 2100000, guid: 3086deba61ab2934e87b7b693eba279c, type: 2}
   planetHexMaterial: {fileID: 2100000, guid: 3d0a2cfb6eabf174484e0b82d33da66f, type: 2}
   planetPentMaterial: {fileID: 2100000, guid: 3d0a2cfb6eabf174484e0b82d33da66f, type: 2}
-  rotationSpeed: 50
+  rotationSpeed: 1
   dampAmt: 2
-  model: {fileID: 4624308775568554101, guid: cc58f690736eb964d9bbaae43732fa6a, type: 3}
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 0
   isMoon: 0
   innerPlanet: 0
-  zOffset: 90
+  zOffset: 180
