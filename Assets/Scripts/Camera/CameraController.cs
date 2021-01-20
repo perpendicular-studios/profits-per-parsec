@@ -106,7 +106,7 @@ namespace ProfitsPerParsec
 
         public void ToggleCamera()
         {
-            if (cam.enabled)
+            if (cam.gameObject.activeSelf)
             {
                 EnablePlanetCamera();
             }
@@ -118,14 +118,14 @@ namespace ProfitsPerParsec
 
         public void EnableMainCamera()
         {
-            planetCamera.enabled = false;
-            cam.enabled = true;
+            planetCamera.gameObject.SetActive(false);
+            cam.gameObject.SetActive(true);
         }
 
         public void EnablePlanetCamera()
         {
-            cam.enabled = false;
-            planetCamera.enabled = true;
+            cam.gameObject.SetActive(false);
+            planetCamera.gameObject.SetActive(true);
         }
 
         public void FocusPlanetCameraOnTile(Transform transform)

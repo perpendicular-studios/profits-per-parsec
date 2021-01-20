@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlanetCamera : MonoBehaviour
 {
     private Transform target;
+    public Tile currentTile;
     public float speed = 5;
     public float minFov = 35f;
     public float maxFov = 100f;
@@ -33,9 +34,23 @@ public class PlanetCamera : MonoBehaviour
 
     public void SetTarget(Transform newTarget)
     {
+        if (currentTile)
+        {
+            currentTile.DeselectTile();
+        }
+       
         target = newTarget.GetComponent<Tile>().parentPlanet.gameObject.transform;
+        currentTile = newTarget.GetComponent<Tile>();
         transform.position = newTarget.position + newTarget.up * target.GetComponent<Hexsphere>().planet.worldScale;
         transform.LookAt(target);
         transform.parent = target;
+    }
+
+    private void OnDisable()
+    {
+        if (currentTile)
+        {
+            currentTile.DeselectTile();
+        }
     }
 }

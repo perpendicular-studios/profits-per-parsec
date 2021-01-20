@@ -23,7 +23,8 @@ public class Tile : MonoBehaviour {
 	public Hexsphere parentPlanet;
 	
 	public List<Tile> neighborTiles;
-	
+	public bool selected = false;
+
 	public Sector placedSector
 	{
 		get {
@@ -146,15 +147,26 @@ public class Tile : MonoBehaviour {
     }
 	void OnMouseExit()
 	{
-		gameObject.GetComponent<MeshRenderer>().sharedMaterial = TileMaterial;
-		Pointer.instance.unsetPointer();
+		if (!selected)
+		{
+			gameObject.GetComponent<MeshRenderer>().sharedMaterial = TileMaterial;
+			Pointer.instance.unsetPointer();
+		}
 	}
 	
 	void OnMouseDown()
     {
+		selected = true;
+		gameObject.GetComponent<MeshRenderer>().sharedMaterial = GetComponentInParent<Hexsphere>().selectedMaterial;
 		GameObject focus = GameObject.FindGameObjectWithTag("Focus");
 		ProfitsPerParsec.CameraController cameraController = focus.GetComponent<ProfitsPerParsec.CameraController>();
 		cameraController.FocusPlanetCameraOnTile(transform);
+	}
+
+	public void DeselectTile()
+	{
+		selected = false;
+		gameObject.GetComponent<MeshRenderer>().sharedMaterial = TileMaterial;
 	}
 
 	/// <summary>
