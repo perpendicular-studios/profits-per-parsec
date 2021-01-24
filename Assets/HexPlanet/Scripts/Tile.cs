@@ -116,7 +116,7 @@ public class Tile : MonoBehaviour {
 
 	void OnEnable()
 	{
-		SectorController.OnSectorDeselect += DeselectTile;
+		SectorController.OnSectorDeselectNothing += DeselectTile;
 	}
 	
 	public void Initialize()
@@ -166,12 +166,6 @@ public class Tile : MonoBehaviour {
 
 	void OnMouseDown()
     {
-	    // Switch camera if either:
-	    // - there is a sector ALERADY built on the selected tile
-	    // - there is nothing on the selected tile
-	    
-	    // This assumes that isBuilding will be set to false AFTER the building is fully placed.
-	    // (So it wont zoom in when initially building)
 	    if (!SectorController.instance.isBuilding)
 	    {
 		    GameObject focus = GameObject.FindGameObjectWithTag("Focus");
@@ -185,11 +179,6 @@ public class Tile : MonoBehaviour {
 
 	public void SelectTile()
 	{
-		if (SectorController.instance.selectedTile != null)
-		{
-			SectorController.OnSectorDeselect?.Invoke();
-		}
-		
 		SectorController.instance.selectedTile = this;
 		selected = true;
 		gameObject.GetComponent<MeshRenderer>().sharedMaterial = GetComponentInParent<Hexsphere>().selectedMaterial;
@@ -231,8 +220,7 @@ public class Tile : MonoBehaviour {
 		sectorModel.GetComponent<SectorInfo>().sector = sector;
 		sectorModel.GetComponent<SectorInfo>().defaultSectorMaterial = sectorModel.GetComponentInChildren<MeshRenderer>().sharedMaterial;
 		
-		bool isRocketBase = sectorModel.gameObject.layer == LayerMask.NameToLayer("RocketBase");
-		if (isRocketBase)
+		if (sectorModel.gameObject.GetComponent<SectorInfo>().isRocketBase)
 		{
 			SectorController.instance.rocketBuildings.Add(sectorModel);
 		}

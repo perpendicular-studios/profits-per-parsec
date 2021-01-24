@@ -27,7 +27,7 @@ public class SectorInfoDisplay : MonoBehaviour
         SectorManager.OnSectorSelectedAction += OnSectorClicked;
         
         SectorManager.OnRocketDestinationSelection += DisableSectorInfoDisplay;
-        SectorController.OnSectorDeselect += DisableSectorInfoDisplay;
+        SectorController.OnSectorDeselectNothing += DisableSectorInfoDisplay;
     }
 
     public void OnSectorClicked(Tile sectorTile)

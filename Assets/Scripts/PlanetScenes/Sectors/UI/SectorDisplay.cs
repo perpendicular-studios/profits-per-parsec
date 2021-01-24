@@ -23,7 +23,13 @@ public class SectorDisplay : MonoBehaviour
 
     public void OnEnable()
     {
-        SectorController.OnSectorDeselect += DisableSectorPanels;
+        SectorManager.OnSectorSelectedAction += OnSectorSelected;
+        SectorController.OnSectorDeselectNothing += DisableSectorPanels;
+    }
+
+    private void OnSectorSelected(Tile clickedTile)
+    {
+        DisableSectorPanels();
     }
 
     private void GenerateSectorPanels()

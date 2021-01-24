@@ -7,7 +7,7 @@ public class SectorManager : MonoBehaviour
 {
 
     private List<GameObject> placedSectors;
-    private Sector selectedSector;
+    private Sector selectedBuildSector;
 
     public static Action<Tile> OnSectorSelectedAction;
     public static Action OnRocketDestinationSelection;
@@ -15,7 +15,6 @@ public class SectorManager : MonoBehaviour
     public Material selectedSectorMaterial;
     public Material validSelectionSectorMaterial;
 
-    public bool isSelectingRocketDestination;
     public GameObject startRocketBaseTile;
     
     public void OnEnable()
@@ -23,7 +22,7 @@ public class SectorManager : MonoBehaviour
         SectorPanel.OnSectorClick += SectorHover;
         
         Tile.OnTileClickedAction += OnTileClicked;
-        SectorInfo.OnSectorModelSelected += SelectSector;
+        SectorInfo.OnSectorModelSelected += OnTileClicked;
         
         Tile.OnTileClickedAction += PlaceSector;
         SectorInfoDisplay.SelectRocketDestinationEvent += SelectAllRocketBases;
@@ -32,68 +31,85 @@ public class SectorManager : MonoBehaviour
     public void SectorHover(Sector sector)
     {
         Pointer.instance.setMode(PointerStatus.BUILD_OK);
-        selectedSector = sector;
+        selectedBuildSector = sector;
         SectorController.instance.isBuilding = true;
     }
 
     public void OnTileClicked(Tile clickedTile)
     {
-        clickedTile.SelectTile();
-        SectorController.instance.selectedTile = clickedTile;
-        
-        if (selectedSector != null) //if queued for build
+        if (SectorController.instance.isSelectingRocketDestination)
         {
-            if(!clickedTile.HasSector())
+            // select rocket destination
+            if (clickedTile.placedSector.sectorModelPrefab.GetComponent<SectorInfo>().isRocketBase)
             {
-                PlaceSector(clickedTile);
+                startRocketBaseTile.GetComponentInChildren<SectorInfo>().planetDestinationName =
+                    clickedTile.parentPlanet.planet.planetName;
+                
+                RocketController.instance.CreateConnection(startRocketBaseTile.transform, clickedTile.transform);
+                
+                // Deselect previous tile
+                startRocketBaseTile.GetComponent<Tile>().DeselectTile();
+                if (SectorController.instance.selectedTile != null)
+                {
+                    SectorController.instance.selectedTile.DeselectTile();
+                    SectorController.instance.selectedTile = null;
+                }
+                
+                // Deselect all other rocket bases from being highlighted, update UI
+                DeselectAllRocketBases();
             }
         }
-        else
-        {
-            if (clickedTile.HasSector())
+        else {
+
+            // before selecting the tile, deselect previously selected tile
+            if (SectorController.instance.selectedTile != null)
             {
-                SelectSector(clickedTile);
+                SectorController.instance.selectedTile.DeselectTile();
+                SectorController.instance.selectedTile = null;
+            }
+
+            if (selectedBuildSector != null) //if queued for build
+            {
+                if (!clickedTile.HasSector())
+                {
+                    PlaceSector(clickedTile);
+                }
+            }
+            else
+            {
+                clickedTile.SelectTile();
+                SectorController.instance.selectedTile = clickedTile;
+
+                if (clickedTile.HasSector())
+                {
+                    SelectSector(clickedTile);
+                }
             }
         }
     }
 
     public void PlaceSector(Tile clickedTile)
     {
-        if (selectedSector != null && !clickedTile.HasSector())
+        if (selectedBuildSector != null && !clickedTile.HasSector())
         {
-            clickedTile.PlaceSector(selectedSector);    
+            clickedTile.PlaceSector(selectedBuildSector);    
             Pointer.instance.setMode(PointerStatus.TILE);
             SectorController.instance.SaveSectorForPlanet(clickedTile);
             SectorController.instance.selectedTile = null; //reset any previous selections of sectors on tiles
         }
 
-        selectedSector = null; // reset selection from sector production 
+        selectedBuildSector = null; // reset selection from sector production 
         SectorController.instance.isBuilding = false;
     }
 
     public void SelectSector(Tile clickedTile)
     {
-        if (selectedSector == null && clickedTile.HasSector()) //if not building anything
+        if (selectedBuildSector == null && clickedTile.HasSector()) //if not building anything
         {
-            Debug.Log("selecting sector..");
-            if (isSelectingRocketDestination)
-            {
-                if (clickedTile.placedSector.sectorModelPrefab.GetComponent<SectorInfo>().isRocketBase)
-                {
-                    startRocketBaseTile.GetComponentInChildren<SectorInfo>().planetDestinationName =
-                        clickedTile.parentPlanet.planet.planetName;
-                
-                    RocketController.instance.CreateConnection(startRocketBaseTile.transform, clickedTile.transform);
-                    DeselectAllRocketBases();
-                }
-            }
-            else
-            {
-                clickedTile.placedSectorObject.GetComponent<MeshRenderer>().sharedMaterial =
-                    selectedSectorMaterial;
+            clickedTile.placedSectorObject.GetComponent<MeshRenderer>().sharedMaterial =
+                selectedSectorMaterial;
 
-                OnSectorSelectedAction?.Invoke(clickedTile);
-            }
+            OnSectorSelectedAction?.Invoke(clickedTile);
         }
         
 
@@ -101,7 +117,7 @@ public class SectorManager : MonoBehaviour
 
     public void SelectAllRocketBases(Tile startTile)
     {
-        isSelectingRocketDestination = true;
+        SectorController.instance.isSelectingRocketDestination = true;
         startRocketBaseTile = startTile.gameObject;
         
         foreach(GameObject obj in SectorController.instance.rocketBuildings)
@@ -112,7 +128,7 @@ public class SectorManager : MonoBehaviour
 
     public void DeselectAllRocketBases()
     {
-        isSelectingRocketDestination = false;
+        SectorController.instance.isSelectingRocketDestination = false;
         foreach(GameObject obj in SectorController.instance.rocketBuildings)
         {
             obj.GetComponentInChildren<MeshRenderer>().material = obj.GetComponent<SectorInfo>().defaultSectorMaterial;

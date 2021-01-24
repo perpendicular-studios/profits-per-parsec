@@ -113,7 +113,7 @@ namespace ProfitsPerParsec
             else
             {
                 EnableMainCamera();
-                SectorController.OnSectorDeselect?.Invoke();
+                SectorController.OnSectorDeselectNothing?.Invoke();
             }
         }
 
@@ -152,8 +152,16 @@ namespace ProfitsPerParsec
             KeyboardInputController.OnRotate += UpdateFrameRotate;
             KeyboardInputController.OnZoom += UpdateFrameZoom;
             
-            // When sector is deselected, specifically through click on NOTHING, switch cameras.
+            // When sector is deselected, specifically through click on NOTHING, switch to main camera.
             SectorController.OnSectorDeselectNothing += EnableMainCamera;
+            
+            // When select rocket destination button is pressed, switch to the main camera.
+            SectorInfoDisplay.SelectRocketDestinationEvent += OnSelectRocketDestination;
+        }
+
+        void OnSelectRocketDestination(Tile selectedTile)
+        {
+            EnableMainCamera();
         }
 
         void OnDisable()
