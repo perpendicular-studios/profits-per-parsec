@@ -15,9 +15,9 @@ MonoBehaviour:
   planetName: Earth
   order: 3
   worldScale: 4
-  orbitPathX: 30
+  orbitPathX: 60
   orbitPathY: 0
-  orbitPathZ: 30
+  orbitPathZ: 60
   orbitProgress: 0
   orbitPeriod: 999
   orbitActive: 1
@@ -25,11 +25,10 @@ MonoBehaviour:
   lockedMaterial: {fileID: 2100000, guid: 3086deba61ab2934e87b7b693eba279c, type: 2}
   planetHexMaterial: {fileID: 2100000, guid: 2fad6952b4293fd4a9a967bddb918ad0, type: 2}
   planetPentMaterial: {fileID: 2100000, guid: f3e4b61336807444d8dd4b7a177618eb, type: 2}
-  rotationSpeed: 5
+  rotationSpeed: 1
   dampAmt: 2
-  model: {fileID: 8958132190660230186, guid: da6009a898ee5cb40827473f1a21ceab, type: 3}
   orbiting: {fileID: 11400000, guid: a87002b2064a8ea4194245b3f361fff7, type: 2}
   hasMoon: 1
   isMoon: 0
   innerPlanet: 1
-  zOffset: 30
+  zOffset: 60
