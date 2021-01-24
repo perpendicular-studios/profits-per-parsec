@@ -45,3 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedSectorMaterial: {fileID: 2100000, guid: dd0a65a28a0e7d64ba726b9da5459394,
     type: 2}
+  validSelectionSectorMaterial: {fileID: 2100000, guid: 2fad6952b4293fd4a9a967bddb918ad0,
+    type: 2}
+  isSelectingRocketDestination: 0
+  startRocketBase: {fileID: 0}

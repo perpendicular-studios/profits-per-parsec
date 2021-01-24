@@ -6,4 +6,6 @@ public class SectorInfo : MonoBehaviour
 {
     public Sector sector;
     public Material defaultSectorMaterial;
+    public bool isRocketBase;
+    public string planetDestinationName;
 }

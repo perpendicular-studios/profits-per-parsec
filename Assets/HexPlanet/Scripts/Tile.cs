@@ -199,6 +199,12 @@ public class Tile : MonoBehaviour {
 		sectorModel.GetComponent<SectorInfo>().sector = sector;
 		sectorModel.GetComponent<SectorInfo>().defaultSectorMaterial = sectorModel.GetComponentInChildren<MeshRenderer>().sharedMaterial;
 		
+		bool isRocketBase = sectorModel.gameObject.layer == LayerMask.NameToLayer("RocketBase");
+		if (isRocketBase)
+		{
+			SectorController.instance.rocketBuildings.Add(sectorModel);
+		}
+		
 		// Set tile and building to ActiveBuilding layer
 		sectorModel.layer = LayerMask.NameToLayer("ActiveBuilding");
 		gameObject.layer = LayerMask.NameToLayer("ActiveBuilding");

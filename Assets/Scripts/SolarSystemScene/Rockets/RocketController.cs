@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public struct RocketPath
 {
-    public string startPosition;
-    public string target;
+    public Transform startPosition;
+    public Transform target;
 
-    public RocketPath(string startPosition, string target)
+    public RocketPath(Transform startPosition, Transform target)
     {
         this.startPosition = startPosition;
         this.target = target;
@@ -20,17 +20,7 @@ public class RocketController : GameController<RocketController>
     public List<RocketPath> queuedRockets = new List<RocketPath>();
     public List<GameObject> activeRockets = new List<GameObject>();
 
-    public void OnEnable()
-    {
-
-    }
-
-    public void OnDisable()
-    {
-
-    }
-
-    public void CreateConnection(string startPosition, string target)
+    public void CreateConnection(Transform startPosition, Transform target)
     {
         queuedRockets.Add(new RocketPath(startPosition, target));
     }

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sector: {fileID: 0}
+  defaultSectorMaterial: {fileID: 0}
 --- !u!1001 &8107777846256134457
 PrefabInstance:
   m_ObjectHideFlags: 0

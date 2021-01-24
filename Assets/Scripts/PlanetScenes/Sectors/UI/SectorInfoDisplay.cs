@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,12 @@ public class SectorInfoDisplay : MonoBehaviour
     public Text titleDisplay;
     public Image sectorImageDisplay;
     public Sector selectedSector;
+    public GameObject destinationButton;
+    public Text planetDestinationTitle;
+    public Text planetDestinationName;
 
+    public static Action<Tile> SelectRocketDestinationEvent;
+    
     public void Awake()
     {
         DisableSectorInfoDisplay();
@@ -18,6 +24,7 @@ public class SectorInfoDisplay : MonoBehaviour
     public void OnEnable()
     {
         SectorManager.OnSectorSelectedAction += OnSectorClicked;
+        SectorManager.OnRocketDestinationSelection += DisableSectorInfoDisplay;
         SectorController.OnSectorDeselect += DisableSectorInfoDisplay;
     }
 
@@ -26,6 +33,12 @@ public class SectorInfoDisplay : MonoBehaviour
         selectedSector = sectorTile.placedSector;
         titleDisplay.text = selectedSector.displayName;
         sectorImageDisplay.sprite = selectedSector.image;
+        planetDestinationName.text = sectorTile.placedSectorObject.GetComponent<SectorInfo>().planetDestinationName;
+            
+        destinationButton.GetComponent<Button>().onClick.AddListener(delegate
+        {
+            SelectRocketDestinationEvent?.Invoke(sectorTile);
+        });
         
         if (selectedSector != null)
         {
@@ -36,6 +49,7 @@ public class SectorInfoDisplay : MonoBehaviour
             DisableSectorInfoDisplay();
         }
     }
+
 
     public void EnableSectorInfoDiplay()
     {
@@ -51,6 +65,24 @@ public class SectorInfoDisplay : MonoBehaviour
         if(sectorImageDisplay != null)
         {
             sectorImageDisplay.enabled = true;
+        }
+
+        if (selectedSector.sectorModelPrefab.layer == LayerMask.NameToLayer("RocketBase"))
+        {
+            if (planetDestinationTitle != null)
+            {
+                planetDestinationTitle.enabled = true;
+            }
+
+            if (planetDestinationName != null)
+            {
+                planetDestinationName.enabled = true;
+            }
+
+            if (destinationButton != null)
+            {
+                destinationButton.SetActive(true);
+            }
         }
     }
 
@@ -70,6 +102,20 @@ public class SectorInfoDisplay : MonoBehaviour
             sectorImageDisplay.enabled = false;
         }
 
+        if (destinationButton != null)
+        {
+            destinationButton.SetActive(false);
+        }
+
+        if (planetDestinationTitle != null)
+        {
+            planetDestinationTitle.enabled = false;
+        }
+
+        if (planetDestinationName != null)
+        {
+            planetDestinationName.enabled = false;
+        }
     }
 
 }
