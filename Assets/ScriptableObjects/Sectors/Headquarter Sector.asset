@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4479a792991c147b6c04f113b62bae, type: 3}
   m_Name: Headquarter Sector
   m_EditorClassIdentifier: 
-  sectorModelPrefab: {fileID: 9095826830951226103, guid: 5fd5071e06719c84bbd9e5788780d7a9,
+  sectorModelPrefab: {fileID: 1286296756801369627, guid: 4db650b23612934469e8a0e0873fa716,
     type: 3}
   sectorUIPrefab: {fileID: 498627040783770050, guid: 3642335b354243a47a418e722199220c,
     type: 3}

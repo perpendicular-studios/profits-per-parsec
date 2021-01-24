@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5276022295062254600
+--- !u!1 &1286296756801369627
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4003169195773921075}
-  - component: {fileID: 2258892148391165561}
-  - component: {fileID: 3349702107759713005}
-  - component: {fileID: 3079038250217070570}
-  - component: {fileID: 6775407916527135272}
+  - component: {fileID: 8029908702599308576}
+  - component: {fileID: 5168118307137379434}
+  - component: {fileID: 8547095518621137150}
+  - component: {fileID: 5035130658854548190}
+  - component: {fileID: 7146500232421341619}
   m_Layer: 11
-  m_Name: RocketBase
+  m_Name: Headquaters Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4003169195773921075
+--- !u!4 &8029908702599308576
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5276022295062254600}
+  m_GameObject: {fileID: 1286296756801369627}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0005, y: 0.0005, z: 0.0005}
+  m_LocalScale: {x: 0.00005, y: 0.00005, z: 0.00005}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2258892148391165561
+--- !u!33 &5168118307137379434
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5276022295062254600}
-  m_Mesh: {fileID: -2432090755550338912, guid: 870612273a4491746adde57c24c06e9f, type: 3}
---- !u!23 &3349702107759713005
+  m_GameObject: {fileID: 1286296756801369627}
+  m_Mesh: {fileID: -2432090755550338912, guid: f5f72bc0ef161ab4aa203f4f079d060a, type: 3}
+--- !u!23 &8547095518621137150
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5276022295062254600}
+  m_GameObject: {fileID: 1286296756801369627}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3033667219593020291, guid: 870612273a4491746adde57c24c06e9f, type: 3}
+  - {fileID: -3033667219593020291, guid: f5f72bc0ef161ab4aa203f4f079d060a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,26 +81,27 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3079038250217070570
-BoxCollider:
+--- !u!64 &5035130658854548190
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5276022295062254600}
+  m_GameObject: {fileID: 1286296756801369627}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 101.1402, y: 246.4329, z: 85.256195}
-  m_Center: {x: -18.8787, y: 123.21645, z: 0.7101002}
---- !u!114 &6775407916527135272
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: f5f72bc0ef161ab4aa203f4f079d060a, type: 3}
+--- !u!114 &7146500232421341619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5276022295062254600}
+  m_GameObject: {fileID: 1286296756801369627}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea4c296330d9bfd42b61a08e1d36e207, type: 3}
@@ -108,5 +109,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sector: {fileID: 0}
   defaultSectorMaterial: {fileID: 0}
-  isRocketBase: 1
+  isRocketBase: 0
   planetDestinationName: 

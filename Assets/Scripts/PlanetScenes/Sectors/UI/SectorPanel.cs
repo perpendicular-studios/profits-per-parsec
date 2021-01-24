@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ public class SectorPanel : MonoBehaviour
     private Button button;
     private SectorDisplay display;
 
-    public static event SectorClickHandler OnSectorClick;
+    public static Action<Sector> OnSectorClick;
 
     public void Awake()
     {
@@ -41,6 +42,4 @@ public class SectorPanel : MonoBehaviour
         OnSectorClick?.Invoke(sector);
         display.DisableSectorPanels();
     }
-
-    public delegate void SectorClickHandler(Sector sector);
 }

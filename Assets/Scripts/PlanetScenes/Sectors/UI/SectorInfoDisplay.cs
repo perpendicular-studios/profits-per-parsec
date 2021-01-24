@@ -10,6 +10,7 @@ public class SectorInfoDisplay : MonoBehaviour
     public Text titleDisplay;
     public Image sectorImageDisplay;
     public Sector selectedSector;
+    public Tile selectedTile;
     public GameObject destinationButton;
     public Text planetDestinationTitle;
     public Text planetDestinationName;
@@ -24,6 +25,7 @@ public class SectorInfoDisplay : MonoBehaviour
     public void OnEnable()
     {
         SectorManager.OnSectorSelectedAction += OnSectorClicked;
+        
         SectorManager.OnRocketDestinationSelection += DisableSectorInfoDisplay;
         SectorController.OnSectorDeselect += DisableSectorInfoDisplay;
     }
@@ -31,17 +33,13 @@ public class SectorInfoDisplay : MonoBehaviour
     public void OnSectorClicked(Tile sectorTile)
     {
         selectedSector = sectorTile.placedSector;
-        titleDisplay.text = selectedSector.displayName;
-        sectorImageDisplay.sprite = selectedSector.image;
-        planetDestinationName.text = sectorTile.placedSectorObject.GetComponent<SectorInfo>().planetDestinationName;
-            
-        destinationButton.GetComponent<Button>().onClick.AddListener(delegate
-        {
-            SelectRocketDestinationEvent?.Invoke(sectorTile);
-        });
+        selectedTile = sectorTile;
         
         if (selectedSector != null)
         {
+            titleDisplay.text = selectedSector.displayName;
+            sectorImageDisplay.sprite = selectedSector.image;
+            planetDestinationName.text = sectorTile.placedSectorObject.GetComponent<SectorInfo>().planetDestinationName;
             EnableSectorInfoDiplay();
         }
         else
@@ -56,7 +54,6 @@ public class SectorInfoDisplay : MonoBehaviour
         if(panelBackground != null)
         {
             panelBackground.enabled = true;
-
         }
         if(titleDisplay != null)
         {
@@ -67,8 +64,13 @@ public class SectorInfoDisplay : MonoBehaviour
             sectorImageDisplay.enabled = true;
         }
 
-        if (selectedSector.sectorModelPrefab.layer == LayerMask.NameToLayer("RocketBase"))
+        if (selectedSector.sectorModelPrefab.GetComponent<SectorInfo>().isRocketBase)
         {
+            destinationButton.GetComponent<Button>().onClick.AddListener(delegate
+            {
+                SelectRocketDestinationEvent?.Invoke(selectedTile);
+            });
+            
             if (planetDestinationTitle != null)
             {
                 planetDestinationTitle.enabled = true;

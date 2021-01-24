@@ -10,8 +10,10 @@ public class SectorController : GameController<SectorController>
     public List<GameObject> rocketBuildings = new List<GameObject>();
 
     public static Action OnSectorDeselect;
+    public static Action OnSectorDeselectNothing;
     public Tile selectedTile;
-
+    public bool isBuilding;
+    
     public void Awake()
     {        
         if (_allSectors == null)
@@ -26,35 +28,50 @@ public class SectorController : GameController<SectorController>
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject(-1))    // is the touch on the GUI
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
             {
-                // GUI Action
-                return;
-            }
-            
-            if (selectedTile != null)
-            {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit))
+                if (selectedTile != null)
                 {
-                    if (hit.transform.gameObject.layer != LayerMask.NameToLayer("ActiveBuilding"))
+                    if (selectedTile.HasSector())
                     {
-                        selectedTile.placedSectorObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = 
+                        if (hit.transform.gameObject.layer != LayerMask.NameToLayer("UI"))
+                        {
+                            if (hit.transform.gameObject.layer != LayerMask.NameToLayer("ActiveBuilding"))
+                            {
+                                selectedTile.placedSectorObject.GetComponentInChildren<MeshRenderer>().sharedMaterial =
+                                    selectedTile.placedSectorObject.GetComponent<SectorInfo>().defaultSectorMaterial;
+
+                                selectedTile = null;
+                    
+                                // case where mouse hits something (not sector or UI or tile) (we deselect when the selected tile exists)
+                                OnSectorDeselect?.Invoke();
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (selectedTile != null)
+                {
+                    if (selectedTile.HasSector())
+                    {
+                        selectedTile.placedSectorObject.GetComponentInChildren<MeshRenderer>().sharedMaterial =
                             selectedTile.placedSectorObject.GetComponent<SectorInfo>().defaultSectorMaterial;
 
                         selectedTile = null;
-                        OnSectorDeselect?.Invoke();
                     }
-                }
-                else
-                {
-                    selectedTile.placedSectorObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = 
-                        selectedTile.placedSectorObject.GetComponent<SectorInfo>().defaultSectorMaterial;
 
-                    selectedTile = null;
+                    // case where mouse hits nothing (no gui, no object, no tile)
+                    // we still want to deselect when we hit nothing, no matter if the selected tile has a sector on it or not
                     OnSectorDeselect?.Invoke();
+                    
+                    // This is to change the camera when the mouse hits NOTHING
+                    OnSectorDeselectNothing?.Invoke();
                 }
+
             }
         }
     }

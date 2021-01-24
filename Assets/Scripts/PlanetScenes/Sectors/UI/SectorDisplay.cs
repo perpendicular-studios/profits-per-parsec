@@ -23,7 +23,7 @@ public class SectorDisplay : MonoBehaviour
 
     public void OnEnable()
     {
-        GridSystem.OnSectorDeselect += DisableSectorPanels;
+        SectorController.OnSectorDeselect += DisableSectorPanels;
     }
 
     private void GenerateSectorPanels()

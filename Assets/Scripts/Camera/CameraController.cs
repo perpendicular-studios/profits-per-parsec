@@ -113,6 +113,7 @@ namespace ProfitsPerParsec
             else
             {
                 EnableMainCamera();
+                SectorController.OnSectorDeselect?.Invoke();
             }
         }
 
@@ -150,6 +151,9 @@ namespace ProfitsPerParsec
             KeyboardInputController.OnMoveInput += UpdateFrameMove;
             KeyboardInputController.OnRotate += UpdateFrameRotate;
             KeyboardInputController.OnZoom += UpdateFrameZoom;
+            
+            // When sector is deselected, specifically through click on NOTHING, switch cameras.
+            SectorController.OnSectorDeselectNothing += EnableMainCamera;
         }
 
         void OnDisable()

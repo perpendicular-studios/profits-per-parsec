@@ -21,20 +21,40 @@ public class SectorManager : MonoBehaviour
     public void OnEnable()
     {
         SectorPanel.OnSectorClick += SectorHover;
-        Tile.OnTileClickedAction += SelectSector;
+        
+        Tile.OnTileClickedAction += OnTileClicked;
+        SectorInfo.OnSectorModelSelected += SelectSector;
+        
         Tile.OnTileClickedAction += PlaceSector;
         SectorInfoDisplay.SelectRocketDestinationEvent += SelectAllRocketBases;
-    }
-
-    public void OnDisable()
-    {
-        SectorPanel.OnSectorClick -= SectorHover;
     }
 
     public void SectorHover(Sector sector)
     {
         Pointer.instance.setMode(PointerStatus.BUILD_OK);
         selectedSector = sector;
+        SectorController.instance.isBuilding = true;
+    }
+
+    public void OnTileClicked(Tile clickedTile)
+    {
+        clickedTile.SelectTile();
+        SectorController.instance.selectedTile = clickedTile;
+        
+        if (selectedSector != null) //if queued for build
+        {
+            if(!clickedTile.HasSector())
+            {
+                PlaceSector(clickedTile);
+            }
+        }
+        else
+        {
+            if (clickedTile.HasSector())
+            {
+                SelectSector(clickedTile);
+            }
+        }
     }
 
     public void PlaceSector(Tile clickedTile)
@@ -48,29 +68,35 @@ public class SectorManager : MonoBehaviour
         }
 
         selectedSector = null; // reset selection from sector production 
+        SectorController.instance.isBuilding = false;
     }
 
     public void SelectSector(Tile clickedTile)
     {
-        if (selectedSector == null && clickedTile.HasSector() && !isSelectingRocketDestination)
+        if (selectedSector == null && clickedTile.HasSector()) //if not building anything
         {
             Debug.Log("selecting sector..");
-            clickedTile.placedSectorObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = selectedSectorMaterial;
-            SectorController.instance.selectedTile = clickedTile;
-            OnSectorSelectedAction?.Invoke(clickedTile);
-        }
-
-        if (isSelectingRocketDestination && selectedSector == null && clickedTile.HasSector())
-        {
-            if (clickedTile.placedSector.sectorModelPrefab.layer == LayerMask.NameToLayer("RocketBase"))
+            if (isSelectingRocketDestination)
             {
-                startRocketBaseTile.GetComponentInChildren<SectorInfo>().planetDestinationName =
-                    clickedTile.parentPlanet.planet.planetName;
+                if (clickedTile.placedSector.sectorModelPrefab.GetComponent<SectorInfo>().isRocketBase)
+                {
+                    startRocketBaseTile.GetComponentInChildren<SectorInfo>().planetDestinationName =
+                        clickedTile.parentPlanet.planet.planetName;
                 
-                RocketController.instance.CreateConnection(startRocketBaseTile.transform, clickedTile.transform);
-                DeselectAllRocketBases();
+                    RocketController.instance.CreateConnection(startRocketBaseTile.transform, clickedTile.transform);
+                    DeselectAllRocketBases();
+                }
+            }
+            else
+            {
+                clickedTile.placedSectorObject.GetComponent<MeshRenderer>().sharedMaterial =
+                    selectedSectorMaterial;
+
+                OnSectorSelectedAction?.Invoke(clickedTile);
             }
         }
+        
+
     }
 
     public void SelectAllRocketBases(Tile startTile)

@@ -11,11 +11,6 @@ public class PlanetCamera : MonoBehaviour
     public float maxFov = 100f;
     public float sensitivity = 17f;
 
-    private void Start()
-    {
-
-    }
-
     private void Update()
     {
         if (Input.GetMouseButton(2) && target)
@@ -34,23 +29,10 @@ public class PlanetCamera : MonoBehaviour
 
     public void SetTarget(Transform newTarget)
     {
-        if (currentTile)
-        {
-            currentTile.DeselectTile();
-        }
-       
         target = newTarget.GetComponent<Tile>().parentPlanet.gameObject.transform;
         currentTile = newTarget.GetComponent<Tile>();
         transform.position = newTarget.position + newTarget.up * target.GetComponent<Hexsphere>().planet.worldScale;
         transform.LookAt(target);
         transform.parent = target;
-    }
-
-    private void OnDisable()
-    {
-        if (currentTile)
-        {
-            currentTile.DeselectTile();
-        }
     }
 }

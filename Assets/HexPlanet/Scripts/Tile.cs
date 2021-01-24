@@ -114,6 +114,11 @@ public class Tile : MonoBehaviour {
 		tileRenderer = GetComponent<Renderer> ();
 	}
 
+	void OnEnable()
+	{
+		SectorController.OnSectorDeselect += DeselectTile;
+	}
+	
 	public void Initialize()
     {
 		tileRenderer = GetComponent<Renderer> ();
@@ -143,6 +148,11 @@ public class Tile : MonoBehaviour {
 	    {
 		    gameObject.GetComponent<MeshRenderer>().sharedMaterial = GetComponentInParent<Hexsphere>().selectedMaterial;
 		    Pointer.instance.setPointer(PointerStatus.TILE, FaceCenter, transform.up);
+
+		    if (placedSector != null && SectorController.instance.isBuilding)
+		    {
+			    Pointer.instance.setMode(PointerStatus.BUILD_INVALID);
+		    }
 	    }
     }
 	void OnMouseExit()
@@ -153,25 +163,47 @@ public class Tile : MonoBehaviour {
 			Pointer.instance.unsetPointer();
 		}
 	}
-	
+
 	void OnMouseDown()
     {
-		if (OnTileClickedAction != null)
-		{
-			OnTileClickedAction.Invoke(this);
-		}
+	    // Switch camera if either:
+	    // - there is a sector ALERADY built on the selected tile
+	    // - there is nothing on the selected tile
+	    
+	    // This assumes that isBuilding will be set to false AFTER the building is fully placed.
+	    // (So it wont zoom in when initially building)
+	    if (!SectorController.instance.isBuilding)
+	    {
+		    GameObject focus = GameObject.FindGameObjectWithTag("Focus");
+		    ProfitsPerParsec.CameraController
+			    cameraController = focus.GetComponent<ProfitsPerParsec.CameraController>();
+		    cameraController.FocusPlanetCameraOnTile(transform);
+	    }
+	    
+	    OnTileClickedAction?.Invoke(this);
+    }
 
+	public void SelectTile()
+	{
+		if (SectorController.instance.selectedTile != null)
+		{
+			SectorController.OnSectorDeselect?.Invoke();
+		}
+		
+		SectorController.instance.selectedTile = this;
 		selected = true;
 		gameObject.GetComponent<MeshRenderer>().sharedMaterial = GetComponentInParent<Hexsphere>().selectedMaterial;
-		GameObject focus = GameObject.FindGameObjectWithTag("Focus");
-		ProfitsPerParsec.CameraController cameraController = focus.GetComponent<ProfitsPerParsec.CameraController>();
-		cameraController.FocusPlanetCameraOnTile(transform);
 	}
 
 	public void DeselectTile()
 	{
 		selected = false;
+		SectorController.instance.selectedTile = null;
 		gameObject.GetComponent<MeshRenderer>().sharedMaterial = TileMaterial;
+		if (HasSector())
+		{
+			placedSectorObject.GetComponent<MeshRenderer>().sharedMaterial = gameObject.GetComponentInChildren<SectorInfo>().defaultSectorMaterial;
+		}
 	}
 
 	/// <summary>
@@ -210,6 +242,7 @@ public class Tile : MonoBehaviour {
 		gameObject.layer = LayerMask.NameToLayer("ActiveBuilding");
 		
 		placedSectorObject = sectorModel;
+		DeselectTile();
 	}
 
 	public void placeObject(GameObject obj)
