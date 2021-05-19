@@ -116,5 +116,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e3cea702b55bb2140b68e370c37ba49b, type: 2}
   - {fileID: 11400000, guid: 7206e6fb734d3504cbfc48d4fc2bda6b, type: 2}
   - {fileID: 11400000, guid: 8bd170d834be20944a67ae111ae5253d, type: 2}
+  - {fileID: 11400000, guid: cb929e0eea9efdb4fa171f6cacc02c77, type: 2}
+  - {fileID: 11400000, guid: 16c471aacc15b704190151d46f8d05a0, type: 2}
   panelParent: {fileID: 1433853660429816234}
   shopBackground: {fileID: 0}

@@ -14,4 +14,5 @@ public class Sector : ScriptableObject
     public string displayName;
     public string description;
     public int cashPerTick;
+    public int mineralsPerTick;
 }
