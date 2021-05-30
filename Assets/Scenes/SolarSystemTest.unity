@@ -194,6 +194,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 117329809484485589, guid: 3dc3be05ccad09b4cba59ce3cc381715,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 211738892018672402, guid: 3dc3be05ccad09b4cba59ce3cc381715,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1059,6 +1064,36 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6719533329888537284, guid: 3dc3be05ccad09b4cba59ce3cc381715,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719533329888537284, guid: 3dc3be05ccad09b4cba59ce3cc381715,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719533329888537284, guid: 3dc3be05ccad09b4cba59ce3cc381715,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719533329888537284, guid: 3dc3be05ccad09b4cba59ce3cc381715,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719533329888537284, guid: 3dc3be05ccad09b4cba59ce3cc381715,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719533329888537284, guid: 3dc3be05ccad09b4cba59ce3cc381715,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6766359588030271213, guid: 3dc3be05ccad09b4cba59ce3cc381715,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1562,6 +1597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32639c5157aa8db479aee1a126e8d745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTile: {fileID: 0}
   speed: 5
   minFov: 35
   maxFov: 100

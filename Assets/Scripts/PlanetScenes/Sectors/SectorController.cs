@@ -96,6 +96,7 @@ public class SectorController : GameController<SectorController>
             foreach(Tile tile in sectorTileList)
             {
                 PlayerStatController.instance.cash += tile.placedSector.cashPerTick;
+                PlayerStatController.instance.minerals += tile.placedSector.mineralsPerTick;
             }
         }
     }

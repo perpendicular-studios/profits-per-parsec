@@ -8,6 +8,8 @@ public class PlayerStatController : GameController<PlayerStatController>
 {
     private int _cash;
 
+    private int _minerals;
+
     [Range(-1f, 1f)]
     private float _growthRate;
 
@@ -23,6 +25,9 @@ public class PlayerStatController : GameController<PlayerStatController>
     private int _numRockets = 0;
 
     public int cash { get { return _cash; } set { _cash = value; } }
+
+    public int minerals { get { return _minerals; } set { _minerals = value; } }
+
     public float growthRate { get { return _growthRate; } set { _growthRate = value; } }
     public int governmentSupport { get { return _governmentSupport; } set { _governmentSupport = value; } }
     public int publicRelation { get { return _publicRelation; } set { _publicRelation = value; } }
